@@ -7,13 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class HelloWorld extends OpMode {
-
+    DcMotor LiftMotor = null;
     DcMotor FrontLeft = null;
     DcMotor FrontRight = null;
     DcMotor BackLeft = null;
     DcMotor BackRight = null;
 
     public void init(){
+        LiftMotor = hardwareMap.get(DcMotor.class,"LM");
         FrontLeft = hardwareMap.get(DcMotor.class,"FL");
         FrontRight = hardwareMap.get(DcMotor.class,"FR");
         BackLeft = hardwareMap.get(DcMotor.class,"BL");
@@ -39,6 +40,20 @@ public class HelloWorld extends OpMode {
         else{
             FrontRight.setPower(0.0);
             BackRight.setPower(0.0);
+        }
+        if(gamepad1.left_trigger != 0.0){
+            LiftMotor.setPower(gamepad1.left_trigger);
+
+        }
+        else{
+            LiftMotor.setPower(0.0);
+        }
+        if(gamepad1.right_trigger != 0.0){
+            LiftMotor.setPower(-gamepad1.right_trigger);
+
+        }
+        else{
+            LiftMotor.setPower(0.0);
         }
     }
 }
