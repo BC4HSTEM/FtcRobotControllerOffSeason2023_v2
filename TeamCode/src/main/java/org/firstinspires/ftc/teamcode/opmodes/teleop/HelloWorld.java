@@ -25,14 +25,19 @@ public class HelloWorld extends OpMode {
     }
 
     public void loop(){
-        if (gamepad1.left_stick_y != 0.0){
-            FrontLeft.setPower(-gamepad1.left_stick_y);
-            BackLeft.setPower(-gamepad1.left_stick_y);
+        if (gamepad1.left_stick_x != 0.0 || gamepad1.left_stick_y != 0.0 ){
+            FrontLeft.setPower(gamepad1.left_stick_x - gamepad1.left_stick_y);
+            BackRight.setPower(gamepad1.left_stick_x - gamepad1.left_stick_y);
+            BackLeft.setPower(-gamepad1.left_stick_x - gamepad1.left_stick_y);
+            FrontRight.setPower(-gamepad1.left_stick_x - gamepad1.left_stick_y);
         }
         else{
             FrontLeft.setPower(0.0);
+            BackRight.setPower(0.0);
             BackLeft.setPower(0.0);
+            FrontRight.setPower(0.0);
         }
+
         if (gamepad1.right_stick_y != 0.0){
             FrontRight.setPower(-gamepad1.right_stick_y);
             BackRight.setPower(-gamepad1.right_stick_y);

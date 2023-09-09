@@ -22,7 +22,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.internal.system.Misc;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mentor.samples.subsystems.drive.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.util.LoggingUtil;
 import org.firstinspires.ftc.teamcode.util.RegressionUtil;
 
@@ -49,7 +49,7 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
     public static final double MAX_POWER = 0.7;
     public static final double DISTANCE = 100; // in
 
-    private MecanumDriveSubsystem drive;
+    private DriveSubsystem drive;
     private GamepadEx gamepad;
     private Button aButton, bButton;
     private NanoClock clock;
@@ -75,7 +75,7 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        drive = new MecanumDriveSubsystem(new SampleMecanumDrive(hardwareMap), false);
+        drive = new DriveSubsystem(new SampleMecanumDrive(hardwareMap), false);
         gamepad = new GamepadEx(gamepad1);
         state = State.STATIC;
 
