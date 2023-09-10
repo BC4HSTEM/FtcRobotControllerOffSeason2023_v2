@@ -6,9 +6,9 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.mentor.samples.commands.drive.roadrunner.TurnCommand;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mentor.samples.subsystems.drive.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 /**
  * This is a simple routine to test turning capabilities.

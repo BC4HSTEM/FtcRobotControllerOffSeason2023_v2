@@ -7,9 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.CreateDriveTrainMechanism;
 
 
-
-
-
 @TeleOp(name="Command Combined TeleOp")
 public class CommandTeleOp extends CommandOpMode {
 

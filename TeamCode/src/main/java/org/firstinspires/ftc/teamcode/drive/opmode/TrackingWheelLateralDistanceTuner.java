@@ -14,10 +14,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.RobotLog;
 
-import org.firstinspires.ftc.teamcode.mentor.samples.commands.drive.roadrunner.RunCommand;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunCommand;
 import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
-import org.firstinspires.ftc.teamcode.mentor.samples.subsystems.drive.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 /**
  * Opmode designed to assist the user in tuning the `StandardTrackingWheelLocalizer`'s

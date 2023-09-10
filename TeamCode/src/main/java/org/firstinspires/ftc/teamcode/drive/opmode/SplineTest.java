@@ -9,9 +9,9 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.mentor.samples.commands.drive.roadrunner.TrajectoryFollowerCommand;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mentor.samples.subsystems.drive.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 /**
  * This is an example of a more complex path to really test the tuning.

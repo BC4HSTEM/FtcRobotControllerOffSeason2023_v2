@@ -68,7 +68,7 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
 
     @Override
     public void initialize() {
-        if (RUN_USING_ENCODER) {
+        /*if (RUN_USING_ENCODER) {
             RobotLog.setGlobalErrorMsg("Feedforward constants usually don't need to be tuned " +
                     "when using the built-in drive motor velocity PID.");
         }
@@ -237,7 +237,7 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
                         reset(); // end the scheduled commands
                         break;
                 }
-            });
+            });*/
     }
 
 }

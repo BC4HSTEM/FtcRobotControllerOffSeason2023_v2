@@ -6,10 +6,10 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.mentor.samples.commands.drive.roadrunner.MecanumDriveCommand;
-import org.firstinspires.ftc.teamcode.mentor.samples.commands.drive.roadrunner.RunCommand;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mentor.samples.subsystems.drive.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.MecanumDriveCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 /**
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal

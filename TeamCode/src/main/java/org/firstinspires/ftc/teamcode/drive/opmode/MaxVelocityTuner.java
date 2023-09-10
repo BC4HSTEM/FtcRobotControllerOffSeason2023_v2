@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.mentor.samples.commands.drive.roadrunner.RunCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunCommand;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mentor.samples.subsystems.drive.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 import java.util.Objects;
 

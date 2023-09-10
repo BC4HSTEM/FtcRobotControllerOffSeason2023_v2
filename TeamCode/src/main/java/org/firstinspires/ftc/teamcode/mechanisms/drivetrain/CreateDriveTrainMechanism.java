@@ -67,4 +67,8 @@ public class CreateDriveTrainMechanism extends CreateMechanismBase {
     public SlowDriveCommand createSlowDriveCommand(){
         return new SlowDriveCommand(driveSubsystem, op::getLeftX, op::getLeftY, op::getRightX);
     }
+
+    public DriveSubsystem getDriveSubsystem() {
+        return driveSubsystem;
+    }
 }
