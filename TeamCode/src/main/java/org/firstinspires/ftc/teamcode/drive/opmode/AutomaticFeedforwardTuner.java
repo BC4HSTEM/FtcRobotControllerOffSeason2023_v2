@@ -21,8 +21,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.internal.system.Misc;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.util.LoggingUtil;
 import org.firstinspires.ftc.teamcode.util.RegressionUtil;
 
@@ -49,7 +49,7 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
     public static final double MAX_POWER = 0.7;
     public static final double DISTANCE = 100; // in
 
-    private DriveSubsystem drive;
+    private MecanumDriveSubsystem drive;
     private GamepadEx gamepad;
     private Button aButton, bButton;
     private NanoClock clock;
@@ -68,14 +68,14 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
 
     @Override
     public void initialize() {
-        /*if (RUN_USING_ENCODER) {
+        if (RUN_USING_ENCODER) {
             RobotLog.setGlobalErrorMsg("Feedforward constants usually don't need to be tuned " +
                     "when using the built-in drive motor velocity PID.");
         }
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        drive = new DriveSubsystem(new SampleMecanumDrive(hardwareMap), false);
+        drive = new MecanumDriveSubsystem(new SampleMecanumDrive(hardwareMap), false);
         gamepad = new GamepadEx(gamepad1);
         state = State.STATIC;
 
@@ -237,7 +237,7 @@ public class AutomaticFeedforwardTuner extends CommandOpMode {
                         reset(); // end the scheduled commands
                         break;
                 }
-            });*/
+            });
     }
 
 }
