@@ -9,7 +9,7 @@ public class DriveSubsystem extends SubsystemBase {
     private HardwareMap hardwareMap;
     private MecanumDrive drive;
     private Motor fl, fr, bl, br;
-    private boolean slowmode = false;
+    //private boolean slowmode = false;
     public DriveSubsystem(Motor frontL, Motor frontR, Motor backL, Motor backR){
                     fl = frontL;
                     fr = frontR;
@@ -18,12 +18,12 @@ public class DriveSubsystem extends SubsystemBase {
                     drive = new MecanumDrive(fl, fr, bl, br);
     }
     public void drive(double strafe, double forward, double turn){
-        if(slowmode){
-            drive.driveRobotCentric(-strafe, -forward, turn);
-        }
-        else{
+        //if(slowmode){
+            //drive.driveRobotCentric(-strafe, -forward, turn);
+        //}
+        //else{
             drive.driveRobotCentric(-strafe, -forward, -turn);
-        }
+        //}
     }
 
     public Motor getFl(){
