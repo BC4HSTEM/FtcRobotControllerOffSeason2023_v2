@@ -22,29 +22,26 @@ public class HelloWorld extends OpMode {
 
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeft.setDirection((DcMotorSimple.Direction.REVERSE));
+        telemetry.addData("app started","hooray");
     }
 
     public void loop(){
-        if (gamepad1.left_stick_x != 0.0 || gamepad1.left_stick_y != 0.0 ){
-            FrontLeft.setPower(gamepad1.left_stick_x - gamepad1.left_stick_y);
-            BackRight.setPower(gamepad1.left_stick_x - gamepad1.left_stick_y);
-            BackLeft.setPower(-gamepad1.left_stick_x - gamepad1.left_stick_y);
-            FrontRight.setPower(-gamepad1.left_stick_x - gamepad1.left_stick_y);
+
+        if (gamepad1.left_stick_x != 0.0 || gamepad1.left_stick_y != 0.0 || gamepad1.right_stick_x != 0 ){
+            double y = -gamepad1.left_stick_y; // Remember, Y stick is reversed!
+            double x = gamepad1.left_stick_x;
+            double rx = gamepad1.right_stick_x;
+
+            FrontLeft.setPower(y + x + rx);
+            BackLeft.setPower(y - x + rx);
+            FrontRight.setPower(y - x - rx);
+            BackRight.setPower(y + x - rx);
         }
-        else{
+        else {
             FrontLeft.setPower(0.0);
             BackRight.setPower(0.0);
             BackLeft.setPower(0.0);
             FrontRight.setPower(0.0);
-        }
-
-        if (gamepad1.right_stick_y != 0.0){
-            FrontRight.setPower(-gamepad1.right_stick_y);
-            BackRight.setPower(-gamepad1.right_stick_y);
-        }
-        else{
-            FrontRight.setPower(0.0);
-            BackRight.setPower(0.0);
         }
         if(gamepad1.left_trigger != 0.0){
             LiftMotor.setPower(gamepad1.left_trigger);
