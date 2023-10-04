@@ -47,10 +47,10 @@ public class CreateDriveTrainMechanism extends CreateMechanismBase {
 
     @Override
     public void createBase(){
-        fl = new Motor(hwMap, "frontLeft");
-        bl = new Motor(hwMap, "backLeft");
-        fr = new Motor(hwMap, "frontRight");
-        br = new Motor(hwMap, "backRight");
+        fl = new Motor(hwMap, "FL");
+        bl = new Motor(hwMap, "BL");
+        fr = new Motor(hwMap, "FR");
+        br = new Motor(hwMap, "BR");
 
         driveSubsystem = new DriveSubsystem(fl, fr, bl, br);
 
