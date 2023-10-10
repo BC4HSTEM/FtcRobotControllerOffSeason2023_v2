@@ -21,6 +21,7 @@ public class CommandTeleOp extends CommandOpMode {
         CreateDriveTrainMechanism createDriveTrain = new CreateDriveTrainMechanism(hardwareMap, "drive", driver1, telemetry, true);
         //45.CreateLiftMechanism and be sure to pass in telemetry and true for autoCreate
         CreateLiftMechanism createLift = new CreateLiftMechanism(hardwareMap, "lift", driver1, telemetry, true);
+        //33. Create the GrabberMechanism
         CreateGrabberMechanism createGrabber = new CreateGrabberMechanism(hardwareMap, "grab", driver1, telemetry, true);
 
     }
