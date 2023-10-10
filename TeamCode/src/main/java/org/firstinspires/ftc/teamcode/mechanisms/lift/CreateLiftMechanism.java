@@ -59,9 +59,9 @@ public class CreateLiftMechanism extends CreateMechanismBase {
     public void create(){
         //32. you can read the functionality of getTrigger here - https://docs.ftclib.org/ftclib/v/v2.0.0/features/gamepad-extensions
         //So what's up with this weird syntax
-        //Well that's a Java Lamda expression - some examples here - http://www.java2s.com/Tutorials/Java/java.util.function/Supplier/index.htm
+        //Well that's a Java Lambda expression - some examples here - http://www.java2s.com/Tutorials/Java/java.util.function/Supplier/index.htm
         //here are some good definitions and examples - https://www.w3schools.com/java/java_lambda.asp
-        //lamda functions are anonymous functions that can hold a value and update when the value changes
+        //lambda functions are anonymous functions that can hold a value and update when the value changes
         //ie when the trigger changes
         //Note, this is the value of the trigger, not the controller itself
         liftDownDS = (() -> op.getTrigger(LEFT_TRIGGER));
