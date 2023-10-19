@@ -33,6 +33,10 @@ public class GrabberCommand extends CommandBase{
     @Override
     public void initialize(){
         //14. call openGrabber on subsystem
+        telemetry.addLine("grabber initialize");
+        telemetry.addData("grabber position", grabberSubsystem.getPosition());
+        telemetry.addData("grabber open position", grabberSubsystem.getOpenPosition());
+        telemetry.update();
         grabberSubsystem.openGrabber();
     }
 
