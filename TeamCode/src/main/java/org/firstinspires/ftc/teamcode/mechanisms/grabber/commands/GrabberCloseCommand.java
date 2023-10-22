@@ -28,6 +28,10 @@ public class GrabberCloseCommand extends CommandBase{
 
     @Override
     public void initialize(){
+        telemetry.addLine("grabber close initialize");
+        telemetry.addData("grabber position", grabberSubsystem.getPosition());
+        telemetry.addData("grabber close position", grabberSubsystem.getClosePosition());
+        telemetry.update();
         grabberSubsystem.closeGrabber();
     }
 
