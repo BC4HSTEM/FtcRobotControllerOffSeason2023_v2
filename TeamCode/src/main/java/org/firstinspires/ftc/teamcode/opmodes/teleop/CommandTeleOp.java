@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.CreateDriveTrainMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
@@ -23,6 +24,8 @@ public class CommandTeleOp extends CommandOpMode {
         CreateLiftMechanism createLift = new CreateLiftMechanism(hardwareMap, "lift", driver1, telemetry, true);
         //33. Create the GrabberMechanism
         CreateGrabberMechanism createGrabber = new CreateGrabberMechanism(hardwareMap, "grab", driver1, telemetry, true);
+
+        CreateArmMechanism createArmMechanism = new CreateArmMechanism(hardwareMap, "arm", driver1, telemetry, true);
 
     }
     public void execute(){
