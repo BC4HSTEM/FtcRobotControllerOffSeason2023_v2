@@ -8,8 +8,8 @@ public class PixelGrabberSubsystem extends SubsystemBase {
     //2. setup a SeveroEx variable
     private ServoEx grabber;
     //3. Define the open and close position of the grabber
-    private double GRABBER_CLOSE_POSITION = .30;
-    private double GRABBER_OPEN_POSITION = 0.0;
+    private double GRABBER_CLOSE_POSITION = .70;
+    private double GRABBER_OPEN_POSITION = 0.30;
 
     //4. Define you constructor .... we should probably have one with telemetry passed to it
     public PixelGrabberSubsystem(ServoEx grab){
