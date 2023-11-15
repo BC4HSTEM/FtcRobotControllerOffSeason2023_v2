@@ -5,7 +5,6 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -23,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     public static int target = 0;
 
-    private final double ticks_in_degree = 700 / 180.0;
+    private final double ticks_in_degree = 300 / 180.0;
 
     private DcMotorEx arm;
     private Telemetry telemetry;
