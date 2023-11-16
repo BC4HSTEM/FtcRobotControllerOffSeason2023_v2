@@ -62,6 +62,10 @@ public class CreateArmMechanism extends CreateMechanismBase {
         armDropCommand = createDropCommand();
         armPickUpCommand = createPickUpCommand();
 
+        op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(armDropCommand);
+        op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armPickUpCommand);
+        armSubsystem.setDefaultCommand(armPickUpCommand);
+
     }
 
     @Override
@@ -82,9 +86,7 @@ public class CreateArmMechanism extends CreateMechanismBase {
         armSubsystem.setDirection(DcMotorEx.Direction.FORWARD);
 
         //op.getGamepadButton(GamepadKeys.Button.Y).whenPressed(armPickUpCommand);
-        op.getGamepadButton(GamepadKeys.Button.X).whenHeld(armDropCommand);
 
-        armSubsystem.setDefaultCommand(armPickUpCommand);
 
     }
 

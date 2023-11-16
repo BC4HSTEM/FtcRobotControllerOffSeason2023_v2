@@ -15,7 +15,7 @@ public class ArmDropCommand extends CommandBase {
     private ArmSubsystem armSubsystem;
     private Telemetry telemetry;
 
-    public static int dropTargetPosition = 0;
+    public static int dropTargetPosition = 600;
 
     public ArmDropCommand(ArmSubsystem armSubsystem){
         this.armSubsystem = armSubsystem;
