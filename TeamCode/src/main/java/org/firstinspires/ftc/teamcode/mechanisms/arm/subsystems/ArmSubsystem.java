@@ -15,12 +15,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     private PIDController controller;
 
-    public static double p = 0;
-    public static double i = 0;
+    public static double p = 0.1;
+    public static double i = 0.1;
     public static double d = 0;
-    public static double f = 0;
+    public static double f = 0.1;
 
-    public static int target = 0;
+    public static int target = 50;
 
     private final double ticks_in_degree = 300 / 180.0;
 
@@ -93,6 +93,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         arm.setPower(power);
 
+        telemetry.addData("power, ", power);
         telemetry.addData("pos, ", armPos);
         telemetry.addData("target ", target);
 
