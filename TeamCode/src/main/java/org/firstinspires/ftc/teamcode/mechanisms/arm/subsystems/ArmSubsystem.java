@@ -55,6 +55,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setTargetPosition(int t){
+        controller.setPIDF(p,i,d,f);
         target = t;
         setPower();
     }
