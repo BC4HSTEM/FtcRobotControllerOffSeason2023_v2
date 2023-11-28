@@ -4,10 +4,11 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.CreateDriveTrainMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
-import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
 
 
 @TeleOp(name="Command Combined TeleOp")
@@ -21,9 +22,11 @@ public class CommandTeleOp extends CommandOpMode {
 
         CreateDriveTrainMechanism createDriveTrain = new CreateDriveTrainMechanism(hardwareMap, "drive", driver1, telemetry, true);
         //45.CreateLiftMechanism and be sure to pass in telemetry and true for autoCreate
-        CreateLiftMechanism createLift = new CreateLiftMechanism(hardwareMap, "lift", driver1, telemetry, true);
+        //CreateLiftMechanism createLift = new CreateLiftMechanism(hardwareMap, "lift", driver1, telemetry, true);
         //33. Create the GrabberMechanism
-        CreateGrabberMechanism createGrabber = new CreateGrabberMechanism(hardwareMap, "grab", driver1, telemetry, true);
+        //CreateGrabberMechanism createGrabber = new CreateGrabberMechanism(hardwareMap, "grab", driver1, telemetry, true);
+
+        CreateArmMechanism createArmMechanism = new CreateArmMechanism(hardwareMap, "arm", driver1, telemetry, true);
         CreatePixelGrabberMechanism createPixelGrabber = new CreatePixelGrabberMechanism(hardwareMap, "pixel_grabber", driver1, telemetry, true);
 
     }

@@ -31,17 +31,17 @@ public class PixelGrabberCommand extends CommandBase{
     public void initialize(){
         //14. call openGrabber on subsystem
         telemetry.addLine("grabber initialize");
-        telemetry.addData("grabber position", grabberSubsystem.getPosition());
-        telemetry.addData("grabber open position", grabberSubsystem.getOpenPosition());
+        //telemetry.addData("grabber position", grabberSubsystem.getPosition());
+        //telemetry.addData("grabber open position", grabberSubsystem.getOpenPosition());
         telemetry.update();
         grabberSubsystem.openGrabber();
     }
 
     //15. isFinished may only be needed to assist with autonomous
-    @Override
+   /* @Override
     public boolean isFinished(){
         return grabberSubsystem.getPosition() <= grabberSubsystem.getOpenPosition();
-    }
+    }*/
 
     //16. Create GrabberCloseCommand using the above structure, the code on initialize will change slightly
     //and so will isFinished

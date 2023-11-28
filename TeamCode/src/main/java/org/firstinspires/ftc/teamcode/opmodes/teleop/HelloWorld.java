@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
@@ -12,6 +13,8 @@ public class HelloWorld extends OpMode {
     DcMotor FrontRight = null;
     DcMotor BackLeft = null;
     DcMotor BackRight = null;
+    DcMotorEx Arm = null;
+
 
     public void init(){
         LiftMotor = hardwareMap.get(DcMotor.class,"LM");
@@ -20,9 +23,17 @@ public class HelloWorld extends OpMode {
         BackLeft = hardwareMap.get(DcMotor.class,"BL");
         BackRight = hardwareMap.get(DcMotor.class,"BR");
 
-        FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        BackLeft.setDirection((DcMotorSimple.Direction.REVERSE));
+        // Sydney Added the arm!
+        Arm = hardwareMap.get(DcMotorEx.class,"arm" );
+        Arm.setTargetPosition(0);
+        Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        Arm.setPower(1.0);
+
+        // THE RIGHT motors needed to be reversed
+        FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        BackRight.setDirection((DcMotorSimple.Direction.REVERSE));
         telemetry.addData("app started","hooray");
+        telemetry.addData("arm","init");
     }
 
     public void loop(){
@@ -57,5 +68,22 @@ public class HelloWorld extends OpMode {
         else{
             LiftMotor.setPower(0.0);
         }
+
+
+        if(gamepad1.right_bumper ){
+            Arm.setTargetPosition(600);
+            Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }else if(gamepad1.left_bumper ){
+            Arm.setTargetPosition(0);
+            Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+
+        telemetry.addData("arm", Arm.getCurrentPosition());
+        telemetry.update();
+
+
+
     }
 }

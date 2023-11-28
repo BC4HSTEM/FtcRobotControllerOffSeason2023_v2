@@ -17,7 +17,8 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
     //19. Define the subsystem for the mechanism
     private PixelGrabberSubsystem grabberSubsystem;
     //20. Define the Servo coming from the hardware map
-    private ServoEx gr;
+    private ServoEx grabberRight;
+    private ServoEx grabberLeft;
 
     //21. Define your Commands
     private PixelGrabberCommand grabberCommand;
@@ -63,9 +64,10 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
     @Override
     public void createBase(){
         //27. get the servo from the hardware
-        gr = new SimpleServo(hwMap, deviceName, MIN_ANGLE, MAX_ANGLE);
+        grabberRight = new SimpleServo(hwMap, "pixel_grabber_right", MIN_ANGLE, MAX_ANGLE);
+        grabberRight = new SimpleServo(hwMap, "pixel_grabber_left", MIN_ANGLE, MAX_ANGLE);
         //28. create the subsystem
-        grabberSubsystem = new PixelGrabberSubsystem(gr);
+        grabberSubsystem = new PixelGrabberSubsystem(grabberRight, grabberLeft, telemetry, true);
 
         //29. Create the commands, used functions so that autonomous would have less work to do when
         //creating the commands for that opmode
