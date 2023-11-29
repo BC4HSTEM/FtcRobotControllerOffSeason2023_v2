@@ -6,18 +6,18 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.subsystems.PixelGrabberSubsystem;
 
 //9. extend CommandBase
-public class PixelGrabberCommand extends CommandBase{
+public class PixelGrabberRightCommand extends CommandBase{
     //10.Define the subsystem(s) that this Command requires
     private PixelGrabberSubsystem grabberSubsystem;
     private Telemetry telemetry;
 
-    public PixelGrabberCommand(PixelGrabberSubsystem grabberSubsystem){
+    public PixelGrabberRightCommand(PixelGrabberSubsystem grabberSubsystem){
         this.grabberSubsystem = grabberSubsystem;
 
         addRequirements(grabberSubsystem);
     }
 
-    public PixelGrabberCommand(PixelGrabberSubsystem grabberSubsystem, Telemetry telemetry){
+    public PixelGrabberRightCommand(PixelGrabberSubsystem grabberSubsystem, Telemetry telemetry){
         //11. Set the subsystem
         this.grabberSubsystem = grabberSubsystem;
         this.telemetry = telemetry;
@@ -34,7 +34,7 @@ public class PixelGrabberCommand extends CommandBase{
         //telemetry.addData("grabber position", grabberSubsystem.getPosition());
         //telemetry.addData("grabber open position", grabberSubsystem.getOpenPosition());
         telemetry.update();
-        grabberSubsystem.openGrabber();
+        grabberSubsystem.openRightGrabber();
     }
 
     //15. isFinished may only be needed to assist with autonomous
