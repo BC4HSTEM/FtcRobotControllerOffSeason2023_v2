@@ -32,7 +32,7 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
 
     //22. Is this a 180 or 360 servo, define your max and min
     private int MIN_ANGLE = 0;
-    private int MAX_ANGLE = 270;
+    private int MAX_ANGLE = 180;
 
     //23. Define your constructors
     public CreatePixelGrabberMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry){
@@ -75,6 +75,7 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
         //27. get the servo from the hardware
         grabberRight = new SimpleServo(hwMap, "pixel_grabber_right", MIN_ANGLE, MAX_ANGLE, AngleUnit.DEGREES);
         grabberLeft = new SimpleServo(hwMap, "pixel_grabber_left", MIN_ANGLE, MAX_ANGLE, AngleUnit.DEGREES);
+        grabberLeft.setInverted(true);
         //28. create the subsystem
         grabberSubsystem = new PixelGrabberSubsystem(grabberRight, grabberLeft, telemetry, true);
 

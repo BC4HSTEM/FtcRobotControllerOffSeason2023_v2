@@ -30,11 +30,17 @@ public class PixelGrabberLeftCommand extends CommandBase{
     @Override
     public void initialize(){
         //14. call openGrabber on subsystem
-        telemetry.addLine("grabber initialize");
+        telemetry.addLine("grabber left initialize");
         //telemetry.addData("grabber position", grabberSubsystem.getPosition());
         //telemetry.addData("grabber open position", grabberSubsystem.getOpenPosition());
         telemetry.update();
-        grabberSubsystem.openLeftGrabber();
+        grabberSubsystem.openLeftGrabberPosition();
+    }
+
+    @Override
+    public void execute(){
+        telemetry.addData("grabber left position", grabberSubsystem.getGrabberLeftPosition());
+        telemetry.addData("grabber left close position", grabberSubsystem.getLeftClosePosition());
     }
 
     //15. isFinished may only be needed to assist with autonomous
