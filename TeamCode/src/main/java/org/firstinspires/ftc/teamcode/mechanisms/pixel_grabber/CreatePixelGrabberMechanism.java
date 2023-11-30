@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberCloseCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberCommand;
@@ -64,8 +65,8 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
     @Override
     public void createBase(){
         //27. get the servo from the hardware
-        grabberRight = new SimpleServo(hwMap, "pixel_grabber_right", MIN_ANGLE, MAX_ANGLE);
-        grabberRight = new SimpleServo(hwMap, "pixel_grabber_left", MIN_ANGLE, MAX_ANGLE);
+        grabberRight = new SimpleServo(hwMap, "pixel_grabber_right", MIN_ANGLE, MAX_ANGLE, AngleUnit.DEGREES);
+        grabberLeft = new SimpleServo(hwMap, "pixel_grabber_left", MIN_ANGLE, MAX_ANGLE, AngleUnit.DEGREES);
         //28. create the subsystem
         grabberSubsystem = new PixelGrabberSubsystem(grabberRight, grabberLeft, telemetry, true);
 

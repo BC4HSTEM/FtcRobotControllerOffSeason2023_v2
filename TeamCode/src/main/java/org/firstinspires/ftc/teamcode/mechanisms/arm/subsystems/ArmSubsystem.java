@@ -94,11 +94,11 @@ public class ArmSubsystem extends SubsystemBase {
 
         arm.setPower(power);
 
-        telemetry.addData("power, ", power);
-        telemetry.addData("pos, ", armPos);
-        telemetry.addData("target ", target);
+        //telemetry.addData("power, ", power);
+        //telemetry.addData("pos, ", armPos);
+        //telemetry.addData("target ", target);
 
-        telemetry.update();
+        //telemetry.update();
     }
 
 

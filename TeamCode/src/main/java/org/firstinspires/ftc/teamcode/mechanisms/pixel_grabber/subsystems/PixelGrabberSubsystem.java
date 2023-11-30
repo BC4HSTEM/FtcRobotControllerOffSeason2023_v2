@@ -42,8 +42,11 @@ public class PixelGrabberSubsystem extends SubsystemBase {
     }
     //5. define a grab function that sets the servo position....this function should probably be private
     public void grab(double rAngle, double lAngle){
-        pixelGrabberRight.turnToAngle(rAngle);
-        pixelGrabberLeft.turnToAngle(lAngle);
+        //pixelGrabberRight.turnToAngle(rAngle);
+        //pixelGrabberLeft.turnToAngle(lAngle);
+        telemetry.addData("right angle", pixelGrabberRight.getAngle() + rAngle);
+        telemetry.addData("left angle", pixelGrabberLeft.getAngle() + lAngle);
+        telemetry.update();
     }
 
     //6. Define functions that the commands can call
