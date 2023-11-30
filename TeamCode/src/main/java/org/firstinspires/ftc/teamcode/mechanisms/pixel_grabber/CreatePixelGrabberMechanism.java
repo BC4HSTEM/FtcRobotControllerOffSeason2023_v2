@@ -9,8 +9,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
-import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberCloseCommand;
-import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCloseCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCloseCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.subsystems.PixelGrabberSubsystem;
 
 //18. extend CreateMechanismBase
@@ -22,8 +24,11 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
     private ServoEx grabberLeft;
 
     //21. Define your Commands
-    private PixelGrabberCommand grabberCommand;
-    private PixelGrabberCloseCommand grabberCloseCommand;
+    private PixelGrabberRightCommand grabberRightCommand;
+    private PixelGrabberRightCloseCommand grabberRightCloseCommand;
+
+    private PixelGrabberLeftCommand grabberLeftCommand;
+    private PixelGrabberLeftCloseCommand grabberLeftCloseCommand;
 
     //22. Is this a 180 or 360 servo, define your max and min
     private int MIN_ANGLE = 0;
@@ -55,8 +60,11 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
         //30. determine which button you want to use
         //31. assign the command to te appropriate button action https://docs.ftclib.org/ftclib/v/v2.0.0/command-base/command-system/binding-commands-to-triggers
         //How to Implement a Toggle with a Button Instead:
-        op.getGamepadButton(GamepadKeys.Button.B).whenReleased(grabberCommand);
-        op.getGamepadButton(GamepadKeys.Button.B).whenHeld(grabberCloseCommand);
+        op.getGamepadButton(GamepadKeys.Button.B).whenReleased(grabberRightCommand);
+        op.getGamepadButton(GamepadKeys.Button.B).whenHeld(grabberRightCloseCommand);
+
+        op.getGamepadButton(GamepadKeys.Button.A).whenReleased(grabberLeftCommand);
+        op.getGamepadButton(GamepadKeys.Button.A).whenHeld(grabberLeftCloseCommand);
 
         //32. go to CommandTeleop
 
@@ -72,27 +80,48 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
 
         //29. Create the commands, used functions so that autonomous would have less work to do when
         //creating the commands for that opmode
-        grabberCommand = createGrabberCommand();
-        grabberCloseCommand = createGrabberCloseCommand();
+        grabberRightCommand = createGrabberRightCommand();
+        grabberRightCloseCommand = createGrabberRightCloseCommand();
+
+        grabberLeftCommand = createGrabberLeftCommand();
+        grabberLeftCloseCommand = createGrabberLeftCloseCommand();
 
     }
 
-    public PixelGrabberCommand createGrabberCommand(){
+    public PixelGrabberRightCommand createGrabberRightCommand(){
 
-        return new PixelGrabberCommand(grabberSubsystem, telemetry);
+        return new PixelGrabberRightCommand(grabberSubsystem, telemetry);
     }
 
-    public PixelGrabberCommand getGrabberCommand (){
+    public PixelGrabberLeftCommand createGrabberLeftCommand(){
 
-        return grabberCommand;
+        return new PixelGrabberLeftCommand(grabberSubsystem, telemetry);
     }
 
-    public PixelGrabberCloseCommand createGrabberCloseCommand(){
-        return new PixelGrabberCloseCommand(grabberSubsystem, telemetry);
+    public PixelGrabberRightCommand getGrabberRightCommand (){
+
+        return grabberRightCommand;
     }
 
-    public PixelGrabberCloseCommand getGrabberCloseCommand(){
-        return grabberCloseCommand;
+    public PixelGrabberLeftCommand getGrabberLeftCommand (){
+
+        return grabberLeftCommand;
+    }
+
+    public PixelGrabberRightCloseCommand createGrabberRightCloseCommand(){
+        return new PixelGrabberRightCloseCommand(grabberSubsystem, telemetry);
+    }
+
+    public PixelGrabberLeftCloseCommand createGrabberLeftCloseCommand(){
+        return new PixelGrabberLeftCloseCommand(grabberSubsystem, telemetry);
+    }
+
+    public PixelGrabberRightCloseCommand getGrabberRightCloseCommand(){
+        return grabberRightCloseCommand;
+    }
+
+    public PixelGrabberLeftCloseCommand getGrabberLeftCloseCommand(){
+        return grabberLeftCloseCommand;
     }
 
 
