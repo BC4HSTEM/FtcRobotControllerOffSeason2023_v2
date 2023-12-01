@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class HelloWorld extends OpMode {
@@ -14,6 +15,9 @@ public class HelloWorld extends OpMode {
     DcMotor BackLeft = null;
     DcMotor BackRight = null;
     DcMotorEx Arm = null;
+
+    Servo PixelGrabberLeft = null;
+    Servo PixelGrabberRight = null;
 
 
     public void init(){
@@ -27,13 +31,22 @@ public class HelloWorld extends OpMode {
         Arm = hardwareMap.get(DcMotorEx.class,"arm" );
         Arm.setTargetPosition(0);
         Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        Arm.setPower(1.0);
 
         // THE RIGHT motors needed to be reversed
         FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         BackRight.setDirection((DcMotorSimple.Direction.REVERSE));
         telemetry.addData("app started","hooray");
         telemetry.addData("arm","init");
+
+        // Servos for Pixel Grabber
+        PixelGrabberLeft = hardwareMap.get(Servo.class, "pixel_grabber_left");
+        PixelGrabberRight = hardwareMap.get(Servo.class, "pixel_grabber_right");
+
+
+        telemetry.addData("pixel grabber left", PixelGrabberLeft.getPosition());
+        telemetry.addData("pixel grabber right", PixelGrabberRight.getPosition());
+
+        
     }
 
     public void loop(){
@@ -73,12 +86,34 @@ public class HelloWorld extends OpMode {
         if(gamepad1.right_bumper ){
             Arm.setTargetPosition(600);
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Arm.setPower(0.5);
 
         }else if(gamepad1.left_bumper ){
             Arm.setTargetPosition(0);
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Arm.setPower(0.5);
+
+        }else{
+            Arm.setPower(0.0);
         }
 
+
+        if(gamepad1.a){
+            PixelGrabberLeft.setPosition(0.3);
+        }else{
+            PixelGrabberLeft.setPosition(0.7);
+        }
+
+
+        if(gamepad1.b){
+            PixelGrabberRight.setPosition(0.55);
+        }else{
+            PixelGrabberRight.setPosition(0.2);
+        }
+
+
+        telemetry.addData("pixel grabber left", PixelGrabberLeft.getPosition());
+        telemetry.addData("pixel grabber right", PixelGrabberRight.getPosition());
 
         telemetry.addData("arm", Arm.getCurrentPosition());
         telemetry.update();
