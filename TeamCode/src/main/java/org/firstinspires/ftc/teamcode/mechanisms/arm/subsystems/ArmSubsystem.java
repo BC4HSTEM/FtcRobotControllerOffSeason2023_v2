@@ -22,11 +22,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     public static int target = 50;
 
-    private final double ticks_in_degree = 300 / 180.0;
+    private final double ticks_in_degree =  / 180.0;
 
     private DcMotorEx arm;
     private Telemetry telemetry;
-
+300
 
     public ArmSubsystem(DcMotorEx armMotor){
 

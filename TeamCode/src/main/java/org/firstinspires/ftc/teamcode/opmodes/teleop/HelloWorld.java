@@ -26,8 +26,8 @@ public class HelloWorld extends OpMode {
         // Sydney Added the arm!
         Arm = hardwareMap.get(DcMotorEx.class,"arm" );
         Arm.setTargetPosition(0);
-        Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        Arm.setPower(1.0);
+        // Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        // Arm.setPower(1.0);
 
         // THE RIGHT motors needed to be reversed
         FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
