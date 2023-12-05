@@ -15,10 +15,10 @@ public class ArmSubsystem extends SubsystemBase {
 
     private PIDController controller;
 
-    public static double p = 0.1;
-    public static double i = 0.1;
+    public static double p = 0.001;
+    public static double i = 0.001;
     public static double d = 0;
-    public static double f = 0.1;
+    public static double f = 0.001;
 
     public static int target = 50;
 
