@@ -62,9 +62,9 @@ public class CreateArmMechanism extends CreateMechanismBase {
         armDropCommand = createDropCommand();
         armPickUpCommand = createPickUpCommand();
 
-        op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(armDropCommand);
-        //op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armPickUpCommand);
-        armSubsystem.setDefaultCommand(armPickUpCommand);
+        op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(armDropCommand);
+        op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armPickUpCommand);
+        //armSubsystem.setDefaultCommand(armPickUpCommand);
 
     }
 
