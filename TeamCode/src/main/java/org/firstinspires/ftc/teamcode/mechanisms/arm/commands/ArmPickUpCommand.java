@@ -28,7 +28,7 @@ public class ArmPickUpCommand extends CommandBase {
     }
 
     @Override
-    public void execute(){
+    public void initialize(){
         armSubsystem.setTargetPosition(pickUpTargetPosition);
     }
 }
