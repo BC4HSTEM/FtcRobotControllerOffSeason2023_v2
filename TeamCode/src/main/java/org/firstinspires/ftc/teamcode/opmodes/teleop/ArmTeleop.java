@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-
 @Config
+@TeleOp
 public class ArmTeleop extends OpMode {
 
     private PIDController controller;
@@ -33,7 +33,7 @@ public class ArmTeleop extends OpMode {
         arm = hardwareMap.get(DcMotorEx.class, "arm");
     }
     public void loop(){
-
+        controller = new PIDController(p,i,d);
         int armPos = arm.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
         double ff = Math.cos(Math.toRadians(target / ticks_in_degree)) * f;

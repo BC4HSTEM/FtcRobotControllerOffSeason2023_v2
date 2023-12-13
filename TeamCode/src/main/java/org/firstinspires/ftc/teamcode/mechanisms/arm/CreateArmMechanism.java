@@ -1,29 +1,15 @@
 package org.firstinspires.ftc.teamcode.mechanisms.arm;
 
-import static com.arcrobotics.ftclib.gamepad.GamepadKeys.Trigger.LEFT_TRIGGER;
-import static com.arcrobotics.ftclib.gamepad.GamepadKeys.Trigger.RIGHT_TRIGGER;
-
-import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDCoefficients;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmDropCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmPickUpCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.subsystems.ArmSubsystem;
-import org.firstinspires.ftc.teamcode.mechanisms.lift.subsystems.LiftSubsystem;
 
 public class CreateArmMechanism extends CreateMechanismBase {
 
@@ -63,8 +49,8 @@ public class CreateArmMechanism extends CreateMechanismBase {
         armPickUpCommand = createPickUpCommand();
 
         op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(armDropCommand);
-        //op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armPickUpCommand);
-        armSubsystem.setDefaultCommand(armPickUpCommand);
+        op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armPickUpCommand);
+        //armSubsystem.setDefaultCommand(armPickUpCommand);
 
     }
 

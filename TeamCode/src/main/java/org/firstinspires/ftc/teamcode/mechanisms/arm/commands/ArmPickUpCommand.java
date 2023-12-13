@@ -12,7 +12,7 @@ public class ArmPickUpCommand extends CommandBase {
     private ArmSubsystem armSubsystem;
     private Telemetry telemetry;
 
-    public static int pickUpTargetPosition = 50;
+    public static int pickUpTargetPosition = 0;
 
     public ArmPickUpCommand(ArmSubsystem armSubsystem){
         this.armSubsystem = armSubsystem;
