@@ -30,7 +30,7 @@ public class ArmDropCommand extends CommandBase {
 
     @Override
     public void initialize(){
-        armSubsystem.setTargetPosition(dropTargetPosition);
+        armSubsystem.setTargetPIDPosition(dropTargetPosition);
     }
 
 

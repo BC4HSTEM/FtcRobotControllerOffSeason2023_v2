@@ -21,7 +21,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmDropCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmDropPositionCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmPickUpCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmPickUpPositionCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.subsystems.LiftSubsystem;
 
@@ -30,6 +32,9 @@ public class CreateArmMechanism extends CreateMechanismBase {
     private ArmSubsystem armSubsystem;
     private ArmDropCommand armDropCommand;
     private ArmPickUpCommand armPickUpCommand;
+
+    private ArmDropPositionCommand armDropPositionCommand;
+    private ArmPickUpPositionCommand armPickUpPositionCommand;
 
     private DcMotorEx arm;
 
@@ -61,6 +66,9 @@ public class CreateArmMechanism extends CreateMechanismBase {
         //can reuse the code for Auto
         armDropCommand = createDropCommand();
         armPickUpCommand = createPickUpCommand();
+
+        armDropPositionCommand = createDropPositionCommand();
+        armPickUpPositionCommand = createPickUpPositionCommand();
 
         op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(armDropCommand);
         op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armPickUpCommand);
@@ -96,6 +104,14 @@ public class CreateArmMechanism extends CreateMechanismBase {
 
     private ArmPickUpCommand createPickUpCommand(){
         return new ArmPickUpCommand(armSubsystem, telemetry);
+    }
+
+    private ArmDropPositionCommand createDropPositionCommand(){
+        return new ArmDropPositionCommand(armSubsystem, telemetry);
+    }
+
+    private ArmPickUpPositionCommand createPickUpPositionCommand(){
+        return new ArmPickUpPositionCommand(armSubsystem, telemetry);
     }
 
 

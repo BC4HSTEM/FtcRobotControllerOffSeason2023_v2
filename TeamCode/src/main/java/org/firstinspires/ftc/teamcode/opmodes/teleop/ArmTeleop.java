@@ -20,7 +20,15 @@ public class ArmTeleop extends OpMode {
 
     public static int target = 0;
 
-    private final double ticks_in_degree = 3360 / 360.0;
+    public static double motorDegrees = 360.0;
+    public static double largeGear = 108;
+
+    public static double smallGear = 30;
+
+    public double gearRatio = largeGear / smallGear;
+
+    public double ticksPerRotation = 1120;
+    private final double ticks_in_degree = ticksPerRotation / motorDegrees;
 
     private DcMotorEx arm;
 
