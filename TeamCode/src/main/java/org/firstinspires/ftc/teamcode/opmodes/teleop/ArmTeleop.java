@@ -13,10 +13,10 @@ public class ArmTeleop extends OpMode {
 
     private PIDController controller;
 
-    public static double p = 0;
+    public static double p = 0.0019;
     public static double i = 0;
-    public static double d = 0;
-    public static double f = 0;
+    public static double d = 0.0001;
+    public static double f = 6;
 
     public static int target = 0;
 

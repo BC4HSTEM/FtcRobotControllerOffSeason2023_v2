@@ -30,6 +30,8 @@ public class HelloWorld extends OpMode {
         // Sydney Added the arm!
         Arm = hardwareMap.get(DcMotorEx.class,"arm" );
         Arm.setTargetPosition(0);
+
+
         Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         // THE RIGHT motors needed to be reversed
@@ -84,12 +86,12 @@ public class HelloWorld extends OpMode {
 
 
         if(gamepad1.right_bumper ){
-            Arm.setTargetPosition(600);
+            Arm.setTargetPosition(700);
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setPower(0.5);
 
         }else if(gamepad1.left_bumper ){
-            Arm.setTargetPosition(0);
+            Arm.setTargetPosition(20);
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setPower(0.5);
 
