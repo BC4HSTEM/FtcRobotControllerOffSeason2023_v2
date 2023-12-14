@@ -29,6 +29,7 @@ public class HelloWorld extends OpMode {
 
         // Sydney Added the arm!
         Arm = hardwareMap.get(DcMotorEx.class,"arm" );
+        Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Arm.setTargetPosition(0);
 
 

@@ -7,20 +7,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.subsystems.ArmSubsystem;
 
 @Config
-public class ArmPickUpCommand extends CommandBase {
+public class ArmPickUpPositionCommand extends CommandBase {
 
     private ArmSubsystem armSubsystem;
     private Telemetry telemetry;
 
-    public static int pickUpTargetPosition = 0;
+    public static int pickUpTargetPosition = 50;
 
-    public ArmPickUpCommand(ArmSubsystem armSubsystem){
+    public ArmPickUpPositionCommand(ArmSubsystem armSubsystem){
         this.armSubsystem = armSubsystem;
 
         addRequirements(armSubsystem);
     }
 
-    public ArmPickUpCommand(ArmSubsystem armSubsystem, Telemetry telemetry){
+    public ArmPickUpPositionCommand(ArmSubsystem armSubsystem, Telemetry telemetry){
         this.armSubsystem = armSubsystem;
         this.telemetry = telemetry;
 
@@ -29,6 +29,6 @@ public class ArmPickUpCommand extends CommandBase {
 
     @Override
     public void initialize(){
-        armSubsystem.setTargetPIDPosition(pickUpTargetPosition);
+        armSubsystem.setTargetPosition(pickUpTargetPosition);
     }
 }

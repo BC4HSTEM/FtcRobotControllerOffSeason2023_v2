@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     public static int target = 0;
 
-    private final double ticks_in_degree =  3360 / 360.0;
+    private final double ticks_in_degree =  1120 / 360.0;
 
     private DcMotorEx arm;
     private Telemetry telemetry;
@@ -53,10 +53,17 @@ public class ArmSubsystem extends SubsystemBase {
         controller = new PIDController(p,i,d);
     }
 
-    public void setTargetPosition(int t){
+    public void setTargetPIDPosition(int t){
         controller.setPIDF(p,i,d,f);
         target = t;
         setPower();
+    }
+
+    public void setTargetPosition(int t){
+        arm.setTargetPosition(t);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(0.5);
+
     }
 
     public void stopResetEncoder(){
