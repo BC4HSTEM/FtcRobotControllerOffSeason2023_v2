@@ -94,6 +94,7 @@ public class HelloWorld extends OpMode {
             Arm.setTargetPosition(20);
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setPower(0.5);
+            
 
         }else{
             Arm.setPower(0.0);
