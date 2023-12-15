@@ -18,7 +18,8 @@ public class HelloWorld extends OpMode {
 
     Servo PixelGrabberLeft = null;
     Servo PixelGrabberRight = null;
-
+    boolean grabberLeftOpen = true;
+    boolean grabberRightOpen = true;
 
     public void init(){
         LiftMotor = hardwareMap.get(DcMotor.class,"LM");
@@ -30,7 +31,7 @@ public class HelloWorld extends OpMode {
         // Sydney Added the arm!
         Arm = hardwareMap.get(DcMotorEx.class,"arm" );
         Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Arm.setTargetPosition(0);
+        Arm.setTargetPosition(20);
 
 
         Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -102,10 +103,12 @@ public class HelloWorld extends OpMode {
         }
 
 
-        if(gamepad1.a){
+        if(gamepad1.a && grabberLeftOpen){
             PixelGrabberLeft.setPosition(0.3);
+            grabberLeftOpen = false;
         }else{
             PixelGrabberLeft.setPosition(0.7);
+            grabberLeftOpen = true;
         }
 
 
