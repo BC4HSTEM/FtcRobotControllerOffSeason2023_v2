@@ -61,10 +61,10 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
         //31. assign the command to te appropriate button action https://docs.ftclib.org/ftclib/v/v2.0.0/command-base/command-system/binding-commands-to-triggers
         //How to Implement a Toggle with a Button Instead:
         op.getGamepadButton(GamepadKeys.Button.B).whenReleased(grabberRightCommand);
-        op.getGamepadButton(GamepadKeys.Button.B).whenHeld(grabberRightCloseCommand);
+        op.getGamepadButton(GamepadKeys.Button.B).whenPressed(grabberRightCloseCommand);
 
         op.getGamepadButton(GamepadKeys.Button.A).whenReleased(grabberLeftCommand);
-        op.getGamepadButton(GamepadKeys.Button.A).whenHeld(grabberLeftCloseCommand);
+        op.getGamepadButton(GamepadKeys.Button.A).whenPressed(grabberLeftCloseCommand);
 
         //32. go to CommandTeleop
 
