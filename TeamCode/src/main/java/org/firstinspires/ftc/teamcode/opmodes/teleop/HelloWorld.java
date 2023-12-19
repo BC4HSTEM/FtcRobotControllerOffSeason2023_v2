@@ -112,8 +112,7 @@ public class HelloWorld extends OpMode {
         if (gamepad1.a){
             grabberLeftOpen = !grabberLeftOpen;
         }
-
-<<<<<<< HEAD
+        
 
         if(grabberLeftOpen){
             PixelGrabberLeft.setPosition(0.3);
@@ -121,14 +120,6 @@ public class HelloWorld extends OpMode {
         }else{
             PixelGrabberLeft.setPosition(0.7);
 
-=======
-        if(gamepad1.a && grabberLeftOpen){
-            PixelGrabberLeft.setPosition(0.3);
-            grabberLeftOpen = false;
-        }else{
-            PixelGrabberLeft.setPosition(0.7);
-            grabberLeftOpen = true;
->>>>>>> 6d25f846f3cbc1e2df86c641f792dc6f6deb5712
         }
 
 
