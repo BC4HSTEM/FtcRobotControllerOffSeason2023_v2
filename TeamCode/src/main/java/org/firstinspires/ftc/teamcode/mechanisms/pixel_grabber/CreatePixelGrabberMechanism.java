@@ -60,11 +60,11 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
         //30. determine which button you want to use
         //31. assign the command to te appropriate button action https://docs.ftclib.org/ftclib/v/v2.0.0/command-base/command-system/binding-commands-to-triggers
         //How to Implement a Toggle with a Button Instead:
-        op.getGamepadButton(GamepadKeys.Button.B).whenReleased(grabberRightCommand);
-        op.getGamepadButton(GamepadKeys.Button.B).whenPressed(grabberRightCloseCommand);
+        op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).toggleWhenPressed(grabberRightCloseCommand,grabberRightCommand);
+        //op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(grabberRightCloseCommand);
 
-        op.getGamepadButton(GamepadKeys.Button.A).whenReleased(grabberLeftCommand);
-        op.getGamepadButton(GamepadKeys.Button.A).whenPressed(grabberLeftCloseCommand);
+        op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).toggleWhenPressed(grabberLeftCloseCommand,grabberLeftCommand);
+        //op.getGamepadButton(GamepadKeys.Button.A).whenPressed(grabberLeftCloseCommand);
 
         //32. go to CommandTeleop
 
@@ -73,8 +73,8 @@ public class CreatePixelGrabberMechanism extends CreateMechanismBase {
     @Override
     public void createBase(){
         //27. get the servo from the hardware
-        grabberRight = new SimpleServo(hwMap, "pixel_grabber_right", MIN_ANGLE, MAX_ANGLE, AngleUnit.DEGREES);
-        grabberLeft = new SimpleServo(hwMap, "pixel_grabber_left", MIN_ANGLE, MAX_ANGLE, AngleUnit.DEGREES);
+        grabberRight = new SimpleServo(hwMap, "pixel_grabber_right", MIN_ANGLE, MAX_ANGLE);
+        grabberLeft = new SimpleServo(hwMap, "pixel_grabber_left", MIN_ANGLE, MAX_ANGLE);
         grabberLeft.setInverted(true);
         //28. create the subsystem
         grabberSubsystem = new PixelGrabberSubsystem(grabberRight, grabberLeft, telemetry, true);

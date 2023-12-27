@@ -31,7 +31,7 @@ public class ArmTeleop extends OpMode {
     public double gearRatio = largeGear / smallGear;
 
     public double ticksPerRotation = 1120;
-    private final double ticks_in_degree = 3360 / 360;
+    private final double ticks_in_degree = (gearRatio * ticksPerRotation) / 360;
 
     private DcMotorEx arm;
 
@@ -45,7 +45,8 @@ public class ArmTeleop extends OpMode {
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     public void loop(){
-        controller = new PIDController(p,i,d);
+        controller.setPID(p,i,d);
+        
         int armPos = arm.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
         double ff = Math.cos(Math.toRadians(target / ticks_in_degree)) * f;

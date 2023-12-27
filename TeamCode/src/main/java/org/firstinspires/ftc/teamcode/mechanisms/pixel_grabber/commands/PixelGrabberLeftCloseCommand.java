@@ -37,6 +37,7 @@ public class PixelGrabberLeftCloseCommand extends CommandBase{
     public void execute(){
         telemetry.addData("grabber left position", grabberSubsystem.getGrabberLeftPosition());
         telemetry.addData("grabber left close position", grabberSubsystem.getLeftClosePosition());
+        telemetry.update();
     }
 
 

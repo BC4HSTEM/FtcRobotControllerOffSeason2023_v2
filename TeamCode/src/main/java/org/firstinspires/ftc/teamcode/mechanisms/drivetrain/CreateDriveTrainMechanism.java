@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mechanisms.drivetrain;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -51,6 +52,11 @@ public class CreateDriveTrainMechanism extends CreateMechanismBase {
         bl = new Motor(hwMap, "BL");
         fr = new Motor(hwMap, "FR");
         br = new Motor(hwMap, "BR");
+
+        fl.motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        bl.motor.setDirection((DcMotorSimple.Direction.REVERSE));
+        fr.motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        br.motor.setDirection((DcMotorSimple.Direction.REVERSE));
 
         driveSubsystem = new DriveSubsystem(fl, fr, bl, br);
 

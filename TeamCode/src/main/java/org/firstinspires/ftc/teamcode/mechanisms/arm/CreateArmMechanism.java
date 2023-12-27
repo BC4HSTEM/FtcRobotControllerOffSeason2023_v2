@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.mechanisms.arm;
 
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -46,7 +49,7 @@ public class CreateArmMechanism extends CreateMechanismBase {
         //39. created commands
 
         //40. set motor to run without encoders
-        armSubsystem.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+       armSubsystem.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         //armSubsystem.setTargetPosition(20);
 
         //41. instead of creating the command right here, we created a function for it so we
@@ -57,8 +60,8 @@ public class CreateArmMechanism extends CreateMechanismBase {
         armDropPositionCommand = createDropPositionCommand();
         armPickUpPositionCommand = createPickUpPositionCommand();
 
-        op.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(armDropCommand);
-        op.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(armPickUpCommand);
+        op.getGamepadButton(GamepadKeys.Button.Y).whenPressed(armDropCommand);
+        op.getGamepadButton(GamepadKeys.Button.X).whenPressed(armPickUpCommand);
         //armSubsystem.setDefaultCommand(armPickUpCommand);
 
     }
@@ -67,7 +70,7 @@ public class CreateArmMechanism extends CreateMechanismBase {
     public void createBase(){
         telemetry.addLine("Arm createBase");
 
-        arm = hwMap.get(DcMotorEx.class, deviceName);
+        arm = hwMap.get(DcMotorEx.class,"arm" );
         telemetry.addData("Arm", arm);
         telemetry.update();
 

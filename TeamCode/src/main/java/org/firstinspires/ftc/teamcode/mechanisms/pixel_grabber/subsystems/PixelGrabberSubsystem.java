@@ -22,9 +22,9 @@ public class PixelGrabberSubsystem extends SubsystemBase {
     public static double GRABBER_RIGHT_OPEN_ANGLE = 150;
     public static double GRABBER_LEFT_OPEN_ANGLE = 100;
 
-    public static double GRABBER_RIGHT_CLOSE_POSITION = 0.7;
+    public static double GRABBER_RIGHT_CLOSE_POSITION = 0.55;
     public static double GRABBER_LEFT_CLOSE_POSITION = 0.7;
-    public static double GRABBER_RIGHT_OPEN_POSITION = 0.3;
+    public static double GRABBER_RIGHT_OPEN_POSITION = 0.2;
     public static double GRABBER_LEFT_OPEN_POSITION = 0.3;
 
     //4. Define you constructor .... we should probably have one with telemetry passed to it
@@ -110,6 +110,10 @@ public class PixelGrabberSubsystem extends SubsystemBase {
     }*/
     public double getLeftClosePosition(){
         return GRABBER_LEFT_CLOSE_POSITION;
+    }
+
+    public double getRightClosePosition(){
+        return GRABBER_RIGHT_CLOSE_POSITION;
     }
     public double getRightOpenAngle(){
         return GRABBER_RIGHT_OPEN_ANGLE;

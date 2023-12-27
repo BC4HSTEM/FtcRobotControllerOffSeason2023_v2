@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.CreateDriveTrainMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.drone_launcher.CreateDroneLauncherMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.CreateGrabberWristMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
 
@@ -28,6 +30,8 @@ public class CommandTeleOp extends CommandOpMode {
 
         CreateArmMechanism createArmMechanism = new CreateArmMechanism(hardwareMap, "arm", driver1, telemetry, true);
         CreatePixelGrabberMechanism createPixelGrabber = new CreatePixelGrabberMechanism(hardwareMap, "pixel_grabber", driver1, telemetry, true);
+        CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hardwareMap, "drone_Launch", driver1, telemetry, true);
+        CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hardwareMap, "wrist_Motion", driver1, telemetry, true);
 
     }
     public void execute(){

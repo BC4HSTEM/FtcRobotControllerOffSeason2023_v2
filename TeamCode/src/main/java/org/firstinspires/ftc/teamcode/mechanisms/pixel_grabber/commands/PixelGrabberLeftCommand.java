@@ -41,6 +41,7 @@ public class PixelGrabberLeftCommand extends CommandBase{
     public void execute(){
         telemetry.addData("grabber left position", grabberSubsystem.getGrabberLeftPosition());
         telemetry.addData("grabber left close position", grabberSubsystem.getLeftClosePosition());
+        telemetry.update();
     }
 
     //15. isFinished may only be needed to assist with autonomous

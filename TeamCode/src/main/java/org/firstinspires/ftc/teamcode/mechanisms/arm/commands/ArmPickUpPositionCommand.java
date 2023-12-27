@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.subsystems.ArmSubsystem;
 
-@Config
+
 public class ArmPickUpPositionCommand extends CommandBase {
 
     private ArmSubsystem armSubsystem;

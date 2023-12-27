@@ -37,6 +37,13 @@ public class PixelGrabberRightCommand extends CommandBase{
         grabberSubsystem.openRightGrabberPosition();
     }
 
+    @Override
+    public void execute(){
+        telemetry.addData("grabber right position", grabberSubsystem.getGrabberRightPosition());
+        telemetry.addData("grabber right close position", grabberSubsystem.getRightClosePosition());
+        telemetry.update();
+    }
+
     //15. isFinished may only be needed to assist with autonomous
    /* @Override
     public boolean isFinished(){

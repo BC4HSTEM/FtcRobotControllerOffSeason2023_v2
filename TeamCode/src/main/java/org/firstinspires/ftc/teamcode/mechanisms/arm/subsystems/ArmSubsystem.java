@@ -5,6 +5,8 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -15,14 +17,26 @@ public class ArmSubsystem extends SubsystemBase {
 
     private PIDController controller;
 
-    public static double p = 0.0019;
-    public static double i = 0;
+    public static double p = 0.001;
+    public static double i = 0.0;
     public static double d = 0.0001;
-    public static double f = 6;
+    public static double f = 2;
 
-    public static int target = 0;
+    //public static int target = 0;
 
-    private final double ticks_in_degree =  1120 / 360.0;
+    public static double motorDegrees = 360.0;
+    public static double largeGear = 108;
+
+    public static double smallGear = 30;
+
+    public double gearRatio = largeGear / smallGear;
+
+    public double ticksPerRotation = 1120;
+
+    public static int dropTargetPosition = 700;
+
+    public static int pickUpTargetPosition = 20;
+    private final double ticks_in_degree = (gearRatio * ticksPerRotation)  / motorDegrees;
 
     private DcMotorEx arm;
     private Telemetry telemetry;
@@ -53,16 +67,34 @@ public class ArmSubsystem extends SubsystemBase {
         controller = new PIDController(p,i,d);
     }
 
-    public void setTargetPIDPosition(int t){
-        controller.setPIDF(p,i,d,f);
-        target = t;
-        setPower();
+    public void setDropTargetPIDPosition(){
+        controller.setPID(p,i,d);
+        setPower(dropTargetPosition);
+    }
+
+    public void setPickUpTargetPIDPosition(){
+        controller.setPID(p,i,d);
+        setPower(pickUpTargetPosition);
     }
 
     public void setTargetPosition(int t){
         arm.setTargetPosition(t);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         arm.setPower(0.5);
+
+    }
+
+    public void setDropTargetPosition(){
+        setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        arm.setTargetPosition(dropTargetPosition);
+
+
+    }
+
+    public void setPickUpTargetPosition(){
+        setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        arm.setTargetPosition(pickUpTargetPosition);
+
 
     }
 
@@ -83,29 +115,58 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void setDirection(DcMotorEx.Direction direction){
+
         arm.setDirection(direction);
     }
 
 
     public void setMode(DcMotorEx.RunMode mode){
+
         arm.setMode(mode);
     }
 
-    private void setPower(){
+    public void stopArm(){
+        arm.setPower(0);
+    }
+
+    public double getPowwr(){
+
+        return arm.getPower();
+    }
+
+    public double getPosition(){
+        return arm.getCurrentPosition();
+    }
+
+    public double getTarget(){
+
+        return arm.getTargetPosition();
+    }
+
+    private void setPower(int target){
         int armPos = arm.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
         double ff = Math.cos(Math.toRadians(target / ticks_in_degree)) * f;
 
         double power = pid * ff;
 
+
         arm.setPower(power);
+
+
+
 
         telemetry.addData("power, ", power);
         telemetry.addData("pos, ", armPos);
         telemetry.addData("target ", target);
+        telemetry.addData("motor power ", arm.getPower());
 
         telemetry.update();
+
+
     }
+
+
 
 
 }
