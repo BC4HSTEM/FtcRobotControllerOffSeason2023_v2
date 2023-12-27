@@ -39,5 +39,15 @@ public class ArmDropCommand extends CommandBase {
 
     }
 
+    @Override
+    public boolean isFinished(){
+        return armSubsystem.isAtDropTargetPosition();
+    }
+
+    @Override
+    public void end(boolean interrupt){
+        armSubsystem.stopArm();
+    }
+
 
 }

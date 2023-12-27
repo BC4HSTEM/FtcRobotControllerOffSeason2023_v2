@@ -77,7 +77,7 @@ public class CreateArmMechanism extends CreateMechanismBase {
         //35. create the subsystem, given that telemetry is used everywhere, use the constructor that sets it
         armSubsystem = new ArmSubsystem(arm, telemetry, true);
         //36. set what the motor would do when it has no power
-        armSubsystem.setZeroPowerBehavoir(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        armSubsystem.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         //37.not using encoders at this point but recommend stopping them
         armSubsystem.stopResetEncoder();
         //38. set the direction of the motor, ideally this is tested while not on the lift

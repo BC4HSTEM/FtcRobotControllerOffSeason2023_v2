@@ -37,4 +37,13 @@ public class ArmPickUpCommand extends CommandBase {
 
 
     }
+
+    public boolean isFinished(){
+        return armSubsystem.isAtPickUpTargetPosition();
+    }
+
+    @Override
+    public void end(boolean interrupt){
+        armSubsystem.stopArm();
+    }
 }

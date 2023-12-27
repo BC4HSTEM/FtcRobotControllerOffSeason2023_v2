@@ -110,7 +110,7 @@ public class ArmSubsystem extends SubsystemBase {
     //
     //// set the zero power behavior to BRAKE
     //m_motor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-    public void setZeroPowerBehavoir(DcMotorEx.ZeroPowerBehavior behavior){
+    public void setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior behavior){
         arm.setZeroPowerBehavior(behavior);
     }
 
@@ -132,6 +132,14 @@ public class ArmSubsystem extends SubsystemBase {
     public double getPowwr(){
 
         return arm.getPower();
+    }
+
+    public boolean isAtDropTargetPosition(){
+        return arm.getTargetPosition() == dropTargetPosition;
+    }
+
+    public boolean isAtPickUpTargetPosition(){
+        return arm.getTargetPosition() == pickUpTargetPosition;
     }
 
     public double getPosition(){
