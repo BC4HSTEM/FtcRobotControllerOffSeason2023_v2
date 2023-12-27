@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmDropCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmDropPositionCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmMidDropCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmPickUpCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmPickUpPositionCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.subsystems.ArmSubsystem;
@@ -21,6 +22,8 @@ public class CreateArmMechanism extends CreateMechanismBase {
     private ArmSubsystem armSubsystem;
     private ArmDropCommand armDropCommand;
     private ArmPickUpCommand armPickUpCommand;
+
+    private ArmMidDropCommand armMidDropCommand;
 
     private ArmDropPositionCommand armDropPositionCommand;
     private ArmPickUpPositionCommand armPickUpPositionCommand;
@@ -55,6 +58,7 @@ public class CreateArmMechanism extends CreateMechanismBase {
         //41. instead of creating the command right here, we created a function for it so we
         //can reuse the code for Auto
         armDropCommand = createDropCommand();
+        armMidDropCommand = createMidDropCommand();
         armPickUpCommand = createPickUpCommand();
 
         armDropPositionCommand = createDropPositionCommand();
@@ -62,6 +66,7 @@ public class CreateArmMechanism extends CreateMechanismBase {
 
         op.getGamepadButton(GamepadKeys.Button.Y).whenPressed(armDropCommand);
         op.getGamepadButton(GamepadKeys.Button.X).whenPressed(armPickUpCommand);
+        op.getGamepadButton(GamepadKeys.Button.B).whenPressed(armMidDropCommand);
         //armSubsystem.setDefaultCommand(armPickUpCommand);
 
     }
@@ -98,6 +103,10 @@ public class CreateArmMechanism extends CreateMechanismBase {
 
     private ArmDropPositionCommand createDropPositionCommand(){
         return new ArmDropPositionCommand(armSubsystem, telemetry);
+    }
+
+    private ArmMidDropCommand createMidDropCommand(){
+        return new ArmMidDropCommand(armSubsystem, telemetry);
     }
 
     private ArmPickUpPositionCommand createPickUpPositionCommand(){

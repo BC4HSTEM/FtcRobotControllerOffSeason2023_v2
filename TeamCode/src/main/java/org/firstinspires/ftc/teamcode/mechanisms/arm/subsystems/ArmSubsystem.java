@@ -35,6 +35,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     public static int dropTargetPosition = 700;
 
+    public static int dropMidPosition = 400;
+
     public static int pickUpTargetPosition = 20;
     private final double ticks_in_degree = (gearRatio * ticksPerRotation)  / motorDegrees;
 
@@ -75,6 +77,11 @@ public class ArmSubsystem extends SubsystemBase {
     public void setPickUpTargetPIDPosition(){
         controller.setPID(p,i,d);
         setPower(pickUpTargetPosition);
+    }
+
+    public void setMidDropTargetPIDPosition(){
+        controller.setPID(p,i,d);
+        setPower(dropMidPosition);
     }
 
     public void setTargetPosition(int t){
