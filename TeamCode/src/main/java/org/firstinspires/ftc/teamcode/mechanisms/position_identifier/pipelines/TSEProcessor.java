@@ -142,6 +142,11 @@ public class TSEProcessor implements VisionProcessor {
         return selection;
     }*/
 
+    public Selected getSelection()
+    {
+        return selection;
+    }
+
     public enum Selected {
         NONE,
         LEFT,

@@ -18,7 +18,7 @@ public class RecognizeTSEAutonomous extends OpMode {
     @Override
     public void init() {
         tseProcessor = new TSEProcessor();
-        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), tseProcessor);
+        visionPortal = VisionPortal.easyCreateWithDefaul0ts(hardwareMap.get(WebcamName.class, "Webcam 1"), tseProcessor);
     }
     @Override
     public void init_loop() {

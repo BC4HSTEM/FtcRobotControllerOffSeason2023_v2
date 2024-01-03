@@ -1,35 +1,22 @@
 package org.firstinspires.ftc.teamcode.mechanisms.position_identifier;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.CommandScheduler;
-
-import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import com.acmerobotics.dashboard.FtcDashboard;
-
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.CloseDetectTEPosition;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.StopDetectTEPosition;
-//import org.firstinspires.ftc.teamcode.commands.webcam.StreamToDashboard;
-
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.StreamToDashboard;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.ContourPipeline320w240h;
-
-
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
-
-import java.util.function.Consumer;
 
 public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
@@ -109,7 +96,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
         detectTEPosition = new DetectTEPosition(positionIdentifierSubsystem, telemetry);
         stopDetectTEPosition = new StopDetectTEPosition(positionIdentifierSubsystem,telemetry);
         closeDetectTEPosition = new CloseDetectTEPosition(positionIdentifierSubsystem,telemetry);
-        streamToDashboard = new StreamToDashboard(positionIdentifierSubsystem,dashboard);
+        streamToDashboard = new StreamToDashboard(positionIdentifierSubsystem);
         streamToDashboard.schedule();
     }
 
