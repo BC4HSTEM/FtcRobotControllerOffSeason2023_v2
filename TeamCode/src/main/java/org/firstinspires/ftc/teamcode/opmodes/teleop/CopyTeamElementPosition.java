@@ -20,23 +20,18 @@
  * SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.cv.OpenCvShippingElementDetector;
 import org.firstinspires.ftc.teamcode.hardwaremaps.ExternalCameraHardwareMap;
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
@@ -48,9 +43,8 @@ import java.util.Random;
  * This version of the internal camera example uses EasyOpenCV's interface to the
  * Android Camera2 API
  */
-@Disabled
-@TeleOp(name="Teleop: FF Shipping Element Detector", group="Teleop")
-public class CopyShippingElementPosition extends LinearOpMode
+@TeleOp(name="Teleop: Team Element Detector", group="Teleop")
+public class CopyTeamElementPosition extends LinearOpMode
 
 {
     int width = 320;
