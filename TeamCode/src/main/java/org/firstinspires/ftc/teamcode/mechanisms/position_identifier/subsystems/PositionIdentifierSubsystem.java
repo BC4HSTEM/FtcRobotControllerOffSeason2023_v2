@@ -77,8 +77,8 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
         return pipeline;
     }
 
-    public void StreamToDashboard(FtcDashboard dashboard){
-        dashboard.startCameraStream(webCam, MAX_FRAMES_PER_SECOND);
+    public void StreamToDashboard(){
+        FtcDashboard.getInstance().startCameraStream(webCam, MAX_FRAMES_PER_SECOND);
     }
 
     public void openCameraDeviceAsync(){

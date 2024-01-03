@@ -12,6 +12,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
@@ -51,23 +52,23 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
     private Trigger gotPositionTrigger;
 
-    public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry, final FtcDashboard dashboard){
+    public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry){
         super(hwMap, deviceName, op, telemetry);
-        this.dashboard = dashboard;
+        this.dashboard = FtcDashboard.getInstance();
 
     }
 
     //24. Constructor for Teleop .... notice the GamepdEx variable
-    public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry, final FtcDashboard dashboard, boolean autoCreate){
+    public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry, boolean autoCreate){
         super(hwMap, deviceName, op, telemetry, autoCreate);
-        this.dashboard = dashboard;
+        this.dashboard = FtcDashboard.getInstance();
 
     }
 
     //25. Constructor for Autonomous .... notice there is no GamePadEx variable
-    public CreatePositionIdentifierMechanism(final HardwareMap hwMap, final String deviceName, Telemetry telemetry, final FtcDashboard dashboard){
+    public CreatePositionIdentifierMechanism(final HardwareMap hwMap, final String deviceName, Telemetry telemetry){
         super(hwMap, deviceName, telemetry);
-        this.dashboard = dashboard;
+        this.dashboard = FtcDashboard.getInstance();
 
     }
 

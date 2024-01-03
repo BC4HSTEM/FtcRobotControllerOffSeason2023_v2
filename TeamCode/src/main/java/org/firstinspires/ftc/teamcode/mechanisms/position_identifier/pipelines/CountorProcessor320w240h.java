@@ -1,7 +1,13 @@
 package org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 //import org.firstinspires.ftc.teamcode.globals.Positions;
+import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -11,21 +17,15 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContourPipeline320w240h extends OpenCvPipeline{
-    // Green                        Y      Cr     Cb    (Do not change Y)
-    // use this picture for you own color https://raw.githubusercontent.com/PinkToTheFuture/OpenCV_FreightFrenzy_2021-2022/main/7e8azlgi.bmp
+public class CountorProcessor320w240h implements VisionProcessor {
+
     Scalar GREEN = new Scalar(0, 0, 255);
     public static Scalar scalarLowerYCrCb = new Scalar(0.0, 0.0, 0.0);
     public static Scalar scalarUpperYCrCb = new Scalar(220.0, 255.0, 90.0);
-    // public static Scalar scalarLowerYCrCb = new Scalar(0.0, 0.50, 0.50);
-    // public static Scalar scalarUpperYCrCb = new Scalar(150.0, 150.0, 130.0);
-
-    Telemetry telemetry;
 
     public double borderLeftX = 0.0;   //fraction of pixels from the left side of the cam to skip
     public double borderRightX = 0.0;   //fraction of pixels from the right of the cam to skip
@@ -37,49 +37,29 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
 
     private Mat mat = new Mat();
     private Mat processed = new Mat();
-    private Mat output = new Mat();
 
     private Rect maxRect = new Rect(600,1,1,1);
-    private Rect rect = new Rect(600,1,1,1);
+
+    Telemetry telemetry;
 
     Selected selection = Selected.NONE;
-
-
-    public ContourPipeline320w240h(Telemetry t) {
-
+    public CountorProcessor320w240h(Telemetry t){
         telemetry = t;
-
-        this.borderLeftX = 0.25;
-        this.borderRightX = 0.25;
-        this.borderTopY = 0.25;
-        this.borderBottomY = 0.45;
-
-        // Green Range                                      Y      Cr     Cb
-        // Scalar initScalarLowerYCrCb = new Scalar(0.0, 0.0, 0.0);
-        // Scalar initScalarUpperYCrCb = new Scalar(150.0, 150.0, 110.0);
-        Scalar initScalarLowerYCrCb = new Scalar(0.0, 0.0, 0.0);
-        Scalar initScalarUpperYCrCb = new Scalar(220.0, 255.0, 90.0);
-        configureScalarLower(initScalarLowerYCrCb.val[0],initScalarLowerYCrCb.val[1],initScalarLowerYCrCb.val[2]);
-        configureScalarUpper(initScalarUpperYCrCb.val[0],initScalarUpperYCrCb.val[1],initScalarUpperYCrCb.val[2]);
     }
-
-
-    public void configureScalarLower(double y, double cr, double cb) {
-        scalarLowerYCrCb = new Scalar(y, cr, cb);
-    }
-
-    public void configureScalarUpper(double y, double cr, double cb) {
-        scalarUpperYCrCb = new Scalar(y, cr, cb);
+    @Override
+    public void init(int width, int height, CameraCalibration calibration) {
+        // Code executed on the first frame dispatched into this VisionProcessor
     }
 
     @Override
-    public Mat processFrame(Mat input) {
-        CAMERA_WIDTH = input.width();
-        CAMERA_HEIGHT = input.height();
+    public Object processFrame(Mat frame, long captureTimeNanos) {
+        // Actual computer vision magic will happen here
+        CAMERA_WIDTH = frame.width();
+        CAMERA_HEIGHT = frame.height();
 
         // Process Image, convert to RGB, then processed to YCrCb,
         //Imgproc.cvtColor(input, input, Imgproc.COLOR_BGR2RGB);
-        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2YCrCb);
+        Imgproc.cvtColor(frame, mat, Imgproc.COLOR_RGB2YCrCb);
         Core.inRange(mat, scalarLowerYCrCb, scalarUpperYCrCb, processed);
 
         // Remove Noise
@@ -94,11 +74,11 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
         Imgproc.findContours(processed, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 
         // Draw Contours, red lines that show color areas that match
-        Imgproc.drawContours(input, contours, -1, new Scalar(255, 0, 0));
+        Imgproc.drawContours(frame, contours, -1, new Scalar(255, 0, 0));
         telemetry.addLine("Drawing countours");
 
         // Show the bounding area in which we will search for countours
-        Imgproc.rectangle(input, new Rect(40, 26, 200, 80), new Scalar(0, 0, 255), 2); // BLUE
+        Imgproc.rectangle(frame, new Rect(40, 26, 200, 80), new Scalar(0, 0, 255), 2); // BLUE
 
         // Set default maxRect to one pixel. Default will return as Level 3
         maxRect = new Rect(0,0,1,1);
@@ -117,7 +97,7 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
                                 && rect.x > 40 && rect.x < 270
                 ){
                     maxRect = rect;
-                    Imgproc.rectangle(input, maxRect, new Scalar(255, 255, 255), 1); // GREEN
+                    Imgproc.rectangle(frame, maxRect, new Scalar(255, 255, 255), 1); // GREEN
 
                     telemetry.addData("maxrectX", maxRect.x);
                     telemetry.addData("maxrectY", maxRect.y);
@@ -128,16 +108,44 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
             contour.release();
         }
 
-        // Outline found rectangle in Green
+
+
+        return maxRect;
+    }
+
+    @Override
+    public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
+        // Cool feature: This method is used for drawing annotations onto
+        // the displayed image, e.g outlining and indicating which objects
+        // are being detected on the screen, using a GPU and high quality
+        // graphics Canvas which allow for crisp quality shapes.
+
+        Mat input = (Mat) userContext;
         Imgproc.rectangle(input, maxRect, new Scalar(0, 255, 0), 2); // GREEN
+
+        Paint rectPaint = new Paint();
+        rectPaint.setColor(Color.GREEN);
+        rectPaint.setStyle(Paint.Style.STROKE);
+        rectPaint.setStrokeWidth(scaleCanvasDensity * 2);
+
+        canvas.drawRect(makeGraphicsRect(maxRect, scaleBmpPxToCanvasPx), rectPaint);
 
         // Show target locations for midpoint
 
-        Imgproc.rectangle(input, new Rect(40, 30, 98, 78), new Scalar(255, 255, 255), 2); // WHITE BOX Level 1
-        Imgproc.rectangle(input, new Rect(140, 30, 78, 78), new Scalar(255, 255, 255), 2); // WHITE BOX Level 2
+        Rect position1 = new Rect(40, 30, 98, 78);
+        Rect position2 = new Rect(140, 30, 78, 78);
+        Imgproc.rectangle(input, position1, new Scalar(255, 255, 255), 2); // WHITE BOX Position 1
+        Imgproc.rectangle(input, position2, new Scalar(255, 255, 255), 2); // WHITE BOX Position 2
+
+        Paint rectWhitePaint = new Paint();
+        rectPaint.setColor(Color.WHITE);
+        rectPaint.setStyle(Paint.Style.STROKE);
+        rectPaint.setStrokeWidth(scaleCanvasDensity * 2);
+
+        canvas.drawRect(makeGraphicsRect(position1, scaleBmpPxToCanvasPx), rectWhitePaint);
+        canvas.drawRect(makeGraphicsRect(position2, scaleBmpPxToCanvasPx), rectWhitePaint);
 
 
-        // Check maxRect for midpoint value to determine which location the element is in
         // Check maxRect for midpoint value to determine which location the element is in
         if( getRectMidpointXY().x > 40 &&  getRectMidpointXY().x < 139 ) {
             //Positions.getInstance().setTEPosition(Positions.TEPosition.POSITION_1);
@@ -156,9 +164,25 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
         Imgproc.putText(input, "Location" + selection, new Point(10, 20), 0, 0.35, new Scalar(255, 255, 255), 1);
         Imgproc.putText(input, "Area: " + getRectArea() + " Midpoint: " + getRectMidpointXY().x + " , " + getRectMidpointXY().y, new Point(10, 10), 0, 0.35, new Scalar(255, 255, 255), 1);
 
-        telemetry.update();
 
-        return input;
+        telemetry.update();
+    }
+
+    private android.graphics.Rect makeGraphicsRect(Rect rect, float scaleBmpPxToCanvasPx) {
+        int left = Math.round(rect.x * scaleBmpPxToCanvasPx);
+        int top = Math.round(rect.y * scaleBmpPxToCanvasPx);
+        int right = left + Math.round(rect.width * scaleBmpPxToCanvasPx);
+        int bottom = top + Math.round(rect.height * scaleBmpPxToCanvasPx);
+
+        return new android.graphics.Rect(left, top, right, bottom);
+    }
+
+    public void configureScalarLower(double y, double cr, double cb) {
+        scalarLowerYCrCb = new Scalar(y, cr, cb);
+    }
+
+    public void configureScalarUpper(double y, double cr, double cb) {
+        scalarUpperYCrCb = new Scalar(y, cr, cb);
     }
 
     public int getRectHeight() {
@@ -197,9 +221,9 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
         return maxRect.area();
     }
 
-    /*public Positions.TEPosition getPosition() {
-        return Positions.getInstance().getTEPosition();
-    }*/
+    //public Positions.TEPosition getPosition() {
+        //return Positions.getInstance().getTEPosition();
+    //}
 
     public enum Selected {
         NONE,
@@ -207,5 +231,6 @@ public class ContourPipeline320w240h extends OpenCvPipeline{
         MIDDLE,
         RIGHT
     }
-
 }
+
+

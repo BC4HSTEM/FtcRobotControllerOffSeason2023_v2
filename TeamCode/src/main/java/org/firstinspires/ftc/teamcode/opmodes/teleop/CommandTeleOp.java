@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.CreateGrabberWristMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 
 
 @TeleOp(name="Command Combined TeleOp")
@@ -32,6 +34,7 @@ public class CommandTeleOp extends CommandOpMode {
         CreatePixelGrabberMechanism createPixelGrabber = new CreatePixelGrabberMechanism(hardwareMap, "pixel_grabber", driver1, telemetry, true);
         CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hardwareMap, "drone_Launch", driver1, telemetry, true);
         CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hardwareMap, "wrist_Motion", driver1, telemetry, true);
+        //CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hardwareMap, "web_cam", driver1, telemetry, true);
 
     }
     public void execute(){
