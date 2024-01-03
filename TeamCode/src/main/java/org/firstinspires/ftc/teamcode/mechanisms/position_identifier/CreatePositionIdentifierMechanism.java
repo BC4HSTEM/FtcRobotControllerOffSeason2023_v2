@@ -109,7 +109,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
         detectTEPosition = new DetectTEPosition(positionIdentifierSubsystem, telemetry);
         stopDetectTEPosition = new StopDetectTEPosition(positionIdentifierSubsystem,telemetry);
         closeDetectTEPosition = new CloseDetectTEPosition(positionIdentifierSubsystem,telemetry);
-        streamToDashboard = new StreamToDashboard(positionIdentifierSubsystem,dashboard);
+        streamToDashboard = new StreamToDashboard(positionIdentifierSubsystem);
         streamToDashboard.schedule();
     }
 

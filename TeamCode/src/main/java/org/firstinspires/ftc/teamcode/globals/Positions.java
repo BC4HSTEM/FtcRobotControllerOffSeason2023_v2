@@ -7,9 +7,9 @@ public enum Positions {
     INSTANCE;
 
     public enum TEPosition {
-        POSITION_3,
-        POSITION_2,
-        POSITION_1,
+        POSITION_RIGHT,
+        POSITION_MIDDLE,
+        POSITION_LEFT,
         NONE
     }
 
@@ -24,9 +24,9 @@ public enum Positions {
         positions.put(TEPosition.POSITION_2,2);
         positions.put(TEPosition.POSITION_3,3);*/
 
-        setTEPosition(TEPosition.POSITION_3);
+        setTEPosition(TEPosition.POSITION_RIGHT);
     }
-    private TEPosition selectedTEPosition = TEPosition.POSITION_3;
+    private TEPosition selectedTEPosition = TEPosition.POSITION_RIGHT;
 
     public void setTEPosition(TEPosition position){
         selectedTEPosition = position;
