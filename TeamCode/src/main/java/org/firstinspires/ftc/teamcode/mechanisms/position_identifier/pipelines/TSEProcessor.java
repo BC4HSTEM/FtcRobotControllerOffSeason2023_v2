@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
+import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -41,14 +42,14 @@ public class TSEProcessor implements VisionProcessor {
 
         if ((satRectLeft > satRectMiddle) && (satRectLeft > satRectRight)) {
             return Selected.LEFT;
-            //return Positions.TEPosition.POSITION_1;
+            //return Positions.TEPosition.POSITION_LEFT;
         }
         else if ((satRectMiddle > satRectLeft) && (satRectMiddle > satRectRight)) {
-            //return Positions.TEPosition.POSITION_2;
+            //return Positions.TEPosition.POSITION_MIDDLE;
             return Selected.MIDDLE;
         }
 
-        //return Positions.TEPosition.POSITION_3;
+        //return Positions.TEPosition.POSITION_RIGHT;
         return Selected.RIGHT;
         //return null;
     }
@@ -84,6 +85,7 @@ public class TSEProcessor implements VisionProcessor {
         android.graphics.Rect drawRectangleRight = makeGraphicsRect(rectRight, scaleBmpPxToCanvasPx);
 
         selection = (Selected) userContext;
+        //Positions.getInstance().setTEPosition(selection);
 
         switch (selection) {
             case LEFT:
@@ -111,18 +113,18 @@ public class TSEProcessor implements VisionProcessor {
         }
 
         /*switch (selection) {
-            case POSITION_1:
+            case POSITION_LEFT:
                 canvas.drawRect(drawRectangleLeft, selectedPaint);
                 canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
                 canvas.drawRect(drawRectangleRight, nonSelectedPaint);
                 break;
-            case POSITION_2:
+            case POSITION_MIDDLE:
                 canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
                 canvas.drawRect(drawRectangleMiddle, selectedPaint);
                 canvas.drawRect(drawRectangleRight, nonSelectedPaint);
                 break;
 
-            case POSITION_3:
+            case POSITION_RIGHT:
                 canvas.drawRect(drawRectangleLeft, nonSelectedPaint);
                 canvas.drawRect(drawRectangleMiddle, nonSelectedPaint);
                 canvas.drawRect(drawRectangleRight, selectedPaint);
@@ -142,8 +144,10 @@ public class TSEProcessor implements VisionProcessor {
         return selection;
     }*/
 
+
     public Selected getSelection()
     {
+
         return selection;
     }
 
