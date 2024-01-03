@@ -31,7 +31,7 @@ public class CommandTeleOp extends CommandOpMode {
         //CreateGrabberMechanism createGrabber = new CreateGrabberMechanism(hardwareMap, "grab", driver1, telemetry, true);
 
         CreateArmMechanism createArmMechanism = new CreateArmMechanism(hardwareMap, "arm", driver1, telemetry, true);
-        CreatePixelGrabberMechanism createPixelGrabber = new CreatePixelGrabberMechanism(hardwareMap, "pixel_grabber", driver1, telemetry, true);
+        CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hardwareMap, "pixel_grabber", driver1, telemetry, true);
         CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hardwareMap, "drone_Launch", driver1, telemetry, true);
         CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hardwareMap, "wrist_Motion", driver1, telemetry, true);
         //CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hardwareMap, "web_cam", driver1, telemetry, true);

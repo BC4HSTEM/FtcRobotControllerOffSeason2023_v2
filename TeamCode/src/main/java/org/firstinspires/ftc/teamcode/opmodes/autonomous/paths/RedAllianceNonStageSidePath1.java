@@ -12,21 +12,29 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 //import org.firstinspires.ftc.teamcode.globals.Junctions;
+import org.firstinspires.ftc.teamcode.globals.PixelTrajectory;
+import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.ParkCommandRedSideStage;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.drone_launcher.CreateDroneLauncherMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
 
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.commands.GrabberCloseCommand;
 
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.commands.GrabberCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.CreateGrabberWristMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
 
 import org.firstinspires.ftc.teamcode.mechanisms.lift.subsystems.LiftSubsystem;
 //import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.CreateSleeveReaderMechanism;
 //import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.commands.ReadSleeveCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCommand;
 
 public class RedAllianceNonStageSidePath1 {
 
@@ -59,12 +67,14 @@ public class RedAllianceNonStageSidePath1 {
     private CreateLiftMechanism createLiftMechanism;
     private CreateGrabberMechanism createGrabberMechanism;
 
-    private GrabberCloseCommand grabberCloseCommand;
-    private GrabberCommand grabberCommand;
+    private PixelGrabberLeftCommand grabberOpenLeftCommand;
+    private PixelGrabberRightCommand grabberOpenRightCommand;
 
     private TurnCommand turnCommand;
 
     private ParkCommandRedSideStage parkCommand;
+
+    private RunToPixelDropLocationCommand runToPixelDropLocationCommand;
 
 
     private Trajectory traj3;
@@ -95,28 +105,42 @@ public class RedAllianceNonStageSidePath1 {
         drive.setPoseEstimate(startPose);
 
 
-        CreateGrabberMechanism grabberMechanism = new CreateGrabberMechanism(hwMap, "grab", telemetry);
-        grabberMechanism.createAuto();
+        CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
+        createArmMechanism.create();
 
-        createLiftMechanism = new CreateLiftMechanism(hwMap, "lift", telemetry);
-        createLiftMechanism.createAuto();
+        CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hwMap, "pixel_grabber", telemetry);
+        createPixelGrabberMechanism.createAuto();
 
-        LiftSubsystem liftSubsystem = createLiftMechanism.getLiftSubsystem();
+        CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hwMap, "drone_Launch", telemetry);
+        createDroneLauncherMechanism.createAuto();
+
+        CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
+        createGrabberWristMechanism.createAuto();
+
+        //CreateGrabberMechanism grabberMechanism = new CreateGrabberMechanism(hwMap, "grab", telemetry);
+        //grabberMechanism.createAuto();
+
+        //createLiftMechanism = new CreateLiftMechanism(hwMap, "lift", telemetry);
+        //createLiftMechanism.createAuto();
+
+        //LiftSubsystem liftSubsystem = createLiftMechanism.getLiftSubsystem();
 
 
         //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
         waitCommand1 = new WaitCommand (1000);
-        grabberCloseCommand = grabberMechanism.createGrabberCloseCommand();
-        grabberCommand = grabberMechanism.getGrabberCommand();
+        //holds Purple Pixels
+        grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftCommand();
+        //Holds Yellow Pixel
+        grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightCommand();
 
 
+        runToPixelDropLocationCommand = new RunToPixelDropLocationCommand(drive, startPose, telemetry);
 
-
-        Trajectory traj1 = drive.trajectoryBuilder(startPose)
+        Trajectory traj1 = drive.trajectoryBuilder(PixelTrajectory.getInstance().getPixelTraj().end())
                 /*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*/
-                .lineToLinearHeading(new Pose2d(40.8,47.7, Math.toRadians(315)))
+                .lineToLinearHeading(new Pose2d(-36,-26, Math.toRadians(270)))
                 .build();
 
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
@@ -181,7 +205,7 @@ public class RedAllianceNonStageSidePath1 {
     public void execute(CommandOpMode commandOpMode){
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
-                follower1));
+                follower1, grabberOpenLeftCommand));
     }
 
 }

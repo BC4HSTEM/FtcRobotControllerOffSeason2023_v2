@@ -37,7 +37,7 @@ public class AutonomousGamePad extends CommandOpMode {
 
     //final Pose2d blueAllianceBlueSideStartPose = new Pose2d(-36,60, Math.toRadians(270));
     //final Pose2d blueAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
-    final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36,60, Math.toRadians(270));
+    final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36,-60, Math.toRadians(270));
     //final Pose2d redAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
 
 
@@ -49,10 +49,6 @@ public class AutonomousGamePad extends CommandOpMode {
     CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
     //private ReadSleeveCommand rsc;
     //private CreateLEDMechanism createLEDs;
-
-    private int LEFT = 1;
-    private int MIDDLE = 2;
-    private int RIGHT = 3;
 
     private final Vector2d[] finalPosition = new Vector2d[1];
 
@@ -84,7 +80,7 @@ public class AutonomousGamePad extends CommandOpMode {
         //createLEDs = new CreateLEDMechanism(hardwareMap, "blinkin");
 
 
-        determineParkingSpot();
+        determineTEPosition();
 
 
         while (!this.isStarted()){
@@ -93,9 +89,8 @@ public class AutonomousGamePad extends CommandOpMode {
         }
     }
 
-    private void determineParkingSpot(){
+    private void determineTEPosition(){
 
-        //createSleeveReader.getReadSleeveCommand().schedule();
         createPositionIdentifierMechanism.getDetectTEPositionCommand().schedule();
 
     }
@@ -242,7 +237,7 @@ public class AutonomousGamePad extends CommandOpMode {
     private void showOptions(boolean update){
 
         telemetry.addLine("Press (X) for BLUE Alliance, (B) for RED Alliance");
-        telemetry.addLine("Press (Y) for BLUE Side, (A) for RED Side");
+        telemetry.addLine("Press (Y) for STAGE Side, (A) for NON STAGE Side");
         telemetry.addLine("Press (^) for Path 1");
         telemetry.addLine("Press (>) for Path 2");
         telemetry.addLine("Press (v) for Path 3");
