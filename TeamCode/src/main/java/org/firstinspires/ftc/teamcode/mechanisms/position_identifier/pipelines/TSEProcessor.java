@@ -4,9 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-//import org.firstinspires.ftc.teamcode.globals.Positions;
-import org.firstinspires.ftc.vision.VisionProcessor;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
+import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -15,10 +14,10 @@ import org.opencv.imgproc.Imgproc;
 
 public class TSEProcessor implements VisionProcessor {
 
-    public Rect rectLeft = new Rect(110, 42, 40, 40);
-    public Rect rectMiddle = new Rect(160, 42, 40, 40);
+    public Rect rectLeft = new Rect(60, 42, 40, 40);
+    public Rect rectMiddle = new Rect(125, 42, 40, 40);
 
-    public Rect rectRight = new Rect(210, 42, 40, 40);
+    public Rect rectRight = new Rect(190, 42, 40, 40);
 
     Mat submat = new Mat();
     Mat hsvMat = new Mat();
@@ -51,6 +50,7 @@ public class TSEProcessor implements VisionProcessor {
 
         //return Positions.TEPosition.POSITION_3;
         return Selected.RIGHT;
+        //return null;
     }
 
     protected double getAvgSaturation(Mat input, Rect rect){
@@ -74,8 +74,10 @@ public class TSEProcessor implements VisionProcessor {
         selectedPaint.setStyle(Paint.Style.STROKE);
         selectedPaint.setStrokeWidth(scaleCanvasDensity * 4);
 
-        Paint nonSelectedPaint = new Paint(selectedPaint);
+        Paint nonSelectedPaint = new Paint();
         nonSelectedPaint.setColor(Color.GREEN);
+        nonSelectedPaint.setStyle(Paint.Style.STROKE);
+        nonSelectedPaint.setStrokeWidth(scaleCanvasDensity * 4);
 
         android.graphics.Rect drawRectangleLeft = makeGraphicsRect(rectLeft, scaleBmpPxToCanvasPx);
         android.graphics.Rect drawRectangleMiddle = makeGraphicsRect(rectMiddle, scaleBmpPxToCanvasPx);
