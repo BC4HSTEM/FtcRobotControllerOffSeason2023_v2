@@ -64,7 +64,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
         createBase();
         //setArmLevel = new SetArmLevel(armSubsystem,armSubsystem.getLevel(subsystem.getLevel()),telemetry);
-
+        op.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenReleased(detectTEPosition);
         detectTEPosition.schedule();
 
 
@@ -75,7 +75,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
     public void createAuto(){
         //subsystem = new WebCamSubsystem(hwMap,deviceName,new OpenCvShippingElementDetector(320,240,telemetry));
         createBase();
-        op.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenReleased(detectTEPosition);
+
 
         //mockDetectTSEPosition = new MockDetectTSEPosition(subsystem, telemetry);
 

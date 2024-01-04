@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,7 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
 @TeleOp
+@Config
 public class HelloWorld extends OpMode {
     // Delete DcMotor liftMotor
     DcMotor FrontLeft = null;
@@ -23,6 +26,8 @@ public class HelloWorld extends OpMode {
     Servo droneLaunch =null;
     boolean grabberLeftOpen = true;
     boolean grabberRightOpen = true;
+
+    public static int topPosition = 2100;
 
 
     public void init(){
@@ -83,7 +88,7 @@ public class HelloWorld extends OpMode {
         }
 
         if(gamepad1.y){
-            Arm.setTargetPosition(700);
+            Arm.setTargetPosition(topPosition);
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setPower(0.5);
 
