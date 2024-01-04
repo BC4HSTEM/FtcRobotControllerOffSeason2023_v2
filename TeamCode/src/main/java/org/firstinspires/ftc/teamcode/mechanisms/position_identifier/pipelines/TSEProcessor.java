@@ -15,10 +15,10 @@ import org.opencv.imgproc.Imgproc;
 
 public class TSEProcessor implements VisionProcessor {
 
-    public Rect rectLeft = new Rect(60, 42, 40, 40);
-    public Rect rectMiddle = new Rect(125, 42, 40, 40);
+    public Rect rectLeft = new Rect(60, 130, 40, 40);
+    public Rect rectMiddle = new Rect(125, 130, 40, 40);
 
-    public Rect rectRight = new Rect(190, 42, 40, 40);
+    public Rect rectRight = new Rect(195, 130, 40, 40);
 
     Mat submat = new Mat();
     Mat hsvMat = new Mat();
