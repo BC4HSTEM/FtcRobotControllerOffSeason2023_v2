@@ -29,7 +29,7 @@ public class DetectTEPosition extends CommandBase {
     @Override
     public void initialize(){
 
-        positionIdentifierSubsystem.openCameraDeviceAsync();
+        positionIdentifierSubsystem.detectTEPosition();
         //telemetry.addData("We are initialize", "detectPosition");
     }
 }

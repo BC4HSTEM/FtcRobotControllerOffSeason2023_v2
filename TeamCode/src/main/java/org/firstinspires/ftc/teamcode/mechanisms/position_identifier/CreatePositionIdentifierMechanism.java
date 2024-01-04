@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.mechanisms.position_identifier;
 
+import android.util.Size;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -14,13 +16,14 @@ import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.De
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.StopDetectTEPosition;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.StreamToDashboard;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.ContourPipeline320w240h;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessor;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
+import org.firstinspires.ftc.vision.VisionPortal;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
-    private Telemetry telemetry;
     private  PositionIdentifierSubsystem positionIdentifierSubsystem;
 
     private FtcDashboard dashboard;
@@ -34,10 +37,8 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
     private OpenCvWebcam webCam;
 
-    private static final String ID_NAME = "cameraMonitorViewId";
-    private static final String ID_DEF_TYPE = "id";
-
-    private Trigger gotPositionTrigger;
+    private int width = 320;
+    private int height = 240;
 
     public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry){
         super(hwMap, deviceName, op, telemetry);
@@ -77,27 +78,38 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
         createBase();
 
 
-        //mockDetectTSEPosition = new MockDetectTSEPosition(subsystem, telemetry);
-
-
-
-
-        //gotPositionTrigger = new Trigger(()->positionIdentifierSubsystem.getLevel() > 0);
-
-
     }
     @Override
     public void createBase(){
-        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier(ID_NAME, ID_DEF_TYPE, hwMap.appContext.getPackageName());
-        webCam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, deviceName), cameraMonitorViewId);
 
-        positionIdentifierSubsystem = new PositionIdentifierSubsystem(webCam,new ContourPipeline320w240h(telemetry));
+        TSEProcessor tseProcessor = new TSEProcessor();
+        VisionPortal.Builder myVisionPortalBuilder;
+
+
+// Create a new VisionPortal Builder object.
+        myVisionPortalBuilder = new VisionPortal.Builder();
+
+// Specify the camera to be used for this VisionPortal.
+        myVisionPortalBuilder.setCamera(hwMap.get(WebcamName.class, deviceName));      // Other choices are: RC phone camera and "switchable camera name".
+
+// Add the AprilTag Processor to the VisionPortal Builder.
+        myVisionPortalBuilder.addProcessor(tseProcessor);       // An added Processor is enabled by default.
+
+// Optional: set other custom features of the VisionPortal (4 are shown here).
+        myVisionPortalBuilder.setCameraResolution(new Size(width, height));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
+        myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.MJPEG);  // MJPEG format uses less bandwidth than the default YUY2.
+        myVisionPortalBuilder.enableLiveView(true);      // Enable LiveView (RC preview).
+        myVisionPortalBuilder.setAutoStopLiveView(true);     // Automatically stop LiveView (RC preview) when all vision processors are disabled.
+
+// Create a VisionPortal by calling build()
+
+
+        positionIdentifierSubsystem = new PositionIdentifierSubsystem(myVisionPortalBuilder);
 
         detectTEPosition = new DetectTEPosition(positionIdentifierSubsystem, telemetry);
         stopDetectTEPosition = new StopDetectTEPosition(positionIdentifierSubsystem,telemetry);
         closeDetectTEPosition = new CloseDetectTEPosition(positionIdentifierSubsystem,telemetry);
-        streamToDashboard = new StreamToDashboard(positionIdentifierSubsystem);
-        streamToDashboard.schedule();
+
     }
 
     public DetectTEPosition getDetectTEPositionCommand(){
@@ -112,14 +124,6 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
         return closeDetectTEPosition;
     }
 
-    /*public MockDetectTSEPosition getMockDetectTSEPositionCommand(){
-        return mockDetectTSEPosition;
-
-    }*/
-
-    public Trigger getGotPositionTrigger(){
-        return gotPositionTrigger;
-    }
 
     public PositionIdentifierSubsystem getPositionIdentifierSubsystem(){
         return positionIdentifierSubsystem;

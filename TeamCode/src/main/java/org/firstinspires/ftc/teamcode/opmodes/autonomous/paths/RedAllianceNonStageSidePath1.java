@@ -35,10 +35,13 @@ import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCommand;
+import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class RedAllianceNonStageSidePath1 {
 
     private MecanumDriveSubsystem drive;
+
+    private TrajectoryFollowerCommand followPixel;
     private TrajectoryFollowerCommand follower1;
     private TrajectoryFollowerCommand follower2;
     private TrajectoryFollowerCommand follower3;
@@ -106,7 +109,7 @@ public class RedAllianceNonStageSidePath1 {
 
 
         CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
-        createArmMechanism.create();
+        createArmMechanism.createAuto();
 
         CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hwMap, "pixel_grabber", telemetry);
         createPixelGrabberMechanism.createAuto();
@@ -133,14 +136,15 @@ public class RedAllianceNonStageSidePath1 {
         //Holds Yellow Pixel
         grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightCommand();
 
+        CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
+        Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-        runToPixelDropLocationCommand = new RunToPixelDropLocationCommand(drive, startPose, telemetry);
 
-        Trajectory traj1 = drive.trajectoryBuilder(PixelTrajectory.getInstance().getPixelTraj().end())
+        Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
                 /*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*/
-                .lineToLinearHeading(new Pose2d(-36,-26, Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(220)))
                 .build();
 
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
@@ -190,6 +194,8 @@ public class RedAllianceNonStageSidePath1 {
 
         parkCommand = new ParkCommandRedSideStage(drive, traj7.end(), telemetry);
 
+        followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
+
         follower1 = new TrajectoryFollowerCommand(drive,traj1);
         follower2 = new TrajectoryFollowerCommand(drive,traj2);
         follower3 = new TrajectoryFollowerCommand(drive,traj3);
@@ -205,7 +211,7 @@ public class RedAllianceNonStageSidePath1 {
     public void execute(CommandOpMode commandOpMode){
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
-                follower1, grabberOpenLeftCommand));
+                followPixel, grabberOpenLeftCommand));
     }
 
 }

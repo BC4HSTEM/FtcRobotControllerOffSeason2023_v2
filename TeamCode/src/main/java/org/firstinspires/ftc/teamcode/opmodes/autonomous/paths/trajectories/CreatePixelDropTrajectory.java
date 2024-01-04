@@ -1,24 +1,20 @@
-package org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner;
+package org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.globals.Alliance;
 import org.firstinspires.ftc.teamcode.globals.PixelTrajectory;
 import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.globals.Side;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
-public class RunToPixelDropLocationCommand extends CommandBase {
-    private final MecanumDriveSubsystem drive;
-    private final Pose2d previousTrajEnd;
-    private final Telemetry telemetry;
-
+public class CreatePixelDropTrajectory {
     private Vector2d redNonStageSideLeft = new Vector2d(-46,-30);
-    private Vector2d redNonStageSideMiddle = new Vector2d(-36,-26);
+    private Vector2d redNonStageSideMiddle = new Vector2d(-36,-55);
     private Vector2d redNonStageSideRight = new Vector2d(-27,-29);
 
     private Vector2d redStageSideLeft = new Vector2d(-46,-30);
@@ -30,23 +26,24 @@ public class RunToPixelDropLocationCommand extends CommandBase {
     private Vector2d blueNonStageSideRight = new Vector2d(-27,-29);
 
     private Vector2d blueStageSideLeft = new Vector2d(-46,-30);
-    private Vector2d blueStageSideMiddle = new Vector2d(-36,-26);
+    private Vector2d blueStageSideMiddle = new Vector2d(-36,-55);
     private Vector2d blueStageSideRight = new Vector2d(-27,-29);
     private Vector2d finalPosition = redNonStageSideRight;
 
-    TrajectoryFollowerCommand followPixel;
+    private final MecanumDriveSubsystem drive;
+    private final Pose2d previousTrajEnd;
+    private final Telemetry telemetry;
 
-    public RunToPixelDropLocationCommand(MecanumDriveSubsystem drive, Trajectory pixelTraj, Pose2d previousTrajEnd, Telemetry telemetry) {
+    Trajectory pixelTraj;
+
+    TrajectoryFollowerCommand followPixel;
+    public CreatePixelDropTrajectory(MecanumDriveSubsystem drive, Pose2d previousTrajEnd, Telemetry telemetry){
         this.drive = drive;
         this.previousTrajEnd = previousTrajEnd;
         this.telemetry = telemetry;
-
-        addRequirements(drive);
     }
 
-    @Override
-    public void initialize() {
-
+    public Trajectory createTrajectory(){
         telemetry.addData("Tag snapshot id in Park Command:", Positions.getInstance().getTEPosition());
 
         Positions.TEPosition psPosition = Positions.getInstance().getTEPosition();
@@ -100,29 +97,16 @@ public class RunToPixelDropLocationCommand extends CommandBase {
         telemetry.update();
 
 
-        Trajectory pixelTraj = drive.trajectoryBuilder(previousTrajEnd)
+        pixelTraj = drive.trajectoryBuilder(previousTrajEnd)
                 .lineToConstantHeading(finalPosition)
                 .build();
 
-        followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
-        PixelTrajectory.getInstance().setPixelTraj(pixelTraj);
+        return pixelTraj;
 
     }
 
-    @Override
-    public void execute() {
-
+    public Trajectory getPixelTraj(){
+        return pixelTraj;
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        followPixel.schedule();
-        //drive.stop();
-
-    }
-
-    @Override
-    public boolean isFinished() {
-        return followPixel.isFinished();
-    }
 }

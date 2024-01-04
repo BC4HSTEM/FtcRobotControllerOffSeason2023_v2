@@ -40,8 +40,6 @@ public class AutonomousGamePad extends CommandOpMode {
     final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36,-60, Math.toRadians(270));
     //final Pose2d redAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
 
-
-
     private Pose2d selectedStartPos = new Pose2d(0,0);
 
     private SequentialCommandGroup webCamGroup;
@@ -72,10 +70,7 @@ public class AutonomousGamePad extends CommandOpMode {
         configureSelectPathButtons(driver1);
         configureExecutePath(driver1);
 
-
-        //createSleeveReader = new CreateSleeveReaderMechanism(hardwareMap, "Webcam 1", telemetry, this);
-        //createSleeveReader.createAuto();
-        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hardwareMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hardwareMap, "Webcam 1", telemetry);
         createPositionIdentifierMechanism.createAuto();
         //createLEDs = new CreateLEDMechanism(hardwareMap, "blinkin");
 
@@ -169,6 +164,7 @@ public class AutonomousGamePad extends CommandOpMode {
 
     private void configureExecutePath(GamepadEx op){
         op.getGamepadButton(GamepadKeys.Button.START).whenPressed(()->{
+            createPositionIdentifierMechanism.getStopDetectTEPosition().schedule();
             telemetry.addLine("Path Executing.....");
             telemetry.update();
 

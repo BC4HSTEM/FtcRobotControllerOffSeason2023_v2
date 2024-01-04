@@ -20,7 +20,7 @@ public class StreamToDashboard extends CommandBase {
 
     @Override
     public void initialize(){
-        positionIdentifierSubsystem.StreamToDashboard();
+        //positionIdentifierSubsystem.StreamToDashboard();
     }
 
 }

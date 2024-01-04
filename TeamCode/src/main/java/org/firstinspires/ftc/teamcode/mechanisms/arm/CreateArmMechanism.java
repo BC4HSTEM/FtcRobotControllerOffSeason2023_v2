@@ -72,10 +72,15 @@ public class CreateArmMechanism extends CreateMechanismBase {
     }
 
     @Override
+    public void createAuto(){
+        createBase();
+    }
+
+    @Override
     public void createBase(){
         telemetry.addLine("Arm createBase");
 
-        arm = hwMap.get(DcMotorEx.class,"arm" );
+        arm = hwMap.get(DcMotorEx.class,deviceName );
         telemetry.addData("Arm", arm);
         telemetry.update();
 
