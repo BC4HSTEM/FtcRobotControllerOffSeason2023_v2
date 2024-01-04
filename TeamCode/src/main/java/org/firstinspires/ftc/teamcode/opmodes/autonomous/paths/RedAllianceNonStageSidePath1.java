@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 //import org.firstinspires.ftc.teamcode.globals.Junctions;
-import org.firstinspires.ftc.teamcode.globals.PixelTrajectory;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.ParkCommandRedSideStage;
@@ -22,19 +21,17 @@ import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunne
 import org.firstinspires.ftc.teamcode.mechanisms.drone_launcher.CreateDroneLauncherMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
 
-import org.firstinspires.ftc.teamcode.mechanisms.grabber.commands.GrabberCloseCommand;
-
-import org.firstinspires.ftc.teamcode.mechanisms.grabber.commands.GrabberCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.CreateGrabberWristMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
 
-import org.firstinspires.ftc.teamcode.mechanisms.lift.subsystems.LiftSubsystem;
 //import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.CreateSleeveReaderMechanism;
 //import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.commands.ReadSleeveCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
-import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCommand;
-import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCloseCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftOpenCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCloseCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class RedAllianceNonStageSidePath1 {
@@ -70,8 +67,14 @@ public class RedAllianceNonStageSidePath1 {
     private CreateLiftMechanism createLiftMechanism;
     private CreateGrabberMechanism createGrabberMechanism;
 
-    private PixelGrabberLeftCommand grabberOpenLeftCommand;
-    private PixelGrabberRightCommand grabberOpenRightCommand;
+    private PixelGrabberLeftOpenCommand grabberCloseLeftCommand;
+    private PixelGrabberLeftCloseCommand grabberOpenLeftCommand;
+    private PixelGrabberRightOpenCommand grabberOpenRightCommand;
+
+    private PixelGrabberRightCloseCommand grabberCloseRightCommand;
+
+
+
 
     private TurnCommand turnCommand;
 
@@ -132,9 +135,10 @@ public class RedAllianceNonStageSidePath1 {
         //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
         waitCommand1 = new WaitCommand (1000);
         //holds Purple Pixels
-        grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftCommand();
+        grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
+        grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftOpenCommand();
         //Holds Yellow Pixel
-        grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightCommand();
+        grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightOpenCommand();
 
         CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
         Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
@@ -211,7 +215,7 @@ public class RedAllianceNonStageSidePath1 {
     public void execute(CommandOpMode commandOpMode){
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
-                followPixel, grabberOpenLeftCommand));
+                grabberOpenLeftCommand));
     }
 
 }
