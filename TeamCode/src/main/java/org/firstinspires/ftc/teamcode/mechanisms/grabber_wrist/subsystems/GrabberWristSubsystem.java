@@ -12,7 +12,7 @@ public class GrabberWristSubsystem extends SubsystemBase {
     private ServoEx grabberWrist;
     Telemetry telemetry;
 
-    public static double dropPosition = .13;
+    public static double dropPosition = .5;
     public static double pickUpPosition = .27;
 
 
