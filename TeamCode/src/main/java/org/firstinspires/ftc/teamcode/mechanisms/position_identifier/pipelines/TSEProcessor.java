@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.vision.VisionProcessor;
@@ -12,13 +14,13 @@ import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-
+@Config
 public class TSEProcessor implements VisionProcessor {
 
-    public Rect rectLeft = new Rect(90, 130, 40, 40);
-    public Rect rectMiddle = new Rect(170, 130, 40, 40);
+    public static Rect rectLeft = new Rect(50, 140, 40, 40);
+    public static Rect rectMiddle = new Rect(155, 140, 40, 40);
 
-    public Rect rectRight = new Rect(270, 130, 40, 40);
+    public static Rect rectRight = new Rect(270, 140, 40, 40);
 
     Mat submat = new Mat();
     Mat hsvMat = new Mat();

@@ -13,22 +13,24 @@ import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 public class CreatePixelDropTrajectory {
-    private Vector2d redNonStageSideLeft = new Vector2d(-46,-30);
-    private Vector2d redNonStageSideMiddle = new Vector2d(-36,-55);
-    private Vector2d redNonStageSideRight = new Vector2d(-27,-29);
+    private Pose2d redNonStageSideLeft = new Pose2d(-36,-58, Math.toRadians(84));
+    private Pose2d redNonStageSideMiddle = new Pose2d(-36,-58, Math.toRadians(90));
+    private Pose2d redNonStageSideRight = new Pose2d(-36,-58, Math.toRadians(94));
 
-    private Vector2d redStageSideLeft = new Vector2d(-46,-30);
-    private Vector2d redStageSideMiddle = new Vector2d(-36,-26);
-    private Vector2d redStageSideRight = new Vector2d(-27,-29);
+    private Pose2d redStageSideLeft = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d redStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d redStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
 
-    private Vector2d blueNonStageSideLeft = new Vector2d(-46,-30);
-    private Vector2d blueNonStageSideMiddle = new Vector2d(-36,-26);
-    private Vector2d blueNonStageSideRight = new Vector2d(-27,-29);
+    private Pose2d blueNonStageSideLeft = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d blueNonStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
 
-    private Vector2d blueStageSideLeft = new Vector2d(-46,-30);
-    private Vector2d blueStageSideMiddle = new Vector2d(-36,-55);
-    private Vector2d blueStageSideRight = new Vector2d(-27,-29);
-    private Vector2d finalPosition = redNonStageSideRight;
+    private Pose2d blueStageSideLeft = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d blueStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d blueStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d finalPosition = redNonStageSideRight;
+
+
 
     private final MecanumDriveSubsystem drive;
     private final Pose2d previousTrajEnd;
@@ -98,7 +100,7 @@ public class CreatePixelDropTrajectory {
 
 
         pixelTraj = drive.trajectoryBuilder(previousTrajEnd)
-                .lineToConstantHeading(finalPosition)
+                .lineToLinearHeading(finalPosition)
                 .build();
 
         return pixelTraj;

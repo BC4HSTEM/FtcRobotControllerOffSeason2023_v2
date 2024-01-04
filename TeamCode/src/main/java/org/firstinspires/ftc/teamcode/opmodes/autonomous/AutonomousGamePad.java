@@ -37,7 +37,7 @@ public class AutonomousGamePad extends CommandOpMode {
 
     //final Pose2d blueAllianceBlueSideStartPose = new Pose2d(-36,60, Math.toRadians(270));
     //final Pose2d blueAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
-    final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36,-60, Math.toRadians(270));
+    final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36,-60, Math.toRadians(90));
     //final Pose2d redAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
 
     private Pose2d selectedStartPos = new Pose2d(0,0);
