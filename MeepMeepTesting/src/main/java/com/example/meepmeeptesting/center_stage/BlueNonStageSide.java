@@ -14,7 +14,7 @@ public class BlueNonStageSide {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Required: Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(37.105101137333385, 30, 16.897379840537297, Math.toRadians(180), 13.35)
                 // Option: Set theme. Default = ColorSchemeRedDark()
                 .setColorScheme(new ColorSchemeRedDark())
                 .followTrajectorySequence(drive ->

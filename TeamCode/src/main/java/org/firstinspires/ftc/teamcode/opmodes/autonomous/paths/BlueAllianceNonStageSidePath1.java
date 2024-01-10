@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmodes.autonomous.paths;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -11,22 +10,17 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import org.firstinspires.ftc.teamcode.globals.Junctions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.ParkCommandRedSideStage;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.mechanisms.drone_launcher.CreateDroneLauncherMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
-
 import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.CreateGrabberWristMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
-
-//import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.CreateSleeveReaderMechanism;
-//import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.commands.ReadSleeveCommand;
-import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCloseCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftOpenCommand;
@@ -34,7 +28,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
-public class RedAllianceNonStageSidePath1 {
+public class BlueAllianceNonStageSidePath1 {
 
     private MecanumDriveSubsystem drive;
 
@@ -90,7 +84,7 @@ public class RedAllianceNonStageSidePath1 {
     SequentialCommandGroup close;
 
 
-    public RedAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
+    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
         this.hwMap = hwMap;
         startPose = sp;
         this.telemetry = telemetry;
@@ -98,7 +92,7 @@ public class RedAllianceNonStageSidePath1 {
 
     }
 
-    public RedAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
+    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
         this.hwMap = hwMap;
         startPose = sp;
         dashboard = db;
@@ -143,21 +137,21 @@ public class RedAllianceNonStageSidePath1 {
         CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
         Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-        /*.lineToLinearHeading(new Pose2d(-36,-40, Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(-36, -60, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(56, -60, Math.toRadians(0)))*/
+        /*.lineToLinearHeading(new Pose2d(-36,40, Math.toRadians(270)))
+                                .lineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(56, 60, Math.toRadians(0)))*/
 
         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
                 /*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*/
-                .lineToLinearHeading(new Pose2d(-36, -60, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(0)))
                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                 .build();
 
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
                 //.lineTo(new Vector2d(-41, 52))
-                .lineToLinearHeading(new Pose2d(56, -60, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(56, 60, Math.toRadians(0)))
                 .build();
 
         /*Trajectory traj3 = drive.trajectoryBuilder(traj2.end())

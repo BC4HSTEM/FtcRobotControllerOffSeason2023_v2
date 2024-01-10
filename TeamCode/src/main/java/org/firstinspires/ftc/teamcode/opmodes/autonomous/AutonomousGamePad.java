@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePosit
 //import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceStageSidePath1;
 //import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceNonStageSidePath1;
 //import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceStageSidePath1;
+import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceNonStageSidePath1;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceNonStageSidePath1;
 
 import java.util.Objects;
@@ -35,10 +36,10 @@ public class AutonomousGamePad extends CommandOpMode {
     //final String[] selectedPath = new String[1];
 
 
-    //final Pose2d blueAllianceBlueSideStartPose = new Pose2d(-36,60, Math.toRadians(270));
-    //final Pose2d blueAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
-    final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36,-60, Math.toRadians(90));
-    //final Pose2d redAllianceRedSideStartPose = new Pose2d(36,60, Math.toRadians(270));
+    final Pose2d blueAllianceNonStageSideStartPose = new Pose2d(-36, 60, Math.toRadians(270));
+    //final Pose2d blueAllianceStageSideStartPose = new Pose2d(36,60, Math.toRadians(270));
+    final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36, -60, Math.toRadians(90));
+    //final Pose2d redAllianceStageSideStartPose = new Pose2d(36,60, Math.toRadians(270));
 
     private Pose2d selectedStartPos = new Pose2d(0,0);
 
@@ -177,14 +178,14 @@ public class AutonomousGamePad extends CommandOpMode {
 
         if (Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
             if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE) {
-                //selectedStartPos = blueAllianceStageideStartPose;
+                //selectedStartPos = blueAllianceStageSideStartPose;
             } else if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED) {
                 //selectedStartPos = redAllianceStageSideStartPose;
             }
         }
         else if(Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
             if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE) {
-                //selectedStartPos = blueAllianceNoneStageSideStartPose;
+                selectedStartPos = blueAllianceNonStageSideStartPose;
             } else if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED) {
                 selectedStartPos = redAllianceNonStageSideStartPose;
             }
@@ -212,9 +213,9 @@ public class AutonomousGamePad extends CommandOpMode {
                 //rsPath1.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-                //BlueAllianceNonStageSidePath1 bnsPath1 = new BlueAllianceNonStageSidePath1 (hardwareMap, selectedStartPos, telemetry);
-                //bnsPath1.createPath();
-                //bnsPath1.execute(this);
+                BlueAllianceNonStageSidePath1 bnsPath1 = new BlueAllianceNonStageSidePath1(hardwareMap, selectedStartPos, telemetry);
+                bnsPath1.createPath();
+                bnsPath1.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
                 RedAllianceNonStageSidePath1 rnsPath1 = new RedAllianceNonStageSidePath1 (hardwareMap, selectedStartPos, telemetry);
