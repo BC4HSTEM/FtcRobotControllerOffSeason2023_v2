@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mechanisms.drivetrain.constants;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
@@ -20,8 +21,8 @@ public class DriveConstants {
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 1;
-    public static final double MAX_RPM = 1;
+    public static final double TICKS_PER_REV = 537.6;
+    public static final double MAX_RPM = 312.5;
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
@@ -32,8 +33,8 @@ public class DriveConstants {
      * from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
-            getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(3.795876753374, 0, 0.0649587676408,
+            13.358767530799584);
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -43,9 +44,12 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 1; // in
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 15; // in
+    public static double WHEEL_RADIUS = 1.5; // in
+
+    private static double measuredX = 58; //in
+    private static double reportedX = 56.03798936113183; //in
+    public static double GEAR_RATIO = 1 * (measuredX/ reportedX); // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 13.33; //15; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -64,9 +68,9 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = 23425.656329862744;
+    public static double MAX_VEL = 35.48760152005904;
     public static double MAX_ACCEL = 30;
-    public static double MAX_ANG_VEL = Math.toRadians(60);
+    public static double MAX_ANG_VEL = 13.32940649737636; //Math.toRadians(60);
     public static double MAX_ANG_ACCEL = Math.toRadians(60);
 
     /*
