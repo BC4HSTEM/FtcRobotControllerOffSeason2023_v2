@@ -20,8 +20,8 @@ public class RedNonStageSide {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-36, -60, Math.toRadians(90)))
                                 .lineToLinearHeading(new Pose2d(-36,-40, Math.toRadians(90)))
-                                .lineToLinearHeading(new Pose2d(-36, -60, Math.toRadians(0)))
-                                .lineToLinearHeading(new Pose2d(56, -60, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(-36, -60, Math.toRadians(180)))
+                                .lineToLinearHeading(new Pose2d(56, -60, Math.toRadians(180)))
                                 //.turn(Math.toRadians(90))
                                 //.forward(30)
                                 .addDisplacementMarker(() -> {

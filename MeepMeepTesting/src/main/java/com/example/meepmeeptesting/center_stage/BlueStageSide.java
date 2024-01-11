@@ -6,7 +6,7 @@ import com.noahbres.meepmeep.core.colorscheme.scheme.ColorSchemeRedDark;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class BlueNonStageSide {
+public class BlueStageSide {
     public static void main(String[] args) {
         // Declare a MeepMeep instance
         // With a field size of 800 pixels
@@ -17,22 +17,18 @@ public class BlueNonStageSide {
                 .setConstraints(37.105101137333385, 30, 16.897379840537297, Math.toRadians(180), 13.35)
                 // Option: Set theme. Default = ColorSchemeRedDark()
                 .setColorScheme(new ColorSchemeRedDark())
+                // place purple pixel and park
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-36, 60, Math.toRadians(270)))
-                                .lineToLinearHeading(new Pose2d(-36,40, Math.toRadians(270)))
-                                .lineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(180)))
-                                .lineToLinearHeading(new Pose2d(56, 60, Math.toRadians(180)))
-                                //.turn(Math.toRadians(90))
-                                //.forward(30)
+                        drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(270)))
+                                .lineToLinearHeading(new Pose2d(12,37, Math.toRadians(270)))
+                                // Drop Purple Pixel on the spike mark here
                                 .addDisplacementMarker(() -> {
-                                    /* Everything in the marker callback should be commented out */
-
-                                    // bot.shooter.shoot()
-                                    // bot.wobbleArm.lower()
+                                    // Drop Pixel based on object
+                                    // Collapse the grabber wrist to arm
                                 })
-                                /*.turn(Math.toRadians(90))
-                                .splineTo(new Vector2d(10, 15), 0)
-                                .turn(Math.toRadians(90))*/
+                                .lineToLinearHeading(new Pose2d(12, 60, Math.toRadians(0)))
+                                // Park in the backstage
+                                .lineToLinearHeading(new Pose2d(60, 60, Math.toRadians(0)))
                                 .build()
                 );
 
