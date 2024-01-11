@@ -25,8 +25,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePosit
 //import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceStageSidePath1;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceNonStageSidePath1;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceNonStageSidePath1;
-
-import java.util.Objects;
+import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceStageSidePath1;
 
 @Autonomous(name="Auto Gamepad", group="Stage")
 public class AutonomousGamePad extends CommandOpMode {
@@ -37,9 +36,9 @@ public class AutonomousGamePad extends CommandOpMode {
 
 
     final Pose2d blueAllianceNonStageSideStartPose = new Pose2d(-36, 60, Math.toRadians(270));
-    //final Pose2d blueAllianceStageSideStartPose = new Pose2d(36,60, Math.toRadians(270));
+    final Pose2d blueAllianceStageSideStartPose = new Pose2d(12,60, Math.toRadians(270));
     final Pose2d redAllianceNonStageSideStartPose = new Pose2d(-36, -60, Math.toRadians(90));
-    //final Pose2d redAllianceStageSideStartPose = new Pose2d(36,60, Math.toRadians(270));
+    final Pose2d redAllianceStageSideStartPose = new Pose2d(12,-60, Math.toRadians(90));
 
     private Pose2d selectedStartPos = new Pose2d(0,0);
 
@@ -178,7 +177,7 @@ public class AutonomousGamePad extends CommandOpMode {
 
         if (Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
             if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE) {
-                //selectedStartPos = blueAllianceStageSideStartPose;
+                selectedStartPos = blueAllianceStageSideStartPose;
             } else if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED) {
                 //selectedStartPos = redAllianceStageSideStartPose;
             }
@@ -202,9 +201,9 @@ public class AutonomousGamePad extends CommandOpMode {
         if (Path.getInstance().getSelectedPathToFollow() == Path.PositionToFollow.PATH_1) {
             Path.getInstance().setSelectedPathToFollow(Path.PositionToFollow.PATH_1);
             if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE) {
-                //BlueAllianceStageSidePath1 bsPath1 = new BlueAllianceStageSidePath1 (hardwareMap, selectedStartPos, telemetry);
-                //bsPath1.createPath();
-                //bsPath1.execute(this);
+                BlueAllianceStageSidePath1 bsPath1 = new BlueAllianceStageSidePath1(hardwareMap, selectedStartPos, telemetry);
+                bsPath1.createPath();
+                bsPath1.execute(this);
 
             } else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
 

@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
-public class BlueAllianceNonStageSidePath1 {
+public class BlueAllianceStageSidePath1 {
 
     private MecanumDriveSubsystem drive;
 
@@ -86,7 +86,7 @@ public class BlueAllianceNonStageSidePath1 {
     SequentialCommandGroup close;
 
 
-    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
+    public BlueAllianceStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
         this.hwMap = hwMap;
         startPose = sp;
         this.telemetry = telemetry;
@@ -94,7 +94,7 @@ public class BlueAllianceNonStageSidePath1 {
 
     }
 
-    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
+    public BlueAllianceStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
         this.hwMap = hwMap;
         startPose = sp;
         dashboard = db;
@@ -141,21 +141,27 @@ public class BlueAllianceNonStageSidePath1 {
         CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
         Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-        /*..lineToLinearHeading(new Pose2d(-36,40, Math.toRadians(270)))
-                                .lineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(180)))
-                                .lineToLinearHeading(new Pose2d(56, 60, Math.toRadians(180)))*/
+        /*..lineToLinearHeading(new Pose2d(12,37, Math.toRadians(270)))
+                                // Drop Purple Pixel on the spike mark here
+                                .addDisplacementMarker(() -> {
+                                    // Drop Pixel based on object
+                                    // Collapse the grabber wrist to arm
+                                })
+                                .lineToLinearHeading(new Pose2d(12, 60, Math.toRadians(0)))
+                                // Park in the backstage
+                                .lineToLinearHeading(new Pose2d(60, 60, Math.toRadians(0)))*/
 
         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
                 /*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*/
-                .lineToLinearHeading(new Pose2d(-36, 53, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(12, 53, Math.toRadians(0)))
                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                 .build();
 
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
                 //.lineTo(new Vector2d(-41, 52))
-                .lineToLinearHeading(new Pose2d(56, 53, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(50, 53, Math.toRadians(0)))
                 .build();
 
         /*Trajectory traj3 = drive.trajectoryBuilder(traj2.end())

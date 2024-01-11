@@ -21,13 +21,13 @@ public class CreatePixelDropTrajectory {
     private Pose2d redStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));
     private Pose2d redStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
 
-    private Pose2d blueNonStageSideLeft = new Pose2d(-36,40, Math.toRadians(270));
-    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,40, Math.toRadians(270));
-    private Pose2d blueNonStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d blueNonStageSideLeft = new Pose2d(-30,40, Math.toRadians(300));
+    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,30, Math.toRadians(270));
+    private Pose2d blueNonStageSideRight = new Pose2d(-40,36, Math.toRadians(230));
 
-    private Pose2d blueStageSideLeft = new Pose2d(-36,-50, Math.toRadians(90));
-    private Pose2d blueStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));
-    private Pose2d blueStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d blueStageSideLeft = new Pose2d(18,40, Math.toRadians(300));
+    private Pose2d blueStageSideMiddle = new Pose2d(12,30, Math.toRadians(270));
+    private Pose2d blueStageSideRight = new Pose2d(6,36, Math.toRadians(230));
     private Pose2d finalPosition = redNonStageSideRight;
 
 

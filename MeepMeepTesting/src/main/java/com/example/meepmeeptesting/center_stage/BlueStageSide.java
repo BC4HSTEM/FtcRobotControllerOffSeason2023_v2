@@ -14,7 +14,7 @@ public class BlueStageSide {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Required: Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(37.105101137333385, 30, 16.897379840537297, Math.toRadians(180), 13.35)
+                .setConstraints(40.06441304308421, 30, 18.580384897314797, Math.toRadians(180), 13.81)
                 // Option: Set theme. Default = ColorSchemeRedDark()
                 .setColorScheme(new ColorSchemeRedDark())
                 // place purple pixel and park
