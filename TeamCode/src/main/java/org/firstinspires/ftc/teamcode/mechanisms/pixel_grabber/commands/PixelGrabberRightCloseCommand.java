@@ -33,17 +33,10 @@ public class PixelGrabberRightCloseCommand extends CommandBase{
         grabberSubsystem.closeRightGrabberPosition();
     }
 
+
     @Override
-    public void execute(){
-        telemetry.addData("grabber right position", grabberSubsystem.getGrabberRightPosition());
-        telemetry.addData("grabber right close position", grabberSubsystem.getRightClosePosition());
-        telemetry.update();
-    }
-
-
-    /*@Override
     public boolean isFinished(){
-        return grabberSubsystem.getPosition() >= grabberSubsystem.getClosePosition();
-    }*/
+        return true;
+    }
 
 }

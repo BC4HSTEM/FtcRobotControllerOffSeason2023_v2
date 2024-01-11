@@ -23,4 +23,9 @@ public class GrabberWristDropCommand extends CommandBase {
         grabberWristSubsystem.DropPixel();
 
     }
+
+    @Override
+    public boolean isFinished(){
+        return true;
+    }
 }

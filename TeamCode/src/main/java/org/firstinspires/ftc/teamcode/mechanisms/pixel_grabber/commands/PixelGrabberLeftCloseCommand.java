@@ -41,9 +41,9 @@ public class PixelGrabberLeftCloseCommand extends CommandBase{
     }
 
 
-    /*@Override
+    @Override
     public boolean isFinished(){
-        return grabberSubsystem.getPosition() >= grabberSubsystem.getClosePosition();
-    }*/
+        return true;
+    }
 
 }

@@ -13,9 +13,9 @@ import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 
 public class CreatePixelDropTrajectory {
-    private Pose2d redNonStageSideLeft = new Pose2d(-36,-58, Math.toRadians(84));
-    private Pose2d redNonStageSideMiddle = new Pose2d(-36,-40, Math.toRadians(90));
-    private Pose2d redNonStageSideRight = new Pose2d(-36,-58, Math.toRadians(94));
+    private Pose2d redNonStageSideLeft = new Pose2d(-36,-40, Math.toRadians(150));
+    private Pose2d redNonStageSideMiddle = new Pose2d(-36,-32, Math.toRadians(90));
+    private Pose2d redNonStageSideRight = new Pose2d(-30,-36, Math.toRadians(50));
 
     private Pose2d redStageSideLeft = new Pose2d(-36,-50, Math.toRadians(90));
     private Pose2d redStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));

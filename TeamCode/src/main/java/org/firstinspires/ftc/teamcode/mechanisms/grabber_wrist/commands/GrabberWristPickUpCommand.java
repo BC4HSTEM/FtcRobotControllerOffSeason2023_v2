@@ -22,4 +22,9 @@ public class GrabberWristPickUpCommand extends CommandBase {
         grabberWristSubsystem.PickUpPixel();
 
     }
+
+    @Override
+    public boolean isFinished(){
+        return true;
+    }
 }
