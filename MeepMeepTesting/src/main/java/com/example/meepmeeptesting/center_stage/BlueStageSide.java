@@ -17,6 +17,7 @@ public class BlueStageSide {
                 .setConstraints(37.105101137333385, 30, 16.897379840537297, Math.toRadians(180), 13.35)
                 // Option: Set theme. Default = ColorSchemeRedDark()
                 .setColorScheme(new ColorSchemeRedDark())
+                // place purple pixel and park 
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(12, 60, Math.toRadians(270)))
                                 .lineToLinearHeading(new Pose2d(12,37, Math.toRadians(270)))
