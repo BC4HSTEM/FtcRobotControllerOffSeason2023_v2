@@ -33,8 +33,8 @@ public class DriveConstants {
      * from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(4.6492418749999981, 0, 0,
-            13.092418749999981);
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(2.8846840271969895, 0, .12646840271969895,
+            12.446840271969895);
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -46,10 +46,10 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 1.5; // in
 
-    private static double measuredX = 58; //in
-    private static double reportedX = 56.03798936113183; //in
-    public static double GEAR_RATIO = 1 * (measuredX/ reportedX); // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 13.35; //15; // in
+    public static double reportedX = 57.0220591558737;
+    public static double measuredX = 58.5;
+    public static double GEAR_RATIO = 1 * (measuredX / reportedX); // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 13.81; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -68,16 +68,16 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = 37.105101137333385;
+    public static double MAX_VEL = 40.06441304308421;
     public static double MAX_ACCEL = 30;
-    public static double MAX_ANG_VEL = 16.897379840537297; //Math.toRadians(60);
+    public static double MAX_ANG_VEL = 18.580384897314797;
     public static double MAX_ANG_ACCEL = Math.toRadians(60);
 
     /*
      * Adjust the orientations here to match your robot. See the FTC SDK documentation for details.
      */
     public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
-            RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
+            RevHubOrientationOnRobot.LogoFacingDirection.UP;
     public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
             RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 

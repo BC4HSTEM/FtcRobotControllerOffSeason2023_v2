@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
  * These are not the only parameters; some are located in the localizer classes, drive base classes,
  * and op modes themselves.
  */
-
+@Config
 public class DriveConstants {
 
     /*
@@ -33,8 +33,8 @@ public class DriveConstants {
      * from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(3.795876753374, 0, 0.0649587676408,
-            13.358767530799584);
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(2.8846840271969895, 0, .12646840271969895,
+            12.446840271969895);
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -46,10 +46,10 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 1.5; // in
 
-    private static double measuredX = 58; //in
-    private static double reportedX = 56.03798936113183; //in
-    public static double GEAR_RATIO = 1 * (measuredX/ reportedX); // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 13.33; //15; // in
+    public static double reportedX = 57.0220591558737;
+    public static double measuredX = 58.5;
+    public static double GEAR_RATIO = 1 * (measuredX / reportedX); // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 13.81; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -68,16 +68,16 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = 35.48760152005904;
+    public static double MAX_VEL = 40.06441304308421;
     public static double MAX_ACCEL = 30;
-    public static double MAX_ANG_VEL = 13.32940649737636; //Math.toRadians(60);
+    public static double MAX_ANG_VEL = 18.580384897314797;
     public static double MAX_ANG_ACCEL = Math.toRadians(60);
 
     /*
      * Adjust the orientations here to match your robot. See the FTC SDK documentation for details.
      */
     public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
-            RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
+            RevHubOrientationOnRobot.LogoFacingDirection.UP;
     public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
             RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 

@@ -55,13 +55,12 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(20, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(10, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(4, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(4, 0, 0);
 
-    public static double reportedY = 59.95326968803147;
-    public static double measuredY = 55;
-
-    public static double LATERAL_MULTIPLIER = reportedY / measuredY; //was 1
+    public static double reportedY = 52.66994148982784;
+    public static double measuredY = 51;
+    public static double LATERAL_MULTIPLIER = 1.2;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
@@ -127,9 +126,6 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
-        //leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        //leftRear.setDirection((DcMotorSimple.Direction.REVERSE));
-
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRear.setDirection((DcMotorSimple.Direction.REVERSE));
 
