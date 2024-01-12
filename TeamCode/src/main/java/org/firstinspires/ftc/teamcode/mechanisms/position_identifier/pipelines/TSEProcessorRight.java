@@ -106,7 +106,8 @@ public class TSEProcessorRight implements VisionProcessor {
 
         //selection = (Selected) userContext;
         selection = (Positions.TEPosition) userContext;
-        //Positions.getInstance().setTEPosition(selection);
+        telemetry.addData("I'm the selected", selection);
+        Positions.getInstance().setTEPosition(selection);
 
         /*switch (selection) {
             case LEFT:

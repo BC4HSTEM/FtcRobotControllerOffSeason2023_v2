@@ -173,7 +173,7 @@ public class AutonomousGamePad extends CommandOpMode {
             telemetry.addLine("Path Executing.....");
             telemetry.update();
 
-            determineTEPosition();
+            //determineTEPosition();
 
             executePath();
 
@@ -209,7 +209,7 @@ public class AutonomousGamePad extends CommandOpMode {
                 Side.getInstance().getPositionSide().toString(),
                 Path.getInstance().getSelectedPathToFollow(),selectedStartPos, Positions.getInstance().getTEPosition()));
 
-        telemetry.update();
+
 
         if (Path.getInstance().getSelectedPathToFollow() == Path.PositionToFollow.PATH_1) {
             Path.getInstance().setSelectedPathToFollow(Path.PositionToFollow.PATH_1);
@@ -219,6 +219,7 @@ public class AutonomousGamePad extends CommandOpMode {
                 bsPath1.execute(this);
 
             } else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
+
 
                 RedAllianceStageSidePath1 rsPath1 = new RedAllianceStageSidePath1(hardwareMap, selectedStartPos, telemetry);
                 rsPath1.createPath();

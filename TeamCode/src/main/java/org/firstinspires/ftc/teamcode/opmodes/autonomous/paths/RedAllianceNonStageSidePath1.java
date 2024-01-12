@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 //import org.firstinspires.ftc.teamcode.globals.Junctions;
+import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
@@ -241,7 +243,12 @@ public class RedAllianceNonStageSidePath1 {
     public void execute(CommandOpMode commandOpMode){
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
-                grabberWristPickUpCommand,detectTEPositionCommand.andThen(followPixel, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2) ));
+                detectTEPositionCommand.andThen(new InstantCommand(()->{
+                    telemetry.addData("Selection Position None Stage Side Red", Positions.getInstance().getTEPosition());
+                    telemetry.update();
+                }))));
+
+                //grabberWristPickUpCommand,detectTEPositionCommand.andThen(followPixel, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2) ));
     }
 
 }
