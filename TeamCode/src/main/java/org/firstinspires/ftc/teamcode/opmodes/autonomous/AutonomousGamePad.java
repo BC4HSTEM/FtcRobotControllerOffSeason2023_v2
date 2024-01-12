@@ -26,6 +26,8 @@ import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePosit
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceNonStageSidePath1;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceNonStageSidePath1;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.BlueAllianceStageSidePath1;
+import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceStageSidePath1;
+import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.RedAllianceStageSidePath2;
 
 @Autonomous(name="Auto Gamepad", group="Stage")
 public class AutonomousGamePad extends CommandOpMode {
@@ -48,6 +50,7 @@ public class AutonomousGamePad extends CommandOpMode {
     //private ReadSleeveCommand rsc;
     //private CreateLEDMechanism createLEDs;
 
+
     private final Vector2d[] finalPosition = new Vector2d[1];
 
     @Override
@@ -60,6 +63,8 @@ public class AutonomousGamePad extends CommandOpMode {
         //selectedPath[0] = "None";
 
 
+        //Must reset static Positions global
+        Positions.getInstance().setTEPosition(Positions.TEPosition.NONE);
 
         GamepadEx driver1 = new GamepadEx(gamepad1);
 
@@ -75,7 +80,6 @@ public class AutonomousGamePad extends CommandOpMode {
         //createLEDs = new CreateLEDMechanism(hardwareMap, "blinkin");
 
 
-        determineTEPosition();
 
 
         while (!this.isStarted()){
@@ -164,12 +168,21 @@ public class AutonomousGamePad extends CommandOpMode {
 
     private void configureExecutePath(GamepadEx op){
         op.getGamepadButton(GamepadKeys.Button.START).whenPressed(()->{
-            createPositionIdentifierMechanism.getStopDetectTEPosition().schedule();
+
+            //showTSEPosition();
             telemetry.addLine("Path Executing.....");
             telemetry.update();
 
+            determineTEPosition();
+
             executePath();
+
+            //createPositionIdentifierMechanism.getStopDetectTEPosition().schedule();
+            //createPositionIdentifierMechanism.getDetectTEPositionCommand().whenFinished(this::executePath).schedule();
+
+
         });
+
     }
 
     private void executePath(){
@@ -179,7 +192,7 @@ public class AutonomousGamePad extends CommandOpMode {
             if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE) {
                 selectedStartPos = blueAllianceStageSideStartPose;
             } else if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED) {
-                //selectedStartPos = redAllianceStageSideStartPose;
+                selectedStartPos = redAllianceStageSideStartPose;
             }
         }
         else if(Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
@@ -191,10 +204,10 @@ public class AutonomousGamePad extends CommandOpMode {
         }
 
         telemetry.clearAll();
-        telemetry.addData("Selections Complete", String.format("Alliance: %s - Side: %s - Path: %s - Position: %s",
+        telemetry.addData("Selections Complete", String.format("Alliance: %s - Side: %s - Path: %s - Start Position: %s - TGE Side: %s",
                 Alliance.getInstance().getAllianceTeam().toString(),
                 Side.getInstance().getPositionSide().toString(),
-                Path.getInstance().getSelectedPathToFollow(),selectedStartPos));
+                Path.getInstance().getSelectedPathToFollow(),selectedStartPos, Positions.getInstance().getTEPosition()));
 
         telemetry.update();
 
@@ -207,9 +220,9 @@ public class AutonomousGamePad extends CommandOpMode {
 
             } else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
 
-                //RedAllianceStageSidePath1 rsPath1 = new RedAllianceStageSidePath1 (hardwareMap, selectedStartPos, telemetry);
-                //rsPath1.createPath();
-                //rsPath1.execute(this);
+                RedAllianceStageSidePath1 rsPath1 = new RedAllianceStageSidePath1(hardwareMap, selectedStartPos, telemetry);
+                rsPath1.createPath();
+                rsPath1.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
                 BlueAllianceNonStageSidePath1 bnsPath1 = new BlueAllianceNonStageSidePath1(hardwareMap, selectedStartPos, telemetry);
@@ -223,7 +236,30 @@ public class AutonomousGamePad extends CommandOpMode {
             }
         }
 
-        if (Path.getInstance().getSelectedPathToFollow() == Path.PositionToFollow.PATH_2) {}
+        if (Path.getInstance().getSelectedPathToFollow() == Path.PositionToFollow.PATH_2) {
+            Path.getInstance().setSelectedPathToFollow(Path.PositionToFollow.PATH_2);
+            if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE) {
+                //BlueAllianceStageSidePath2 bsPath2 = new BlueAllianceStageSidePath2(hardwareMap, selectedStartPos, telemetry);
+                //bsPath2.createPath();
+                //bsPath2.execute(this);
+
+            } else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
+
+                RedAllianceStageSidePath2 rsPath2 = new RedAllianceStageSidePath2(hardwareMap, selectedStartPos, telemetry);
+                rsPath2.createPath();
+                rsPath2.execute(this);
+            }
+            else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
+                //BlueAllianceNonStageSidePath2 bnsPath2 = new BlueAllianceNonStageSidePath2(hardwareMap, selectedStartPos, telemetry);
+                //bnsPath2.createPath();
+                //bnsPath2.execute(this);
+            }
+            else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
+                //RedAllianceNonStageSidePath2 rnsPath2 = new RedAllianceNonStageSidePath2 (hardwareMap, selectedStartPos, telemetry);
+                //rnsPath2.createPath();
+                //rnsPath2.execute(this);
+            }
+        }
 
         if (Path.getInstance().getSelectedPathToFollow() == Path.PositionToFollow.PATH_3) {}
 
@@ -258,7 +294,7 @@ public class AutonomousGamePad extends CommandOpMode {
     }
 
     private void showTSEPosition(){
-        telemetry.addData("Tag snapshot id in Auto:", Positions.getInstance().getTEPosition());
+        telemetry.addData("Tag snapshot id in Autono:", Positions.getInstance().getTEPosition());
         telemetry.addLine("\n");
     }
 

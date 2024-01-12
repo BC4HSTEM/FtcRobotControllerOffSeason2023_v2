@@ -6,6 +6,7 @@ import android.graphics.Paint;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.vision.VisionProcessor;
@@ -15,12 +16,14 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 @Config
-public class TSEProcessor implements VisionProcessor {
+public class TSEProcessorLeft implements VisionProcessor {
 
-    public static Rect rectLeft = new Rect(50, 140, 40, 40);
-    public static Rect rectMiddle = new Rect(155, 140, 40, 40);
+    public static Rect rectLeft = new Rect(65, 140, 40, 40);
+    public static Rect rectMiddle = new Rect(175, 140, 40, 40);
 
-    public static Rect rectRight = new Rect(270, 140, 40, 40);
+    public static Rect rectRight = new Rect(275, 140, 40, 40);
+
+    Telemetry telemetry;
 
     Mat submat = new Mat();
     Mat hsvMat = new Mat();
@@ -28,9 +31,15 @@ public class TSEProcessor implements VisionProcessor {
     Positions.TEPosition selection = Positions.TEPosition.NONE;
     //Selected selection = Selected.NONE;
 
+    public TSEProcessorLeft(Telemetry t){
+        super();
+
+        telemetry = t;
+    }
 
     @Override
     public void init(int width, int height, CameraCalibration calibration) {
+
     }
 
     @Override
@@ -42,11 +51,19 @@ public class TSEProcessor implements VisionProcessor {
         double satRectMiddle = getAvgSaturation(hsvMat, rectMiddle);
         double satRectRight = getAvgSaturation(hsvMat, rectRight);
 
-        if ((satRectLeft > satRectMiddle) && (satRectLeft > satRectRight)) {
+        /*telemetry.addData("satRectLeft", satRectLeft);
+        telemetry.addData("satRectMiddle", satRectMiddle);
+        telemetry.addData("satRectRight", satRectRight);
+        telemetry.update();*/
+
+        if(satRectLeft < 50 && satRectMiddle < 50){
+            return Positions.TEPosition.POSITION_RIGHT;
+        }
+        else if ((satRectLeft > satRectMiddle)) {
             //return Selected.LEFT;
             return Positions.TEPosition.POSITION_LEFT;
         }
-        else if ((satRectMiddle > satRectLeft) && (satRectMiddle > satRectRight)) {
+        else if ((satRectMiddle > satRectLeft)) {
             return Positions.TEPosition.POSITION_MIDDLE;
             //return Selected.MIDDLE;
         }
@@ -88,6 +105,7 @@ public class TSEProcessor implements VisionProcessor {
 
         //selection = (Selected) userContext;
         selection = (Positions.TEPosition) userContext;
+        telemetry.addData("I'm the selected", selection);
         Positions.getInstance().setTEPosition(selection);
 
         /*switch (selection) {

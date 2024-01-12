@@ -15,7 +15,6 @@ public enum Positions {
 
     //Map<TEPosition, Integer> positions = new HashMap<>();
 
-
     Positions(){
         /*positions = new HashMap<>();
         positions.put(TEPosition.NONE,0);
@@ -24,9 +23,8 @@ public enum Positions {
         positions.put(TEPosition.POSITION_2,2);
         positions.put(TEPosition.POSITION_3,3);*/
 
-        setTEPosition(TEPosition.POSITION_RIGHT);
     }
-    private TEPosition selectedTEPosition = TEPosition.POSITION_RIGHT;
+    private TEPosition selectedTEPosition = TEPosition.NONE;
 
     public void setTEPosition(TEPosition position){
         selectedTEPosition = position;
@@ -39,5 +37,10 @@ public enum Positions {
     public static Positions getInstance(){
         return INSTANCE;
     }
+
+    public boolean isPositionSet(){
+        return selectedTEPosition != TEPosition.NONE;
+    }
+
 
 }

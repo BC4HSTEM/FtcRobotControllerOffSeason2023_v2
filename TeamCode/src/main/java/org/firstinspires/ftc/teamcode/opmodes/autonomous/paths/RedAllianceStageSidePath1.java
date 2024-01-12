@@ -10,33 +10,26 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-//import org.firstinspires.ftc.teamcode.globals.Junctions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
+import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.mechanisms.drone_launcher.CreateDroneLauncherMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber.CreateGrabberMechanism;
-
 import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.CreateGrabberWristMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.commands.GrabberWristDropCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.grabber_wrist.commands.GrabberWristPickUpCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.lift.CreateLiftMechanism;
-
-//import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.CreateSleeveReaderMechanism;
-//import org.firstinspires.ftc.teamcode.mechanisms.sleevereader.commands.ReadSleeveCommand;
-import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.CreatePixelGrabberMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftCloseCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberLeftOpenCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightCloseCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
-public class RedAllianceNonStageSidePath1 {
+public class RedAllianceStageSidePath1 {
 
     private MecanumDriveSubsystem drive;
 
@@ -78,9 +71,7 @@ public class RedAllianceNonStageSidePath1 {
     private GrabberWristDropCommand grabberWristDropCommand;
     private GrabberWristPickUpCommand grabberWristPickUpCommand;
 
-    private DetectTEPosition detectTEPositionCommand;
-
-
+    private TurnCommand turnCommand120;
 
 
 
@@ -98,7 +89,7 @@ public class RedAllianceNonStageSidePath1 {
     SequentialCommandGroup close;
 
 
-    public RedAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
+    public RedAllianceStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
         this.hwMap = hwMap;
         startPose = sp;
         this.telemetry = telemetry;
@@ -106,7 +97,7 @@ public class RedAllianceNonStageSidePath1 {
 
     }
 
-    public RedAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
+    public RedAllianceStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
         this.hwMap = hwMap;
         startPose = sp;
         dashboard = db;
@@ -131,8 +122,6 @@ public class RedAllianceNonStageSidePath1 {
         CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
         createGrabberWristMechanism.createAuto();
 
-        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
-        createPositionIdentifierMechanism.createAuto();
         //CreateGrabberMechanism grabberMechanism = new CreateGrabberMechanism(hwMap, "grab", telemetry);
         //grabberMechanism.createAuto();
 
@@ -144,7 +133,6 @@ public class RedAllianceNonStageSidePath1 {
 
         //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
         waitCommand2000 = new WaitCommand (2000);
-        detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
         //holds Purple Pixels
         grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
         grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftOpenCommand();
@@ -154,18 +142,22 @@ public class RedAllianceNonStageSidePath1 {
         grabberWristDropCommand = createGrabberWristMechanism.createGrabberWristDropCommand();
         grabberWristPickUpCommand = createGrabberWristMechanism.createGrabberWristPickUpCommand();
 
+        turnCommand120 = new TurnCommand(drive, Math.toRadians(120));
+
 
         CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
         Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-        /*.lineToLinearHeading(new Pose2d(-36,-40, Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(-36, -60, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(56, -60, Math.toRadians(0)))*/
+        /*.lineToLinearHeading(new Pose2d(11,-35, Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d(10, -60, Math.toRadians(0)))
+                                .lineToLinearHeading(new Pose2d(59, -56, Math.toRadians(0)))*/
+
+
         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
                 /*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*/
-                .lineToLinearHeading(new Pose2d(-36, -53, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                 .build();
 
@@ -173,7 +165,7 @@ public class RedAllianceNonStageSidePath1 {
                 /*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*/
-                .lineToLinearHeading(new Pose2d(56, -53, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                 .build();
 
@@ -241,7 +233,7 @@ public class RedAllianceNonStageSidePath1 {
     public void execute(CommandOpMode commandOpMode){
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
-                grabberWristPickUpCommand,detectTEPositionCommand.andThen(followPixel, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2) ));
+                grabberWristPickUpCommand, followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2));
     }
 
 }

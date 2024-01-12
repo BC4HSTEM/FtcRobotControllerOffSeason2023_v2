@@ -17,13 +17,13 @@ public class CreatePixelDropTrajectory {
     private Pose2d redNonStageSideMiddle = new Pose2d(-36,-32, Math.toRadians(90));
     private Pose2d redNonStageSideRight = new Pose2d(-30,-36, Math.toRadians(50));
 
-    private Pose2d redStageSideLeft = new Pose2d(-36,-50, Math.toRadians(90));
-    private Pose2d redStageSideMiddle = new Pose2d(-36,-50, Math.toRadians(90));
-    private Pose2d redStageSideRight = new Pose2d(-36,-50, Math.toRadians(90));
+    private Pose2d redStageSideLeft = new Pose2d(6,-36, Math.toRadians(90));
+    private Pose2d redStageSideMiddle = new Pose2d(12,-32, Math.toRadians(90));
+    private Pose2d redStageSideRight = new Pose2d(16,-40, Math.toRadians(60));
 
     private Pose2d blueNonStageSideLeft = new Pose2d(-30,40, Math.toRadians(300));
-    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,30, Math.toRadians(270));
-    private Pose2d blueNonStageSideRight = new Pose2d(-40,36, Math.toRadians(230));
+    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,34, Math.toRadians(270));
+    private Pose2d blueNonStageSideRight = new Pose2d(-40,36, Math.toRadians(228));
 
     private Pose2d blueStageSideLeft = new Pose2d(18,40, Math.toRadians(300));
     private Pose2d blueStageSideMiddle = new Pose2d(12,30, Math.toRadians(270));
@@ -46,7 +46,7 @@ public class CreatePixelDropTrajectory {
     }
 
     public Trajectory createTrajectory(){
-        telemetry.addData("Tag snapshot id in Park Command:", Positions.getInstance().getTEPosition());
+        //telemetry.addData("Position in CreatePixelDropTrajectory:", Positions.getInstance().getTEPosition());
 
         Positions.TEPosition psPosition = Positions.getInstance().getTEPosition();
         if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED)
@@ -95,8 +95,8 @@ public class CreatePixelDropTrajectory {
         }
 
 
-        telemetry.addData("Final Position:", finalPosition.toString());
-        telemetry.update();
+        //telemetry.addData("Final Position:", finalPosition.toString());
+        //telemetry.update();
 
 
         pixelTraj = drive.trajectoryBuilder(previousTrajEnd)

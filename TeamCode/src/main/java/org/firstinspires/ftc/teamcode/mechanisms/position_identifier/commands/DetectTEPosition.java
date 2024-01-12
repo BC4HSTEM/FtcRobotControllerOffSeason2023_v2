@@ -32,4 +32,19 @@ public class DetectTEPosition extends CommandBase {
         positionIdentifierSubsystem.detectTEPosition();
         //telemetry.addData("We are initialize", "detectPosition");
     }
+
+    @Override
+    public void execute() {
+        telemetry.addData("We are execute position set", positionIdentifierSubsystem.isPositionSet());
+        telemetry.addData("Which Position", positionIdentifierSubsystem.getPosition());
+        telemetry.update();
+    }
+
+    @Override
+    public boolean isFinished() {
+        telemetry.addData("We are finished position set", positionIdentifierSubsystem.isPositionSet());
+        telemetry.addData("Which Position", positionIdentifierSubsystem.getPosition());
+        telemetry.update();
+        return positionIdentifierSubsystem.isPositionSet();
+    }
 }

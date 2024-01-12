@@ -3,23 +3,24 @@ package org.firstinspires.ftc.teamcode.mechanisms.position_identifier;
 import android.util.Size;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.globals.Alliance;
+import org.firstinspires.ftc.teamcode.globals.Side;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.CloseDetectTEPosition;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.StopDetectTEPosition;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.StreamToDashboard;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.ContourPipeline320w240h;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessor;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessorLeft;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessorRight;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.vision.VisionPortal;
-import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.firstinspires.ftc.vision.VisionProcessor;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
@@ -39,6 +40,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
     private int width = 320;
     private int height = 240;
+
 
     public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry){
         super(hwMap, deviceName, op, telemetry);
@@ -66,7 +68,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
         createBase();
         //setArmLevel = new SetArmLevel(armSubsystem,armSubsystem.getLevel(subsystem.getLevel()),telemetry);
         op.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenReleased(detectTEPosition);
-        detectTEPosition.schedule();
+        //detectTEPosition.schedule();
 
 
         //CommandScheduler.getInstance().onCommandFinish( detectTSEPosition -> telemetry.addData("got position", subsystem.getLocation()));
@@ -82,7 +84,20 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
     @Override
     public void createBase(){
 
-        TSEProcessor tseProcessor = new TSEProcessor();
+        VisionProcessor tseProcessor = null;
+
+        if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
+            tseProcessor = new TSEProcessorLeft(telemetry);
+        }
+        else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
+            tseProcessor = new TSEProcessorRight(telemetry);
+        }
+        else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
+            tseProcessor = new TSEProcessorRight(telemetry);
+        }
+        else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
+            tseProcessor = new TSEProcessorLeft(telemetry);
+        }
         VisionPortal.Builder myVisionPortalBuilder;
 
 
@@ -127,5 +142,9 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
     public PositionIdentifierSubsystem getPositionIdentifierSubsystem(){
         return positionIdentifierSubsystem;
+    }
+
+    public boolean isPositionSet(){
+        return positionIdentifierSubsystem.isPositionSet();
     }
 }

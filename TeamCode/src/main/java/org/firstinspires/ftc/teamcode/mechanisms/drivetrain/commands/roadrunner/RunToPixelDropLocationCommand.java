@@ -47,7 +47,7 @@ public class RunToPixelDropLocationCommand extends CommandBase {
     @Override
     public void initialize() {
 
-        telemetry.addData("Tag snapshot id in Park Command:", Positions.getInstance().getTEPosition());
+        telemetry.addData("Run to pixel drop Command:", Positions.getInstance().getTEPosition());
 
         Positions.TEPosition psPosition = Positions.getInstance().getTEPosition();
         if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED)

@@ -3,23 +3,25 @@ package org.firstinspires.ftc.teamcode.opmodes.autonomous;
 import android.util.Size;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessor;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessorLeft;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.pipelines.TSEProcessorRight;
 import org.firstinspires.ftc.vision.VisionPortal;
 
 
 @Autonomous()
 public class RecognizeTSEAutonomous extends OpMode {
 
-    private TSEProcessor tseProcessor;
+    private TSEProcessorRight tseProcessor;
 
     private VisionPortal visionPortal;
 
     @Override
     public void init() {
-        tseProcessor = new TSEProcessor();
+        tseProcessor = new TSEProcessorRight(telemetry);
         VisionPortal.Builder myVisionPortalBuilder;
 
 

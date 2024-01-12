@@ -6,7 +6,7 @@ import com.noahbres.meepmeep.core.colorscheme.scheme.ColorSchemeRedDark;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class BlueNonStageSide {
+public class RedStageSideP2 {
     public static void main(String[] args) {
         // Declare a MeepMeep instance
         // With a field size of 800 pixels
@@ -17,11 +17,11 @@ public class BlueNonStageSide {
                 .setConstraints(40.06441304308421, 30, 18.580384897314797, Math.toRadians(180), 13.81)
                 // Option: Set theme. Default = ColorSchemeRedDark()
                 .setColorScheme(new ColorSchemeRedDark())
+               // place purple pixel and park
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-36, 60, Math.toRadians(270)))
-                                .lineToLinearHeading(new Pose2d(-36,40, Math.toRadians(270)))
-                                .lineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(180)))
-                                .lineToLinearHeading(new Pose2d(56, 60, Math.toRadians(180)))
+                        drive.trajectorySequenceBuilder(new Pose2d(12, -60, Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d(12,-32, Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d(40, -35, Math.toRadians(0)))
                                 //.turn(Math.toRadians(90))
                                 //.forward(30)
                                 .addDisplacementMarker(() -> {

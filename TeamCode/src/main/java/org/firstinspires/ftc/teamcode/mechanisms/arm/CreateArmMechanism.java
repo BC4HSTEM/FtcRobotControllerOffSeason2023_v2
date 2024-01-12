@@ -51,8 +51,8 @@ public class CreateArmMechanism extends CreateMechanismBase {
 
         //39. created commands
 
-        //40. set motor to run without encoders
-       armSubsystem.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+
         //armSubsystem.setTargetPosition(20);
 
         //41. instead of creating the command right here, we created a function for it so we
@@ -78,11 +78,11 @@ public class CreateArmMechanism extends CreateMechanismBase {
 
     @Override
     public void createBase(){
-        telemetry.addLine("Arm createBase");
+        //telemetry.addLine("Arm createBase");
 
         arm = hwMap.get(DcMotorEx.class,deviceName );
-        telemetry.addData("Arm", arm);
-        telemetry.update();
+        //telemetry.addData("Arm", arm);
+        //telemetry.update();
 
         //35. create the subsystem, given that telemetry is used everywhere, use the constructor that sets it
         armSubsystem = new ArmSubsystem(arm, telemetry, true);
@@ -92,29 +92,30 @@ public class CreateArmMechanism extends CreateMechanismBase {
         armSubsystem.stopResetEncoder();
         //38. set the direction of the motor, ideally this is tested while not on the lift
         armSubsystem.setDirection(DcMotorEx.Direction.FORWARD);
+        armSubsystem.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         //op.getGamepadButton(GamepadKeys.Button.Y).whenPressed(armPickUpCommand);
 
 
     }
 
-    private ArmDropCommand createDropCommand(){
+    public ArmDropCommand createDropCommand(){
         return new ArmDropCommand(armSubsystem, telemetry);
     }
 
-    private ArmPickUpCommand createPickUpCommand(){
+    public ArmPickUpCommand createPickUpCommand(){
         return new ArmPickUpCommand(armSubsystem, telemetry);
     }
 
-    private ArmDropPositionCommand createDropPositionCommand(){
+    public ArmDropPositionCommand createDropPositionCommand(){
         return new ArmDropPositionCommand(armSubsystem, telemetry);
     }
 
-    private ArmMidDropCommand createMidDropCommand(){
+    public ArmMidDropCommand createMidDropCommand(){
         return new ArmMidDropCommand(armSubsystem, telemetry);
     }
 
-    private ArmPickUpPositionCommand createPickUpPositionCommand(){
+    public ArmPickUpPositionCommand createPickUpPositionCommand(){
         return new ArmPickUpPositionCommand(armSubsystem, telemetry);
     }
 

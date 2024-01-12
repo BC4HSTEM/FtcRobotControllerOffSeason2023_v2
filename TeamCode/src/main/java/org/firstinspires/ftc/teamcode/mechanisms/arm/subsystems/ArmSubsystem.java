@@ -33,9 +33,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     public double ticksPerRotation = 1120;
 
-    public static int dropTargetPosition = 700;
+    public static int dropTopTargetPosition = 700;
 
     public static int dropMidPosition = 400;
+
+    public int dropTargetPosition;
 
     public static int pickUpTargetPosition = 20;
     private final double ticks_in_degree = (gearRatio * ticksPerRotation)  / motorDegrees;
@@ -71,7 +73,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void setDropTargetPIDPosition(){
         controller.setPID(p,i,d);
-        setPower(dropTargetPosition);
+        dropTargetPosition = dropTopTargetPosition;
+        setPower(dropTopTargetPosition);
     }
 
     public void setPickUpTargetPIDPosition(){
@@ -81,6 +84,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void setMidDropTargetPIDPosition(){
         controller.setPID(p,i,d);
+        dropTargetPosition  = dropMidPosition;
         setPower(dropMidPosition);
     }
 
@@ -93,7 +97,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void setDropTargetPosition(){
         setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        arm.setTargetPosition(dropTargetPosition);
+        arm.setTargetPosition(dropTopTargetPosition);
 
 
     }
@@ -142,11 +146,11 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public boolean isAtDropTargetPosition(){
-        return arm.getTargetPosition() == dropTargetPosition;
+        return arm.getCurrentPosition() == dropTargetPosition;
     }
 
     public boolean isAtPickUpTargetPosition(){
-        return arm.getTargetPosition() == pickUpTargetPosition;
+        return arm.getCurrentPosition() == pickUpTargetPosition;
     }
 
     public double getPosition(){
