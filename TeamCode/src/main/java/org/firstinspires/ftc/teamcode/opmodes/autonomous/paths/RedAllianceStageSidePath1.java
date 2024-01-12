@@ -248,6 +248,7 @@ public class RedAllianceStageSidePath1 {
                     telemetry.addData("Selection Position Stage Side Red", Positions.getInstance().getTEPosition());
                     telemetry.update();
                 }))));
+                //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2));
                 //grabberWristPickUpCommand, followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2));
     }
 

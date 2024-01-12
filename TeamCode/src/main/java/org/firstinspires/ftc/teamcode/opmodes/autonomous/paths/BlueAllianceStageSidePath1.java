@@ -238,7 +238,7 @@ public class BlueAllianceStageSidePath1 {
                     telemetry.addData("Selection Position Stage Side Blue", Positions.getInstance().getTEPosition());
                     telemetry.update();
                 }))));
-                //grabberWristPickUpCommand, followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2));
+                //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }
 
 }

@@ -234,7 +234,7 @@ public class BlueAllianceNonStageSidePath1 {
                     telemetry.update();
                 }))));
 
-                //grabberWristPickUpCommand, followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2));
+                //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }
 
 }
