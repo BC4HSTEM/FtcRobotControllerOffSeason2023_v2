@@ -11,7 +11,6 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
@@ -81,7 +80,6 @@ public class BlueAllianceNonStageSidePath1 {
 
 
     private TurnCommand turnCommand;
-
 
 
     private RunToPixelDropLocationCommand runToPixelDropLocationCommand;
@@ -160,21 +158,27 @@ public class BlueAllianceNonStageSidePath1 {
         CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
         Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-        *//*..lineToLinearHeading(new Pose2d(-36,40, Math.toRadians(270)))
-                                .lineToLinearHeading(new Pose2d(-36, 60, Math.toRadians(180)))
-                                .lineToLinearHeading(new Pose2d(56, 60, Math.toRadians(180)))*//*
+        *//*..lineToLinearHeading(new Pose2d(12,37, Math.toRadians(270)))
+                                // Drop Purple Pixel on the spike mark here
+                                .addDisplacementMarker(() -> {
+                                    // Drop Pixel based on object
+                                    // Collapse the grabber wrist to arm
+                                })
+                                .lineToLinearHeading(new Pose2d(12, 60, Math.toRadians(0)))
+                                // Park in the backstage
+                                .lineToLinearHeading(new Pose2d(60, 60, Math.toRadians(0)))*//*
 
         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
                 *//*.addDisplacementMarker(() -> {
                     turnCommand.schedule();
                 })*//*
-                .lineToLinearHeading(new Pose2d(-36, 53, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(12, 53, Math.toRadians(0)))
                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                 .build();
 
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
                 //.lineTo(new Vector2d(-41, 52))
-                .lineToLinearHeading(new Pose2d(56, 53, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(50, 53, Math.toRadians(0)))
                 .build();
 
         *//*Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
@@ -218,7 +222,6 @@ public class BlueAllianceNonStageSidePath1 {
 
 
 
-
         followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
 
         follower1 = new TrajectoryFollowerCommand(drive,traj1);
@@ -234,10 +237,6 @@ public class BlueAllianceNonStageSidePath1 {
     }
 
     public void execute(CommandOpMode commandOpMode){
-
-        drive.setPoseEstimate(startPose);
-
-
         CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
         createArmMechanism.createAuto();
 
@@ -254,6 +253,7 @@ public class BlueAllianceNonStageSidePath1 {
         createPositionIdentifierMechanism.createAuto();
 
 
+        //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
         waitCommand1 = new WaitCommand (1000);
         detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
         //holds yellow Pixels
@@ -265,22 +265,19 @@ public class BlueAllianceNonStageSidePath1 {
         grabberWristDropCommand = createGrabberWristMechanism.createGrabberWristDropCommand();
         grabberWristPickUpCommand = createGrabberWristMechanism.createGrabberWristPickUpCommand();
 
-        CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
-        Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
-
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
-                /*detectTEPositionCommand.andThen(new InstantCommand(()->{
-                    telemetry.addData("Selection Position None Stage Side Blue", Positions.getInstance().getTEPosition());
-                    telemetry.update();
-                }))));*/
-
 
 
                 grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
 
+                    drive.setPoseEstimate(startPose);
 
-                    Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
+
+                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
+                    Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
+
+                    Trajectory traj1 = drive.trajectoryBuilder(startPose)
 
                             .lineToLinearHeading(new Pose2d(-36, 53, Math.toRadians(180)))
                             //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
@@ -298,10 +295,8 @@ public class BlueAllianceNonStageSidePath1 {
                     follower1 = new TrajectoryFollowerCommand(drive,traj1);
                     follower2 = new TrajectoryFollowerCommand(drive,traj2);
 
-                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2);
-
+                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
                 }))));
-
                 //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }
 

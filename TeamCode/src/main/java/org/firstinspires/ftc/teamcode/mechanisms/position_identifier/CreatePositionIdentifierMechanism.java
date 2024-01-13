@@ -38,8 +38,7 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
     private OpenCvWebcam webCam;
 
-    private int width = 320;
-    private int height = 240;
+
 
 
     public CreatePositionIdentifierMechanism(HardwareMap hwMap, String deviceName, GamepadEx op, Telemetry telemetry){
@@ -84,20 +83,10 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
     @Override
     public void createBase(){
 
-        VisionProcessor tseProcessor = null;
+           // Automatically stop LiveView (RC preview) when all vision processors are disabled.
 
-        if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-            tseProcessor = new TSEProcessorLeft(telemetry);
-        }
-        else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
-            tseProcessor = new TSEProcessorRight(telemetry);
-        }
-        else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-            tseProcessor = new TSEProcessorRight(telemetry);
-        }
-        else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
-            tseProcessor = new TSEProcessorLeft(telemetry);
-        }
+            // Create a VisionPortal by calling build()
+
         VisionPortal.Builder myVisionPortalBuilder;
 
 
@@ -105,21 +94,9 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
         myVisionPortalBuilder = new VisionPortal.Builder();
 
 // Specify the camera to be used for this VisionPortal.
-        myVisionPortalBuilder.setCamera(hwMap.get(WebcamName.class, deviceName));      // Other choices are: RC phone camera and "switchable camera name".
+        myVisionPortalBuilder.setCamera(hwMap.get(WebcamName.class, deviceName));
 
-// Add the AprilTag Processor to the VisionPortal Builder.
-        myVisionPortalBuilder.addProcessor(tseProcessor);       // An added Processor is enabled by default.
-
-// Optional: set other custom features of the VisionPortal (4 are shown here).
-        myVisionPortalBuilder.setCameraResolution(new Size(width, height));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
-        myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.MJPEG);  // MJPEG format uses less bandwidth than the default YUY2.
-        myVisionPortalBuilder.enableLiveView(true);      // Enable LiveView (RC preview).
-        myVisionPortalBuilder.setAutoStopLiveView(true);     // Automatically stop LiveView (RC preview) when all vision processors are disabled.
-
-// Create a VisionPortal by calling build()
-
-
-        positionIdentifierSubsystem = new PositionIdentifierSubsystem(myVisionPortalBuilder);
+        positionIdentifierSubsystem = new PositionIdentifierSubsystem(myVisionPortalBuilder, telemetry);
 
         detectTEPosition = new DetectTEPosition(positionIdentifierSubsystem, telemetry);
         stopDetectTEPosition = new StopDetectTEPosition(positionIdentifierSubsystem,telemetry);

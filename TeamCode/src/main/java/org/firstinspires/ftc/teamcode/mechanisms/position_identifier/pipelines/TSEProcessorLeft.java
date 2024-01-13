@@ -9,6 +9,7 @@ import com.acmerobotics.dashboard.config.Config;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.teamcode.globals.Positions;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -30,9 +31,12 @@ public class TSEProcessorLeft implements VisionProcessor {
 
     Positions.TEPosition selection = Positions.TEPosition.NONE;
     //Selected selection = Selected.NONE;
+    PositionIdentifierSubsystem positionIdentifierSubsystem;
 
-    public TSEProcessorLeft(Telemetry t){
+    public TSEProcessorLeft(PositionIdentifierSubsystem subsystem, Telemetry t){
         super();
+
+        positionIdentifierSubsystem = subsystem;
 
         telemetry = t;
     }
@@ -108,7 +112,8 @@ public class TSEProcessorLeft implements VisionProcessor {
         //selection = (Selected) userContext;
         selection = (Positions.TEPosition) userContext;
         telemetry.addData("I'm the selected", selection);
-        Positions.getInstance().setTEPosition(selection);
+        //Positions.getInstance().setTEPosition(selection);
+        positionIdentifierSubsystem.setPosition(selection);
 
         /*switch (selection) {
             case LEFT:
