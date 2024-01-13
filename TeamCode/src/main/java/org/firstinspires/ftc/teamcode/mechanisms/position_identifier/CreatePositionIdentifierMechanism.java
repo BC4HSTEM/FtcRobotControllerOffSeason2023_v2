@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.globals.Alliance;
+import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.globals.Side;
 import org.firstinspires.ftc.teamcode.mechanisms.CreateMechanismBase;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.CloseDetectTEPosition;
@@ -123,5 +124,9 @@ public class CreatePositionIdentifierMechanism extends CreateMechanismBase {
 
     public boolean isPositionSet(){
         return positionIdentifierSubsystem.isPositionSet();
+    }
+
+    public Positions.TEPosition getPosition(){
+        return positionIdentifierSubsystem.getPosition();
     }
 }

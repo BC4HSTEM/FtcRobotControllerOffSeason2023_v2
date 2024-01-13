@@ -36,6 +36,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class RedAllianceNonStageSidePath1 {
@@ -92,7 +93,7 @@ public class RedAllianceNonStageSidePath1 {
 
     private RunToPixelDropLocationCommand runToPixelDropLocationCommand;
 
-
+    CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
     private Trajectory traj3;
 
     SequentialCommandGroup sg;
@@ -100,16 +101,18 @@ public class RedAllianceNonStageSidePath1 {
     SequentialCommandGroup close;
 
 
-    public RedAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
+    public RedAllianceNonStageSidePath1(HardwareMap hwMap, CreatePositionIdentifierMechanism mechanism, Pose2d sp, Telemetry telemetry){
         this.hwMap = hwMap;
+        createPositionIdentifierMechanism = mechanism;
         startPose = sp;
         this.telemetry = telemetry;
         drive = new MecanumDriveSubsystem(new SampleMecanumDrive(hwMap), false);
 
     }
 
-    public RedAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
+    public RedAllianceNonStageSidePath1(HardwareMap hwMap, CreatePositionIdentifierMechanism mechanism,Pose2d sp, FtcDashboard db, Telemetry telemetry){
         this.hwMap = hwMap;
+        createPositionIdentifierMechanism = mechanism;
         startPose = sp;
         dashboard = db;
         this.telemetry = telemetry;
@@ -249,7 +252,7 @@ public class RedAllianceNonStageSidePath1 {
                     telemetry.addData("Selection Position None Stage Side Red", Positions.getInstance().getTEPosition());
                     telemetry.update();
 
-                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
+                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
         /*.lineToLinearHeading(new Pose2d(-36,-40, Math.toRadians(90)))

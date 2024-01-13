@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.globals.Side;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 
 public class CreatePixelDropTrajectory {
     private Pose2d redNonStageSideLeft = new Pose2d(-36,-40, Math.toRadians(150));
@@ -38,10 +40,12 @@ public class CreatePixelDropTrajectory {
     private final Telemetry telemetry;
 
     Trajectory pixelTraj;
+    CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
 
     TrajectoryFollowerCommand followPixel;
-    public CreatePixelDropTrajectory(MecanumDriveSubsystem drive, Pose2d previousTrajEnd, Telemetry telemetry){
+    public CreatePixelDropTrajectory(MecanumDriveSubsystem drive, CreatePositionIdentifierMechanism mechanism, Pose2d previousTrajEnd, Telemetry telemetry){
         this.drive = drive;
+        createPositionIdentifierMechanism = mechanism;
         this.previousTrajEnd = previousTrajEnd;
         this.telemetry = telemetry;
     }
@@ -49,7 +53,7 @@ public class CreatePixelDropTrajectory {
     public Trajectory createTrajectory(){
         //telemetry.addData("Position in CreatePixelDropTrajectory:", Positions.getInstance().getTEPosition());
 
-        Positions.TEPosition psPosition = Positions.getInstance().getTEPosition();
+        Positions.TEPosition psPosition = createPositionIdentifierMechanism.getPosition();
         if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED)
         {
             if(Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){

@@ -30,6 +30,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
+import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class BlueAllianceNonStageSidePath1 {
@@ -86,22 +87,25 @@ public class BlueAllianceNonStageSidePath1 {
 
 
     private Trajectory traj3;
+    CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
 
     SequentialCommandGroup sg;
     SequentialCommandGroup open;
     SequentialCommandGroup close;
 
 
-    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, Telemetry telemetry){
+    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, CreatePositionIdentifierMechanism mechanism, Pose2d sp, Telemetry telemetry){
         this.hwMap = hwMap;
+        createPositionIdentifierMechanism = mechanism;
         startPose = sp;
         this.telemetry = telemetry;
         drive = new MecanumDriveSubsystem(new SampleMecanumDrive(hwMap), false);
 
     }
 
-    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, Pose2d sp, FtcDashboard db, Telemetry telemetry){
+    public BlueAllianceNonStageSidePath1(HardwareMap hwMap, CreatePositionIdentifierMechanism mechanism, Pose2d sp, FtcDashboard db, Telemetry telemetry){
         this.hwMap = hwMap;
+        createPositionIdentifierMechanism = mechanism;
         startPose = sp;
         dashboard = db;
         this.telemetry = telemetry;
@@ -274,7 +278,7 @@ public class BlueAllianceNonStageSidePath1 {
                     drive.setPoseEstimate(startPose);
 
 
-                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
+                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
                     Trajectory traj1 = drive.trajectoryBuilder(startPose)

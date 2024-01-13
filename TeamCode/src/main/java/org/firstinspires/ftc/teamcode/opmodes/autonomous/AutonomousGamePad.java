@@ -216,24 +216,24 @@ public class AutonomousGamePad extends CommandOpMode {
         if (Path.getInstance().getSelectedPathToFollow() == Path.PositionToFollow.PATH_1) {
             Path.getInstance().setSelectedPathToFollow(Path.PositionToFollow.PATH_1);
             if (Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE) {
-                BlueAllianceStageSidePath1 bsPath1 = new BlueAllianceStageSidePath1(hardwareMap, selectedStartPos, telemetry);
+                BlueAllianceStageSidePath1 bsPath1 = new BlueAllianceStageSidePath1(hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 bsPath1.createPath();
                 bsPath1.execute(this);
 
             } else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
 
 
-                RedAllianceStageSidePath1 rsPath1 = new RedAllianceStageSidePath1(hardwareMap, selectedStartPos, telemetry);
+                RedAllianceStageSidePath1 rsPath1 = new RedAllianceStageSidePath1(hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 rsPath1.createPath();
                 rsPath1.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-                BlueAllianceNonStageSidePath1 bnsPath1 = new BlueAllianceNonStageSidePath1(hardwareMap, selectedStartPos, telemetry);
+                BlueAllianceNonStageSidePath1 bnsPath1 = new BlueAllianceNonStageSidePath1(hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 bnsPath1.createPath();
                 bnsPath1.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-                RedAllianceNonStageSidePath1 rnsPath1 = new RedAllianceNonStageSidePath1 (hardwareMap, selectedStartPos, telemetry);
+                RedAllianceNonStageSidePath1 rnsPath1 = new RedAllianceNonStageSidePath1 (hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 rnsPath1.createPath();
                 rnsPath1.execute(this);
             }
@@ -248,17 +248,17 @@ public class AutonomousGamePad extends CommandOpMode {
 
             } else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
 
-                RedAllianceStageSidePath2 rsPath2 = new RedAllianceStageSidePath2(hardwareMap, selectedStartPos, telemetry);
+                RedAllianceStageSidePath2 rsPath2 = new RedAllianceStageSidePath2(hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 rsPath2.createPath();
                 rsPath2.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-                //BlueAllianceNonStageSidePath2 bnsPath2 = new BlueAllianceNonStageSidePath2(hardwareMap, selectedStartPos, telemetry);
+                //BlueAllianceNonStageSidePath2 bnsPath2 = new BlueAllianceNonStageSidePath2(hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 //bnsPath2.createPath();
                 //bnsPath2.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-                //RedAllianceNonStageSidePath2 rnsPath2 = new RedAllianceNonStageSidePath2 (hardwareMap, selectedStartPos, telemetry);
+                //RedAllianceNonStageSidePath2 rnsPath2 = new RedAllianceNonStageSidePath2 (hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
                 //rnsPath2.createPath();
                 //rnsPath2.execute(this);
             }
