@@ -229,12 +229,12 @@ public class BlueAllianceNonStageSidePath1 {
 
     public void execute(CommandOpMode commandOpMode){
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
-                detectTEPositionCommand.andThen(new InstantCommand(()->{
+                /*detectTEPositionCommand.andThen(new InstantCommand(()->{
                     telemetry.addData("Selection Position None Stage Side Blue", Positions.getInstance().getTEPosition());
                     telemetry.update();
-                }))));
+                }))));*/
 
-                //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
+                grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }
 
 }

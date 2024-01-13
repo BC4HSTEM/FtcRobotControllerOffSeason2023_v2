@@ -45,9 +45,9 @@ public class AutonomousGamePad extends CommandOpMode {
     private Pose2d selectedStartPos = new Pose2d(0,0);
 
     private SequentialCommandGroup webCamGroup;
-    //private CreateSleeveReaderMechanism createSleeveReader;
+
     CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
-    //private ReadSleeveCommand rsc;
+
     //private CreateLEDMechanism createLEDs;
 
 

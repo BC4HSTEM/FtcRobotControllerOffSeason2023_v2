@@ -244,11 +244,11 @@ public class RedAllianceStageSidePath1 {
         telemetry.update();
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
-                detectTEPositionCommand.andThen(new InstantCommand(()->{
+               /* detectTEPositionCommand.andThen(new InstantCommand(()->{
                     telemetry.addData("Selection Position Stage Side Red", Positions.getInstance().getTEPosition());
                     telemetry.update();
-                }))));
-                //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2));
+                }))));*/
+                grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2)));
                 //grabberWristPickUpCommand, followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2));
     }
 

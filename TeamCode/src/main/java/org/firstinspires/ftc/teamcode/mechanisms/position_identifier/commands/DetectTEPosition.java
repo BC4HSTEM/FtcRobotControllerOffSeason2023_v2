@@ -46,5 +46,6 @@ public class DetectTEPosition extends CommandBase {
         //telemetry.addData("Which Position", positionIdentifierSubsystem.getPosition());
         //telemetry.update();
         return positionIdentifierSubsystem.isPositionSet();
+        //return false;
     }
 }

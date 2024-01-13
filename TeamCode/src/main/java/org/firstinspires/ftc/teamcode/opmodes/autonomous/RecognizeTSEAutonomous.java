@@ -15,13 +15,13 @@ import org.firstinspires.ftc.vision.VisionPortal;
 @Autonomous()
 public class RecognizeTSEAutonomous extends OpMode {
 
-    private TSEProcessorRight tseProcessor;
+    private TSEProcessorLeft tseProcessor;
 
     private VisionPortal visionPortal;
 
     @Override
     public void init() {
-        tseProcessor = new TSEProcessorRight(telemetry);
+        tseProcessor = new TSEProcessorLeft(telemetry);
         VisionPortal.Builder myVisionPortalBuilder;
 
 
