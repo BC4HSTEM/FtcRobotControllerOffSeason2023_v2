@@ -290,6 +290,8 @@ public class BlueAllianceStageSidePath1 {
                     follower1 = new TrajectoryFollowerCommand(drive,traj1);
                     follower2 = new TrajectoryFollowerCommand(drive,traj2);
 
+                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
+
                 }))));
                 //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }
