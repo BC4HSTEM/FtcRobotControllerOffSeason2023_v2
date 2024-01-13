@@ -37,16 +37,17 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
         VisionProcessor tseProcessor = null;
 
         if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-            tseProcessor = new TSEProcessorLeft(this, telemetry);
+            tseProcessor = new TSEProcessorRight(this, telemetry);
         }
         else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
-            tseProcessor = new TSEProcessorRight(this, telemetry);
+            tseProcessor = new TSEProcessorLeft(this, telemetry);
         }
         else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
             tseProcessor = new TSEProcessorRight(this, telemetry);
         }
         else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.BLUE && Side.getInstance().getPositionSide() == Side.PositionSide.STAGE_SIDE){
-            tseProcessor = new TSEProcessorLeft(this, telemetry);
+            
+            tseProcessor = new TSEProcessorRight(this, telemetry);
         }
              // Other choices are: RC phone camera and "switchable camera name".
 
