@@ -247,72 +247,115 @@ public class RedAllianceStageSidePath1 {
 
     public void execute(CommandOpMode commandOpMode){
         telemetry.update();
+        drive.setPoseEstimate(startPose);
+
+        CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
+        createArmMechanism.createAuto();
+
+        CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hwMap, "pixel_grabber", telemetry);
+        createPixelGrabberMechanism.createAuto();
+
+        CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hwMap, "drone_Launch", telemetry);
+        createDroneLauncherMechanism.createAuto();
+
+        CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
+        createGrabberWristMechanism.createAuto();
+
+        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism.createAuto();
+
+        waitCommand2000 = new WaitCommand (2000);
+        detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
+        //holds Purple Pixels
+        grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
+        grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftOpenCommand();
+        //Holds Yellow Pixel
+        grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightOpenCommand();
+
+        grabberWristDropCommand = createGrabberWristMechanism.createGrabberWristDropCommand();
+        grabberWristPickUpCommand = createGrabberWristMechanism.createGrabberWristPickUpCommand();
+
+        turnCommand120 = new TurnCommand(drive, Math.toRadians(120));
+
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
                /* detectTEPositionCommand.andThen(new InstantCommand(()->{
                     telemetry.addData("Selection Position Stage Side Red", Positions.getInstance().getTEPosition());
                     telemetry.update();
                 }))));*/
+
+
+
+                grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
-                    drive.setPoseEstimate(startPose);
-
-
-                    CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
-                    createArmMechanism.createAuto();
-
-                    CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hwMap, "pixel_grabber", telemetry);
-                    createPixelGrabberMechanism.createAuto();
-
-                    CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hwMap, "drone_Launch", telemetry);
-                    createDroneLauncherMechanism.createAuto();
-
-                    CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
-                    createGrabberWristMechanism.createAuto();
-
-                    CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
-                    createPositionIdentifierMechanism.createAuto();
-
-                    waitCommand2000 = new WaitCommand (2000);
-                    detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
-                    //holds Purple Pixels
-                    grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
-                    grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftOpenCommand();
-                    //Holds Yellow Pixel
-                    grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightOpenCommand();
-
-                    grabberWristDropCommand = createGrabberWristMechanism.createGrabberWristDropCommand();
-                    grabberWristPickUpCommand = createGrabberWristMechanism.createGrabberWristPickUpCommand();
-
-                    turnCommand120 = new TurnCommand(drive, Math.toRadians(120));
 
 
                     CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
+                    if(Positions.getInstance().getTEPosition() != Positions.TEPosition.POSITION_LEFT){
+                        Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
+                                /*.addDisplacementMarker(() -> {
+                                    turnCommand.schedule();
+                                })*/
+                                .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
 
-                    Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
-                            /*.addDisplacementMarker(() -> {
-                                turnCommand.schedule();
-                            })*/
-                            .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
-                            //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
-                            .build();
-
-                    Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                            /*.addDisplacementMarker(() -> {
-                                turnCommand.schedule();
-                            })*/
-                            .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
-                            //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
-                            .build();
+                        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                                /*.addDisplacementMarker(() -> {
+                                    turnCommand.schedule();
+                                })*/
+                                .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
 
 
-                    followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
+                        followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
 
-                    follower1 = new TrajectoryFollowerCommand(drive,traj1);
-                    follower2 = new TrajectoryFollowerCommand(drive,traj2);
+                        follower1 = new TrajectoryFollowerCommand(drive,traj1);
+                        follower2 = new TrajectoryFollowerCommand(drive,traj2);
 
-                    new SequentialCommandGroup(followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2).schedule();
+                        new SequentialCommandGroup(followPixel, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2).schedule();
+                    }
+                    else{
+
+
+                        Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
+                                /*.addDisplacementMarker(() -> {
+                                    turnCommand.schedule();
+                                })*/
+                                .lineToLinearHeading(new Pose2d(10,-34, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
+
+                        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                                /*.addDisplacementMarker(() -> {
+                                    turnCommand.schedule();
+                                })*/
+                                .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
+
+                        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
+                                /*.addDisplacementMarker(() -> {
+                                    turnCommand.schedule();
+                                })*/
+                                .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
+
+
+                        followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
+
+                        follower1 = new TrajectoryFollowerCommand(drive,traj1);
+                        follower2 = new TrajectoryFollowerCommand(drive,traj2);
+                        follower3 = new TrajectoryFollowerCommand(drive, traj3);
+
+                        new SequentialCommandGroup(followPixel, follower1, grabberOpenRightCommand,grabberWristDropCommand, follower2, follower3).schedule();
+                    }
+
+
 
                 }))));
                 //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel, turnCommand120, grabberOpenRightCommand,grabberWristDropCommand, follower1, follower2)));

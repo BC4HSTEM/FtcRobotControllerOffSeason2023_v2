@@ -11,6 +11,8 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
     private VisionPortal.Builder visionPortalBuilder;
     private VisionPortal visionPortal;
 
+    private Positions.TEPosition localPosition = Positions.TEPosition.NONE;
+
 
     public PositionIdentifierSubsystem(VisionPortal.Builder vpb){
 
@@ -22,6 +24,7 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
 
     public void setPosition(Positions.TEPosition position){
         Positions.getInstance().setTEPosition(position);
+        localPosition = position;
 
 
     }
@@ -30,6 +33,11 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
     public Positions.TEPosition getPosition(){
 
         return Positions.getInstance().getTEPosition();
+    }
+
+    public Positions.TEPosition getLocalPosition(){
+
+        return localPosition;
     }
 
 

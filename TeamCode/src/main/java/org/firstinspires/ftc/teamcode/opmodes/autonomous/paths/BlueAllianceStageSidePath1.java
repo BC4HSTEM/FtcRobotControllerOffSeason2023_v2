@@ -238,40 +238,43 @@ public class BlueAllianceStageSidePath1 {
     }
 
     public void execute(CommandOpMode commandOpMode){
+        CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
+        createArmMechanism.createAuto();
+
+        CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hwMap, "pixel_grabber", telemetry);
+        createPixelGrabberMechanism.createAuto();
+
+        CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hwMap, "drone_Launch", telemetry);
+        createDroneLauncherMechanism.createAuto();
+
+        CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
+        createGrabberWristMechanism.createAuto();
+
+        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism.createAuto();
+
+
+        //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
+        waitCommand1 = new WaitCommand (1000);
+        detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
+        //holds yellow Pixels
+        grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
+        grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftOpenCommand();
+        //Holds purple Pixel
+        grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightOpenCommand();
+
+        grabberWristDropCommand = createGrabberWristMechanism.createGrabberWristDropCommand();
+        grabberWristPickUpCommand = createGrabberWristMechanism.createGrabberWristPickUpCommand();
+
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
 
 
+                grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
                     drive.setPoseEstimate(startPose);
 
 
-                    CreateArmMechanism createArmMechanism = new CreateArmMechanism(hwMap, "arm", telemetry);
-                    createArmMechanism.createAuto();
 
-                    CreatePixelGrabberMechanism createPixelGrabberMechanism = new CreatePixelGrabberMechanism(hwMap, "pixel_grabber", telemetry);
-                    createPixelGrabberMechanism.createAuto();
-
-                    CreateDroneLauncherMechanism createDroneLauncherMechanism = new CreateDroneLauncherMechanism(hwMap, "drone_Launch", telemetry);
-                    createDroneLauncherMechanism.createAuto();
-
-                    CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
-                    createGrabberWristMechanism.createAuto();
-
-                    CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
-                    createPositionIdentifierMechanism.createAuto();
-
-
-                    //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
-                    waitCommand1 = new WaitCommand (1000);
-                    detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
-                    //holds yellow Pixels
-                    grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
-                    grabberOpenLeftCommand = createPixelGrabberMechanism.createGrabberLeftOpenCommand();
-                    //Holds purple Pixel
-                    grabberOpenRightCommand = createPixelGrabberMechanism.createGrabberRightOpenCommand();
-
-                    grabberWristDropCommand = createGrabberWristMechanism.createGrabberWristDropCommand();
-                    grabberWristPickUpCommand = createGrabberWristMechanism.createGrabberWristPickUpCommand();
 
                     CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();

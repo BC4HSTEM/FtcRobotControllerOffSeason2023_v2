@@ -79,6 +79,8 @@ public class AutonomousGamePad extends CommandOpMode {
         createPositionIdentifierMechanism.createAuto();
         //createLEDs = new CreateLEDMechanism(hardwareMap, "blinkin");
 
+        //determineTEPosition();
+
 
 
 

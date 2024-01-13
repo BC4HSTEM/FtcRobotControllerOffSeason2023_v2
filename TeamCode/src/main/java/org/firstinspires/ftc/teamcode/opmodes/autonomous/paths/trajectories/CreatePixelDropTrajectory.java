@@ -15,14 +15,14 @@ import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunne
 public class CreatePixelDropTrajectory {
     private Pose2d redNonStageSideLeft = new Pose2d(-36,-40, Math.toRadians(150));
     private Pose2d redNonStageSideMiddle = new Pose2d(-36,-32, Math.toRadians(90));
-    private Pose2d redNonStageSideRight = new Pose2d(-30,-36, Math.toRadians(50));
+    private Pose2d redNonStageSideRight = new Pose2d(-36,-36, Math.toRadians(90));
 
-    private Pose2d redStageSideLeft = new Pose2d(6,-36, Math.toRadians(90));
+    private Pose2d redStageSideLeft = new Pose2d(12,-36, Math.toRadians(90));
     private Pose2d redStageSideMiddle = new Pose2d(12,-32, Math.toRadians(90));
     private Pose2d redStageSideRight = new Pose2d(16,-40, Math.toRadians(60));
 
     private Pose2d blueNonStageSideLeft = new Pose2d(-30,40, Math.toRadians(300));
-    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,34, Math.toRadians(270));
+    private Pose2d blueNonStageSideMiddle = new Pose2d(-36,30, Math.toRadians(270));
     private Pose2d blueNonStageSideRight = new Pose2d(-40,36, Math.toRadians(228));
 
     private Pose2d blueStageSideLeft = new Pose2d(18,40, Math.toRadians(300));
