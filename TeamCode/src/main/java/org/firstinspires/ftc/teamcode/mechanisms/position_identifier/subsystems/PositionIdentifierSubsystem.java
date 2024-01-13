@@ -63,18 +63,13 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
 
 
     public void setPosition(Positions.TEPosition position){
-        Positions.getInstance().setTEPosition(position);
+
         localPosition = position;
         positionSet = true;
 
 
     }
 
-
-    public Positions.TEPosition getPosition(){
-
-        return Positions.getInstance().getTEPosition();
-    }
 
     public Positions.TEPosition getLocalPosition(){
 
@@ -100,5 +95,9 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
 
     public boolean isPositionSet(){
         return positionSet;
+    }
+
+    public Positions.TEPosition getPosition(){
+        return localPosition;
     }
 }

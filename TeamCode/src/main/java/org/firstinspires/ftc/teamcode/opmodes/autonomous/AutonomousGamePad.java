@@ -64,7 +64,7 @@ public class AutonomousGamePad extends CommandOpMode {
 
 
         //Must reset static Positions global
-        Positions.getInstance().setTEPosition(Positions.TEPosition.NONE);
+
 
         GamepadEx driver1 = new GamepadEx(gamepad1);
 
@@ -171,7 +171,7 @@ public class AutonomousGamePad extends CommandOpMode {
     private void configureExecutePath(GamepadEx op){
         op.getGamepadButton(GamepadKeys.Button.START).whenPressed(()->{
 
-            //showTSEPosition();
+
             telemetry.addLine("Path Executing.....");
             telemetry.update();
 
@@ -209,7 +209,7 @@ public class AutonomousGamePad extends CommandOpMode {
         telemetry.addData("Selections Complete", String.format("Alliance: %s - Side: %s - Path: %s - Start Position: %s - TGE Side: %s",
                 Alliance.getInstance().getAllianceTeam().toString(),
                 Side.getInstance().getPositionSide().toString(),
-                Path.getInstance().getSelectedPathToFollow(),selectedStartPos, Positions.getInstance().getTEPosition()));
+                Path.getInstance().getSelectedPathToFollow(),selectedStartPos, createPositionIdentifierMechanism.getPosition()));
 
 
 
@@ -297,8 +297,8 @@ public class AutonomousGamePad extends CommandOpMode {
     }
 
     private void showTSEPosition(){
-        telemetry.addData("Tag snapshot id in Autono:", Positions.getInstance().getTEPosition());
-        telemetry.addLine("\n");
+       // telemetry.addData("Tag snapshot id in Autono:", createPositionIdentifierMechanism.getPosition());
+        //telemetry.addLine("\n");
     }
 
 

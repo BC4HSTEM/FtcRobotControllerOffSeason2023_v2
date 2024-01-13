@@ -11,11 +11,9 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.commands.ArmMidDropCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
@@ -32,7 +30,6 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class RedAllianceStageSidePath2 {
@@ -87,7 +84,7 @@ public class RedAllianceStageSidePath2 {
     private TurnCommand turnCommand;
 
 
-    private RunToPixelDropLocationCommand runToPixelDropLocationCommand;
+
     CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
 
     private Trajectory traj3;

@@ -177,9 +177,7 @@ public class TSEProcessorRight implements VisionProcessor {
         return selection;
     }*/
 
-    public Positions.TEPosition getSelection(){
-        return Positions.getInstance().getTEPosition();
-    }
+
 
     /*public enum Selected {
         NONE,

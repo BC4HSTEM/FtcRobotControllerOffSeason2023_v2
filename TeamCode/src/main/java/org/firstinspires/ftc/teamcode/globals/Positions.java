@@ -26,21 +26,21 @@ public enum Positions {
     }
     private TEPosition selectedTEPosition = TEPosition.NONE;
 
-    public void setTEPosition(TEPosition position){
+    /*public void setTEPosition(TEPosition position){
         selectedTEPosition = position;
     }
 
     public TEPosition getTEPosition(){
         return selectedTEPosition;
-    }
+    }*/
 
     public static Positions getInstance(){
         return INSTANCE;
     }
 
-    public boolean isPositionSet(){
-        return selectedTEPosition != TEPosition.NONE;
-    }
+//    public boolean isPositionSet(){
+//        return selectedTEPosition != TEPosition.NONE;
+//    }
 
 
 }

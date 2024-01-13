@@ -14,7 +14,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
@@ -31,7 +30,6 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class RedAllianceStageSidePath1 {
@@ -86,7 +84,7 @@ public class RedAllianceStageSidePath1 {
     private TurnCommand turnCommand;
 
 
-    private RunToPixelDropLocationCommand runToPixelDropLocationCommand;
+
 
     CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
     private Trajectory traj3;
@@ -296,7 +294,7 @@ public class RedAllianceStageSidePath1 {
                     CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-                    if(Positions.getInstance().getTEPosition() != Positions.TEPosition.POSITION_LEFT){
+                    if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_LEFT){
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
                                 /*.addDisplacementMarker(() -> {
                                     turnCommand.schedule();

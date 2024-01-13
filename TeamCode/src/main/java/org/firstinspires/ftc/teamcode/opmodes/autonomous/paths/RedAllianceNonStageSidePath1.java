@@ -15,7 +15,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.RunToPixelDropLocationCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TurnCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.subsystems.roadrunner.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.mechanisms.drone_launcher.CreateDroneLauncherMechanism;
@@ -36,7 +35,6 @@ import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGra
 import org.firstinspires.ftc.teamcode.mechanisms.pixel_grabber.commands.PixelGrabberRightOpenCommand;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.CreatePositionIdentifierMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.commands.DetectTEPosition;
-import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.PositionIdentifierSubsystem;
 import org.firstinspires.ftc.teamcode.opmodes.autonomous.paths.trajectories.CreatePixelDropTrajectory;
 
 public class RedAllianceNonStageSidePath1 {
@@ -91,7 +89,7 @@ public class RedAllianceNonStageSidePath1 {
     private TurnCommand turnCommand;
 
 
-    private RunToPixelDropLocationCommand runToPixelDropLocationCommand;
+
 
     CreatePositionIdentifierMechanism createPositionIdentifierMechanism;
     private Trajectory traj3;
@@ -249,7 +247,7 @@ public class RedAllianceNonStageSidePath1 {
         commandOpMode.schedule(new WaitUntilCommand(commandOpMode::isStarted).andThen(
                 grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
-                    telemetry.addData("Selection Position None Stage Side Red", Positions.getInstance().getTEPosition());
+                    telemetry.addData("Selection Position None Stage Side Red", createPositionIdentifierMechanism.getPosition());
                     telemetry.update();
 
                     CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
@@ -258,7 +256,7 @@ public class RedAllianceNonStageSidePath1 {
         /*.lineToLinearHeading(new Pose2d(-36,-40, Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(-36, -60, Math.toRadians(0)))
                 .lineToLinearHeading(new Pose2d(56, -60, Math.toRadians(0)))*/
-                    if(Positions.getInstance().getTEPosition() != Positions.TEPosition.POSITION_RIGHT){
+                    if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_RIGHT){
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
 
                                 .lineToLinearHeading(new Pose2d(-36, -53, Math.toRadians(180)))

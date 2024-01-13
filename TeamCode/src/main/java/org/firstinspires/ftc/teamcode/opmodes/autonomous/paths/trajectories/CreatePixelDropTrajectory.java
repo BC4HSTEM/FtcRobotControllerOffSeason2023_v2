@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.position_identifier.subsystems.
 
 public class CreatePixelDropTrajectory {
     private Pose2d redNonStageSideLeft = new Pose2d(-36,-40, Math.toRadians(150));
-    private Pose2d redNonStageSideMiddle = new Pose2d(-36,-32, Math.toRadians(90));
+    private Pose2d redNonStageSideMiddle = new Pose2d(-36,-24, Math.toRadians(90));
     private Pose2d redNonStageSideRight = new Pose2d(-36,-36, Math.toRadians(90));
 
     private Pose2d redStageSideLeft = new Pose2d(12,-36, Math.toRadians(90));
