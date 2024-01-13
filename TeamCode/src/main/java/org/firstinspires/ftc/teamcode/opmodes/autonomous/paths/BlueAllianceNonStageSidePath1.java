@@ -112,6 +112,12 @@ public class BlueAllianceNonStageSidePath1 {
     }
 
     public void createPath(){
+
+        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism.createAuto();
+
+        detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
+
         /*drive.setPoseEstimate(startPose);
 
 
