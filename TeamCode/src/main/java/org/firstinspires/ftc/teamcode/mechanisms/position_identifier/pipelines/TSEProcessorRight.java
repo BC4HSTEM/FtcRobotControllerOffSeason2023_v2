@@ -20,10 +20,10 @@ import org.opencv.imgproc.Imgproc;
 @Config
 public class TSEProcessorRight implements VisionProcessor {
 
-    public static Rect rectLeft = new Rect(5, 140, 40, 40);
-    public static Rect rectMiddle = new Rect(125, 140, 40, 40);
+    public static Rect rectLeft = new Rect(15, 160, 40, 40);
+    public static Rect rectMiddle = new Rect(125, 130, 40, 40);
 
-    public static Rect rectRight = new Rect(225, 140, 40, 40);
+    public static Rect rectRight = new Rect(250, 160, 40, 40);
 
     Telemetry telemetry;
     PositionIdentifierSubsystem positionIdentifierSubsystem;
@@ -60,21 +60,22 @@ public class TSEProcessorRight implements VisionProcessor {
         //telemetry.addData("satRectRight", satRectRight);
         //telemetry.update();
 
-        if(satRectLeft < 50 && satRectMiddle < 50){
+        if(satRectLeft > 120 && satRectMiddle > 120 && satRectRight > 120){
+            return Positions.TEPosition.NONE;
+        }
+        else if(satRectLeft < 50 && satRectMiddle < 50){
             return Positions.TEPosition.POSITION_RIGHT;
         }
-        else if ((satRectLeft > satRectMiddle)) {
-            //return Selected.LEFT;
+        else if (satRectRight < 50 && satRectMiddle < 50) {
             return Positions.TEPosition.POSITION_LEFT;
         }
-        else if ((satRectMiddle > satRectLeft)) {
+        else if (satRectRight < 50 && satRectLeft < 50) {
             return Positions.TEPosition.POSITION_MIDDLE;
-            //return Selected.MIDDLE;
+        }
+        else {
+            return Positions.TEPosition.NONE;
         }
 
-        return Positions.TEPosition.POSITION_RIGHT;
-        //return Selected.RIGHT;
-        //return null;
     }
 
     protected double getAvgSaturation(Mat input, Rect rect){
@@ -109,7 +110,7 @@ public class TSEProcessorRight implements VisionProcessor {
 
         //selection = (Selected) userContext;
         selection = (Positions.TEPosition) userContext;
-        telemetry.addData("I'm the selected", selection);
+        telemetry.addData("I'm the selected PR", selection);
         //Positions.getInstance().setTEPosition(selection);
         positionIdentifierSubsystem.setPosition(selection);
 

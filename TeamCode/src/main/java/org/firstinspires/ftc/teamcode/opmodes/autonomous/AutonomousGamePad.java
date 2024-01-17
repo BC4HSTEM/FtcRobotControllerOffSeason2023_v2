@@ -65,6 +65,8 @@ public class AutonomousGamePad extends CommandOpMode {
 
         //Must reset static Positions global
 
+        createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hardwareMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism.createAuto();
 
         GamepadEx driver1 = new GamepadEx(gamepad1);
 
@@ -75,8 +77,7 @@ public class AutonomousGamePad extends CommandOpMode {
         configureSelectPathButtons(driver1);
         configureExecutePath(driver1);
 
-        createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hardwareMap, "Webcam 1", telemetry);
-        createPositionIdentifierMechanism.createAuto();
+
         //createLEDs = new CreateLEDMechanism(hardwareMap, "blinkin");
 
         //determineTEPosition();
@@ -92,7 +93,7 @@ public class AutonomousGamePad extends CommandOpMode {
 
     private void determineTEPosition(){
 
-        createPositionIdentifierMechanism.getDetectTEPositionCommand().schedule();
+        createPositionIdentifierMechanism.getDetectTEPositionCommand().andThen(new InstantCommand(this::showTSEPosition)).schedule();
 
     }
 
@@ -173,9 +174,11 @@ public class AutonomousGamePad extends CommandOpMode {
 
 
             telemetry.addLine("Path Executing.....");
-            telemetry.update();
+
 
             //determineTEPosition();
+            //showSelection();
+
 
             executePath();
 
@@ -205,11 +208,12 @@ public class AutonomousGamePad extends CommandOpMode {
             }
         }
 
-        telemetry.clearAll();
+        //telemetry.clearAll();
         telemetry.addData("Selections Complete", String.format("Alliance: %s - Side: %s - Path: %s - Start Position: %s - TGE Side: %s",
                 Alliance.getInstance().getAllianceTeam().toString(),
                 Side.getInstance().getPositionSide().toString(),
-                Path.getInstance().getSelectedPathToFollow(),selectedStartPos, createPositionIdentifierMechanism.getPosition()));
+                Path.getInstance().getSelectedPathToFollow(),selectedStartPos, "here"));
+        telemetry.update();
 
 
 
@@ -233,7 +237,7 @@ public class AutonomousGamePad extends CommandOpMode {
                 bnsPath1.execute(this);
             }
             else if(Alliance.getInstance().getAllianceTeam() == Alliance.AllianceTeam.RED && Side.getInstance().getPositionSide() == Side.PositionSide.NON_STAGE_SIDE){
-                RedAllianceNonStageSidePath1 rnsPath1 = new RedAllianceNonStageSidePath1 (hardwareMap, createPositionIdentifierMechanism,selectedStartPos, telemetry);
+                RedAllianceNonStageSidePath1 rnsPath1 = new RedAllianceNonStageSidePath1 (hardwareMap, selectedStartPos, telemetry);
                 rnsPath1.createPath();
                 rnsPath1.execute(this);
             }
@@ -279,7 +283,7 @@ public class AutonomousGamePad extends CommandOpMode {
         telemetry.addLine("Press (<) for Path 4");
 
 
-        if(update == true){
+        if(update){
             showTSEPosition();
             telemetry.update();
         }
@@ -297,8 +301,8 @@ public class AutonomousGamePad extends CommandOpMode {
     }
 
     private void showTSEPosition(){
-       // telemetry.addData("Tag snapshot id in Autono:", createPositionIdentifierMechanism.getPosition());
-        //telemetry.addLine("\n");
+       telemetry.addData("Tag snapshot id in Autono:", createPositionIdentifierMechanism.getPosition());
+        telemetry.addLine("\n");
     }
 
 

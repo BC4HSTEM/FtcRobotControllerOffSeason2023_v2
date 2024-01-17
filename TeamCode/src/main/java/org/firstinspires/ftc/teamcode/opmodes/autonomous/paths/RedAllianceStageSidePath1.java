@@ -285,8 +285,6 @@ public class RedAllianceStageSidePath1 {
                     telemetry.update();
                 }))));*/
 
-
-
                 grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
 
@@ -296,17 +294,13 @@ public class RedAllianceStageSidePath1 {
 
                     if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_LEFT){
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
-                                /*.addDisplacementMarker(() -> {
-                                    turnCommand.schedule();
-                                })*/
+
                                 .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
                         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                                /*.addDisplacementMarker(() -> {
-                                    turnCommand.schedule();
-                                })*/
+
                                 .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
@@ -323,25 +317,19 @@ public class RedAllianceStageSidePath1 {
 
 
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
-                                /*.addDisplacementMarker(() -> {
-                                    turnCommand.schedule();
-                                })*/
+
                                 .lineToLinearHeading(new Pose2d(10,-34, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
                         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                                /*.addDisplacementMarker(() -> {
-                                    turnCommand.schedule();
-                                })*/
+
                                 .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
                         Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
-                                /*.addDisplacementMarker(() -> {
-                                    turnCommand.schedule();
-                                })*/
+
                                 .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();

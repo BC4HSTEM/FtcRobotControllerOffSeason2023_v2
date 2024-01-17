@@ -19,10 +19,10 @@ import org.opencv.imgproc.Imgproc;
 @Config
 public class TSEProcessorLeft implements VisionProcessor {
 
-    public static Rect rectLeft = new Rect(65, 140, 40, 40);
-    public static Rect rectMiddle = new Rect(175, 140, 40, 40);
+    public static Rect rectLeft = new Rect(65, 160, 40, 40);
+    public static Rect rectMiddle = new Rect(165, 150, 40, 40);
 
-    public static Rect rectRight = new Rect(275, 140, 40, 40);
+    public static Rect rectRight = new Rect(280, 160, 40, 40);
 
     Telemetry telemetry;
 
@@ -57,26 +57,26 @@ public class TSEProcessorLeft implements VisionProcessor {
         double satRectMiddle = getAvgSaturation(hsvMat, rectMiddle);
         double satRectRight = getAvgSaturation(hsvMat, rectRight);
 
-        /*telemetry.addData("satRectLeft", satRectLeft);
+        telemetry.addData("satRectLeft", satRectLeft);
         telemetry.addData("satRectMiddle", satRectMiddle);
         telemetry.addData("satRectRight", satRectRight);
-        telemetry.update();*/
+        // telemetry.update();
 
-        if(satRectLeft < 50 && satRectMiddle < 50){
+        if(satRectLeft > 120 && satRectMiddle > 120 && satRectRight > 120){
+            return Positions.TEPosition.NONE;
+        }
+        else if(satRectLeft < 50 && satRectMiddle < 50){
             return Positions.TEPosition.POSITION_RIGHT;
         }
-        else if ((satRectLeft > satRectMiddle)) {
-            //return Selected.LEFT;
+        else if (satRectRight < 50 && satRectMiddle < 50) {
             return Positions.TEPosition.POSITION_LEFT;
         }
-        else if ((satRectMiddle > satRectLeft)) {
+        else if (satRectRight < 50 && satRectLeft < 50) {
             return Positions.TEPosition.POSITION_MIDDLE;
-            //return Selected.MIDDLE;
         }
-
-        return Positions.TEPosition.POSITION_RIGHT;
-        //return Selected.RIGHT;
-        //return null;
+        else {
+            return Positions.TEPosition.NONE;
+        }
     }
 
     protected double getAvgSaturation(Mat input, Rect rect){
@@ -111,9 +111,12 @@ public class TSEProcessorLeft implements VisionProcessor {
 
         //selection = (Selected) userContext;
         selection = (Positions.TEPosition) userContext;
-        telemetry.addData("I'm the selected", selection);
+        telemetry.addData("I'm the selected PL", selection);
         //Positions.getInstance().setTEPosition(selection);
         positionIdentifierSubsystem.setPosition(selection);
+        telemetry.addData("I'm the selected PL from subsystem", positionIdentifierSubsystem.getPosition());
+        //telemetry.update();
+
 
         /*switch (selection) {
             case LEFT:

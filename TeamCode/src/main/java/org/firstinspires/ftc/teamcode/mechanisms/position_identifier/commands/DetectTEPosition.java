@@ -48,4 +48,12 @@ public class DetectTEPosition extends CommandBase {
         return positionIdentifierSubsystem.isPositionSet();
         //return false;
     }
+
+    @Override
+    public void end(boolean interupt){
+
+        telemetry.addData("Which Position we are ending", positionIdentifierSubsystem.getPosition());
+        //positionIdentifierSubsystem.closeStream();
+
+    }
 }
