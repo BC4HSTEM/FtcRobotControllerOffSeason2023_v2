@@ -251,7 +251,7 @@ public class BlueAllianceNonStageSidePath1 {
         CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
         createGrabberWristMechanism.createAuto();
 
-        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
         createPositionIdentifierMechanism.createAuto();
 
 
@@ -273,7 +273,9 @@ public class BlueAllianceNonStageSidePath1 {
                 grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
 
-                    drive.setPoseEstimate(startPose);
+                    telemetry.addData("Selection Position None Stage Side Blue", createPositionIdentifierMechanism.getPosition());
+                    telemetry.update();
+                    /*drive.setPoseEstimate(startPose);
 
 
                     CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
@@ -297,7 +299,7 @@ public class BlueAllianceNonStageSidePath1 {
                     follower1 = new TrajectoryFollowerCommand(drive,traj1);
                     follower2 = new TrajectoryFollowerCommand(drive,traj2);
 
-                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
+                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();*/
                 }))));
                 //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }

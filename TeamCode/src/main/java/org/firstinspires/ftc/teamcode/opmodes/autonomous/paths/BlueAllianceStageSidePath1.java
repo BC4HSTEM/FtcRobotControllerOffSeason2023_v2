@@ -250,7 +250,7 @@ public class BlueAllianceStageSidePath1 {
         CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
         createGrabberWristMechanism.createAuto();
 
-        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
         createPositionIdentifierMechanism.createAuto();
 
 
@@ -271,7 +271,10 @@ public class BlueAllianceStageSidePath1 {
 
                 grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
-                    drive.setPoseEstimate(startPose);
+
+                    telemetry.addData("Selection Position Stage Side Blue", createPositionIdentifierMechanism.getPosition());
+                    telemetry.update();
+                    /*drive.setPoseEstimate(startPose);
 
 
 
@@ -281,9 +284,9 @@ public class BlueAllianceStageSidePath1 {
 
 
                     Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
-                            /*.addDisplacementMarker(() -> {
+                            *//*.addDisplacementMarker(() -> {
                                 turnCommand.schedule();
-                            })*/
+                            })*//*
                             .lineToLinearHeading(new Pose2d(12, 53, Math.toRadians(0)))
                             //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                             .build();
@@ -299,7 +302,7 @@ public class BlueAllianceStageSidePath1 {
                     follower1 = new TrajectoryFollowerCommand(drive,traj1);
                     follower2 = new TrajectoryFollowerCommand(drive,traj2);
 
-                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
+                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();*/
 
                 }))));
                 //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));

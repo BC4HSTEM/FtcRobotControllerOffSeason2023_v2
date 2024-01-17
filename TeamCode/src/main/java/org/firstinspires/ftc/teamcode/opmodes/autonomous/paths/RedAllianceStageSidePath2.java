@@ -271,7 +271,7 @@ public class RedAllianceStageSidePath2 {
                     CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
                     createGrabberWristMechanism.createAuto();
 
-                    CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+                    createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
                     createPositionIdentifierMechanism.createAuto();
 
                     waitCommand2000 = new WaitCommand (2000);

@@ -60,16 +60,16 @@ public class TSEProcessorRight implements VisionProcessor {
         //telemetry.addData("satRectRight", satRectRight);
         //telemetry.update();
 
-        if(satRectLeft > 120 && satRectMiddle > 120 && satRectRight > 120){
+        if(satRectLeft + satRectMiddle + satRectRight >= 300){
             return Positions.TEPosition.NONE;
         }
-        else if(satRectLeft < 50 && satRectMiddle < 50){
+        else if(satRectLeft < 65 && satRectMiddle < 65){
             return Positions.TEPosition.POSITION_RIGHT;
         }
-        else if (satRectRight < 50 && satRectMiddle < 50) {
+        else if (satRectRight < 65 && satRectMiddle < 65) {
             return Positions.TEPosition.POSITION_LEFT;
         }
-        else if (satRectRight < 50 && satRectLeft < 50) {
+        else if (satRectRight < 65 && satRectLeft < 65) {
             return Positions.TEPosition.POSITION_MIDDLE;
         }
         else {
@@ -113,6 +113,7 @@ public class TSEProcessorRight implements VisionProcessor {
         telemetry.addData("I'm the selected PR", selection);
         //Positions.getInstance().setTEPosition(selection);
         positionIdentifierSubsystem.setPosition(selection);
+        telemetry.addData("I'm the selected PR from subsystem", positionIdentifierSubsystem.getPosition());
 
         /*switch (selection) {
             case LEFT:

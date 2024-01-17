@@ -262,7 +262,7 @@ public class RedAllianceStageSidePath1 {
         CreateGrabberWristMechanism createGrabberWristMechanism = new CreateGrabberWristMechanism(hwMap, "wrist_Motion", telemetry);
         createGrabberWristMechanism.createAuto();
 
-        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
         createPositionIdentifierMechanism.createAuto();
 
         waitCommand2000 = new WaitCommand (2000);
@@ -288,8 +288,10 @@ public class RedAllianceStageSidePath1 {
                 grabberWristPickUpCommand,
                 detectTEPositionCommand.andThen(new InstantCommand(()->{
 
+                    telemetry.addData("Selection Position Stage Side Red", createPositionIdentifierMechanism.getPosition());
+                    telemetry.update();
 
-                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
+                    /*CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
                     if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_LEFT){
@@ -342,7 +344,7 @@ public class RedAllianceStageSidePath1 {
                         follower3 = new TrajectoryFollowerCommand(drive, traj3);
 
                         new SequentialCommandGroup(followPixel, follower1, grabberOpenRightCommand,grabberWristDropCommand, follower2, follower3).schedule();
-                    }
+                    }*/
 
 
 
