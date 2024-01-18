@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.globals.Positions;
 import org.firstinspires.ftc.teamcode.mechanisms.arm.CreateArmMechanism;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.drivetrain.commands.roadrunner.TrajectoryFollowerCommand;
@@ -77,7 +78,7 @@ public class BlueAllianceNonStageSidePath1 {
 
 
 
-
+    private WaitCommand waitCommand2000;
     private TurnCommand turnCommand;
 
 
@@ -256,7 +257,7 @@ public class BlueAllianceNonStageSidePath1 {
 
 
         //turnCommand = new TurnCommand(drive, Math.toRadians(-40));
-        waitCommand1 = new WaitCommand (1000);
+        waitCommand2000 = new WaitCommand (2000);
         detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
         //holds yellow Pixels
         grabberCloseLeftCommand = createPixelGrabberMechanism.createGrabberLeftCloseCommand();
@@ -275,31 +276,63 @@ public class BlueAllianceNonStageSidePath1 {
 
                     telemetry.addData("Selection Position None Stage Side Blue", createPositionIdentifierMechanism.getPosition());
                     telemetry.update();
-                    /*drive.setPoseEstimate(startPose);
+                    drive.setPoseEstimate(startPose);
 
 
                     CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
-                    Trajectory traj1 = drive.trajectoryBuilder(startPose)
+                    if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_LEFT){
+                        Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
 
-                            .lineToLinearHeading(new Pose2d(-36, 53, Math.toRadians(180)))
-                            //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
-                            .build();
+                                .lineToLinearHeading(new Pose2d(-36, 53, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
 
-                    Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                            //.lineTo(new Vector2d(-41, 52))
-                            .lineToLinearHeading(new Pose2d(56, 53, Math.toRadians(180)))
-                            .build();
+                        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                                //.lineTo(new Vector2d(-41, 52))
+                                .lineToLinearHeading(new Pose2d(56, 55, Math.toRadians(180)))
+                                .build();
 
 
 
-                    followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
+                        followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
 
-                    follower1 = new TrajectoryFollowerCommand(drive,traj1);
-                    follower2 = new TrajectoryFollowerCommand(drive,traj2);
+                        follower1 = new TrajectoryFollowerCommand(drive,traj1);
+                        follower2 = new TrajectoryFollowerCommand(drive,traj2);
 
-                    new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();*/
+                        new SequentialCommandGroup(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
+                    }
+                    else{
+
+                        Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
+
+                                .lineToLinearHeading(new Pose2d(-34, 34, Math.toRadians(340)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
+
+                        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+
+                                .lineToLinearHeading(new Pose2d(-36, 53, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
+
+                        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
+                                //.lineTo(new Vector2d(-41, 52))
+                                .lineToLinearHeading(new Pose2d(56, 56, Math.toRadians(180)))
+                                .build();
+
+                        followPixel = new TrajectoryFollowerCommand(drive,pixelTraj);
+
+                        follower1 = new TrajectoryFollowerCommand(drive,traj1);
+                        follower2 = new TrajectoryFollowerCommand(drive,traj2);
+                        follower3 = new TrajectoryFollowerCommand(drive, traj3);
+
+                        new SequentialCommandGroup(followPixel, follower1, grabberOpenRightCommand,waitCommand2000,grabberWristDropCommand, follower2, follower3).schedule();
+
+                    }
+
+
                 }))));
                 //grabberWristPickUpCommand, detectTEPositionCommand.andThen(followPixel,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2)));
     }

@@ -115,10 +115,10 @@ public class RedAllianceStageSidePath1 {
 
     public void createPath(){
 
-        CreatePositionIdentifierMechanism createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
-        createPositionIdentifierMechanism.createAuto();
+        //createPositionIdentifierMechanism = new CreatePositionIdentifierMechanism(hwMap, "Webcam 1", telemetry);
+        //createPositionIdentifierMechanism.createAuto();
 
-        detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
+        //detectTEPositionCommand = createPositionIdentifierMechanism.getDetectTEPositionCommand();
         /*drive.setPoseEstimate(startPose);
 
 
@@ -291,19 +291,19 @@ public class RedAllianceStageSidePath1 {
                     telemetry.addData("Selection Position Stage Side Red", createPositionIdentifierMechanism.getPosition());
                     telemetry.update();
 
-                    /*CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
+                    CreatePixelDropTrajectory createPixelDropTrajectory = new CreatePixelDropTrajectory(drive, createPositionIdentifierMechanism,startPose, telemetry);
                     Trajectory pixelTraj = createPixelDropTrajectory.createTrajectory();
 
                     if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_LEFT){
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
 
-                                .lineToLinearHeading(new Pose2d(12, -53, Math.toRadians(180)))
+                                .lineToLinearHeading(new Pose2d(12, -54, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
                         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
 
-                                .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(180)))
+                                .lineToLinearHeading(new Pose2d(52, -54, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
@@ -343,8 +343,8 @@ public class RedAllianceStageSidePath1 {
                         follower2 = new TrajectoryFollowerCommand(drive,traj2);
                         follower3 = new TrajectoryFollowerCommand(drive, traj3);
 
-                        new SequentialCommandGroup(followPixel, follower1, grabberOpenRightCommand,grabberWristDropCommand, follower2, follower3).schedule();
-                    }*/
+                        new SequentialCommandGroup(followPixel, follower1, grabberOpenRightCommand,waitCommand2000,grabberWristDropCommand, follower2, follower3).schedule();
+                    }
 
 
 

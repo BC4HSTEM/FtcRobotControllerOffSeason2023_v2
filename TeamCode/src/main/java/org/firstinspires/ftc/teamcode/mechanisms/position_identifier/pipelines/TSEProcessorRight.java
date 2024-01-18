@@ -63,13 +63,13 @@ public class TSEProcessorRight implements VisionProcessor {
         if(satRectLeft + satRectMiddle + satRectRight >= 300){
             return Positions.TEPosition.NONE;
         }
-        else if(satRectLeft < 65 && satRectMiddle < 65){
+        else if(satRectLeft < 50 && satRectMiddle < 50){
             return Positions.TEPosition.POSITION_RIGHT;
         }
-        else if (satRectRight < 65 && satRectMiddle < 65) {
+        else if (satRectRight < 50 && satRectMiddle < 50) {
             return Positions.TEPosition.POSITION_LEFT;
         }
-        else if (satRectRight < 65 && satRectLeft < 65) {
+        else if (satRectRight < 50 && satRectLeft < 50) {
             return Positions.TEPosition.POSITION_MIDDLE;
         }
         else {

@@ -25,6 +25,10 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
     private int width = 320;
     private int height = 240;
 
+    private int processedImages = 0;
+
+    private int maxProcessedImages = 100;
+
     private Positions.TEPosition localPosition = Positions.TEPosition.NONE;
 
     private boolean positionSet = false;
@@ -60,6 +64,7 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
         visionPortalBuilder.enableLiveView(true);      // Enable LiveView (RC preview).
         visionPortalBuilder.setAutoStopLiveView(true);
 
+
     }
 
 
@@ -67,6 +72,7 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
 
         localPosition = position;
         positionSet = true;
+        processedImages++;
 
 
     }
@@ -95,7 +101,7 @@ public class PositionIdentifierSubsystem extends SubsystemBase {
     }
 
     public boolean isPositionSet(){
-        return localPosition != Positions.TEPosition.NONE;
+        return localPosition != Positions.TEPosition.NONE && processedImages >= maxProcessedImages;
     }
 
     public Positions.TEPosition getPosition(){

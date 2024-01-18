@@ -264,13 +264,13 @@ public class RedAllianceNonStageSidePath1 {
                     if(createPositionIdentifierMechanism.getPosition() != Positions.TEPosition.POSITION_RIGHT){
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
 
-                                .lineToLinearHeading(new Pose2d(-36, -54, Math.toRadians(180)))
+                                .lineToLinearHeading(new Pose2d(-36, -55, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
                         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
 
-                                .lineToLinearHeading(new Pose2d(56, -54, Math.toRadians(180)))
+                                .lineToLinearHeading(new Pose2d(56, -55, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
@@ -282,14 +282,21 @@ public class RedAllianceNonStageSidePath1 {
                         new SequentialCommandGroup(followPixel, grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
                     }
                     else{
-                        TurnCommand turnCommand50 = new TurnCommand(drive,Math.toRadians(50));
+                        //TurnCommand turnCommand50 = new TurnCommand(drive,Math.toRadians(50));
+
                         Trajectory traj1 = drive.trajectoryBuilder(pixelTraj.end())
+
+                                .lineToLinearHeading(new Pose2d(-33, -34, Math.toRadians(50)))
+                                //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
+                                .build();
+
+                        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
 
                                 .lineToLinearHeading(new Pose2d(-36, -53, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
                                 .build();
 
-                        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
 
                                 .lineToLinearHeading(new Pose2d(56, -53, Math.toRadians(180)))
                                 //.lineToLinearHeading(new Pose2d(-36,-50, Math.toRadians(90)))
@@ -299,8 +306,9 @@ public class RedAllianceNonStageSidePath1 {
 
                         follower1 = new TrajectoryFollowerCommand(drive,traj1);
                         follower2 = new TrajectoryFollowerCommand(drive,traj2);
+                        follower3 = new TrajectoryFollowerCommand(drive,traj3);
 
-                        new SequentialCommandGroup(followPixel,turnCommand50,grabberOpenRightCommand, grabberWristDropCommand, follower1, follower2).schedule();
+                        new SequentialCommandGroup(followPixel,follower1,grabberOpenRightCommand, waitCommand2000,grabberWristDropCommand, follower2, follower3).schedule();
 
 
                     }
