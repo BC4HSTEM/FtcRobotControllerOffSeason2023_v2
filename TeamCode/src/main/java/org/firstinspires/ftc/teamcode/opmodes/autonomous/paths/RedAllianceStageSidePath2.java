@@ -236,12 +236,12 @@ public class RedAllianceStageSidePath2 {
                         follower1 = new TrajectoryFollowerCommand(drive,traj1);
                         follower2 = new TrajectoryFollowerCommand(drive,traj2);
                         follower3 = new TrajectoryFollowerCommand(drive,traj3);
-                        //follower4 = new TrajectoryFollowerCommand(drive,traj4);
+                        follower4 = new TrajectoryFollowerCommand(drive,traj4);
 
                         followPlacePixel = new TrajectoryFollowerCommand(drive,pixelPlaceTraj);
 
                         new SequentialCommandGroup(followPixel, follower1, grabberOpenRightCommand,grabberWristDropCommand,
-                                follower2, follower3,armDropCommand, followPlacePixel, grabberWristPickUpCommand2, waitCommand1000, grabberOpenLeftCommand).schedule();
+                                follower2, follower3,follower4,armDropCommand, followPlacePixel, grabberWristPickUpCommand2, waitCommand1000, grabberOpenLeftCommand).schedule();
 
                     }
 
