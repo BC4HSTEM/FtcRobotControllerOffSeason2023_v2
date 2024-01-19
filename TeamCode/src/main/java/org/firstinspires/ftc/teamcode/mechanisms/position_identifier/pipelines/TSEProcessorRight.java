@@ -55,21 +55,18 @@ public class TSEProcessorRight implements VisionProcessor {
         double satRectMiddle = getAvgSaturation(hsvMat, rectMiddle);
         double satRectRight = getAvgSaturation(hsvMat, rectRight);
 
-        //telemetry.addData("satRectLeft", satRectLeft);
-        //telemetry.addData("satRectMiddle", satRectMiddle);
-        //telemetry.addData("satRectRight", satRectRight);
-        //telemetry.update();
+        telemetry.addData("satRectLeft", satRectLeft);
+        telemetry.addData("satRectMiddle", satRectMiddle);
+        telemetry.addData("satRectRight", satRectRight);
+        telemetry.update();
 
-        if(satRectLeft + satRectMiddle + satRectRight >= 300){
-            return Positions.TEPosition.NONE;
-        }
-        else if(satRectLeft < 50 && satRectMiddle < 50){
+        if( satRectLeft < satRectRight  && satRectMiddle < satRectRight ){
             return Positions.TEPosition.POSITION_RIGHT;
         }
-        else if (satRectRight < 50 && satRectMiddle < 50) {
+        else if ( satRectRight < satRectLeft && satRectMiddle < satRectLeft) {
             return Positions.TEPosition.POSITION_LEFT;
         }
-        else if (satRectRight < 50 && satRectLeft < 50) {
+        else if ( satRectRight < satRectMiddle && satRectLeft < satRectMiddle) {
             return Positions.TEPosition.POSITION_MIDDLE;
         }
         else {
