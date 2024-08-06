@@ -22,7 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
             //drive.driveRobotCentric(-strafe, -forward, turn);
         //}
         //else{
-            drive.driveRobotCentric(-strafe, -forward, -turn);
+            drive.driveRobotCentric(-strafe, forward, -turn);
         //}
     }
 
